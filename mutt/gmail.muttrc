@@ -1,0 +1,16 @@
+set realname  = "Michael McClimon"
+set signature = "~/.mutt/gmail.sig"
+
+set from = "michael.mcclimon@gmail.com"
+set sendmail = "/usr/local/bin/msmtp -a michaelmcclimon"
+set sendmail_wait = 0
+unset record
+
+# Local mailboxes.
+set mbox_type = Maildir
+set folder    = ~/.mail/gmail
+set spoolfile = ~/.mail/gmail/inbox
+set postponed = ~/.mail/gmail/drafts
+
+# Look
+color status blue default # status line

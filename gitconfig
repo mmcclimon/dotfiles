@@ -1,0 +1,14 @@
+[user]
+        name = Michael McClimon
+        email = michael@mcclimon.org
+[core]
+        excludesfile = /Users/mmcclimon/.gitignore_global
+[credential]
+        helper = osxkeychain
+[color]
+        ui = true
+[alias]
+        gs = status
+        co = checkout
+[push]
+        default = matching

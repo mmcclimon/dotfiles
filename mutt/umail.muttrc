@@ -1,0 +1,20 @@
+set realname  = "Michael McClimon"
+set signature = "~/.mutt/umail.sig"
+
+set from = "mjmcclim@umail.iu.edu"
+set sendmail = "/usr/local/bin/msmtp -a mjmcclim"
+set sendmail_wait = 0
+unset record
+
+# Local mailboxes.
+set mbox_type = Maildir
+set folder    = ~/.mail/umail
+
+set mbox      = "+umail/archive"
+set postponed = "+umail/drafts"
+
+set spoolfile = ~/.mail/umail/inbox
+set postponed = ~/.mail/umail/drafts
+
+# Look
+color status green default # status line
