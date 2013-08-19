@@ -42,3 +42,23 @@
           (lambda ()
             (setq mac-option-modifier 'meta)
             (setq mac-right-option-modifier 'left)))
+
+
+;; Reasonable tab behavior:
+;; if we're at the end of a line, indent to a tab stop
+;; otherwise, run default <tab> binding
+(defun evil-reasonable-tab ()
+  (interactive)
+  (let ((at-eol nil))
+    (if (bolp)
+        (setq at-eol nil)
+      (if (equal evil-state 'insert)
+          (if (= (point) (line-end-position))
+              (setq at-eol t)
+            (setq at-eol nil))
+        (setq at-eol nil)))
+    (if at-eol
+        (tab-to-tab-stop)
+      (indent-for-tab-command))))
+
+(define-key evil-insert-state-map (kbd "<tab>") 'evil-reasonable-tab)
