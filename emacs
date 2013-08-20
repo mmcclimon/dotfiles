@@ -1,3 +1,4 @@
+;; -*- mode: Emacs-Lisp -*-
 ;;;;.emacs file
 
 ;;; Package Management (Marmalade)
@@ -15,6 +16,11 @@
 ; ido-mode, but not for files
 (ido-mode 'buffers)
 
+;; don't have Consolas on my laptop, and don't want to keep sep. files
+(if (equal system-name "michael-mint")
+    (setq mjm-default-font "DejaVu Sans Mono-10")
+  (setq mjm-default-font "Consolas-12"))
+
 ; make sure frames created from emacsclient get right color scheme
 (defun setup-frame-colors (&rest frame)
   (if window-system
@@ -22,7 +28,7 @@
                    (car frame)
                  (selected-frame))))
         (progn
-          (set-face-attribute 'default nil :font "Consolas-12")
+          (set-face-attribute 'default nil :font mjm-default-font)
           ;(load-theme 'railscasts t)
           ))))
 
