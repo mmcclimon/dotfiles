@@ -25,19 +25,8 @@ alias ec='emacsclient -n'
 alias ecc='emacsclient -c -n'
 alias mvc='mvim --servername MVIM --remote'
 
-# compiles and runs a C++ program (if compiler succeeds) in one step
-mcc() {
-	name=`echo $1 | sed 's/\(.*\)\..*/\1/'`;
-	g++ -Wall -Wextra -std=c++98 -pedantic -o $name $1;
-
-	if  [ $? -eq 0 ]
-		then ./$name;
-	fi
-}
-
 # put this in a function, since I don't use RVM a lot
 start_rvm() { source ~/.rvm/scripts/rvm; }
-
 
 # colors for prompt
 NORMAL="\[\e[0m\]"
@@ -87,8 +76,10 @@ PS1="${PS1} ${BRANCH_C}\$bGIT_PROMPT_LEFT\$bGIT_CURRENT_BRANCH${NORMAL}${DIR_C}\
 PS1="${PS1}\n${PROMPT_C}\$${NORMAL} "
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
-		. $(brew --prefix)/etc/bash_completion
+        . $(brew --prefix)/etc/bash_completion
 fi
 
-source ~/perl5/perlbrew/etc/bashrc
 start_rvm
+
+export PERLBREW_ROOT=~/.perl5/perlbrew
+source ~/.perl5/perlbrew/etc/bashrc
