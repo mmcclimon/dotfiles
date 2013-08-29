@@ -3,10 +3,10 @@ set guioptions-=L
 set guioptions-=r
 set ruler
 
-if has("unix")
-    set guifont=DejaVu\ Sans\ Mono
-elseif has("macunix")
+if has("macunix")
     set guifont=Consolas:h12
+elseif has("unix")
+    set guifont=DejaVu\ Sans\ Mono
 endif
 
 " vertical guide
