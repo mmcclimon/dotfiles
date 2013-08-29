@@ -31,16 +31,14 @@
 (define-key evil-normal-state-map (kbd "C-S-v") 'evil-visual-block)
 
 
-;; if in insert mode, make left option insert a special character
-;; (like Mac default...right option still gets you a meta key
+;; if in insert mode, make right option insert a special character
+;; (like Mac default...left option still gets you a meta key
 (add-hook 'evil-insert-state-entry-hook
           (lambda ()
-            (setq mac-option-modifier nil)
-            (setq mac-right-option-modifier 'meta)))
+            (setq mac-right-option-modifier nil)))
 
 (add-hook 'evil-insert-state-exit-hook
           (lambda ()
-            (setq mac-option-modifier 'meta)
             (setq mac-right-option-modifier 'left)))
 
 
