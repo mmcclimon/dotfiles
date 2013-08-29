@@ -16,11 +16,14 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias gs='git status -sb'
+alias gd='git diff'
 alias ld='cd ~-'
+alias gvim="mvim"
 alias pavan='ssh mjmcclim@pavan.music.indiana.edu'
 alias medley='ssh mjmcclim@medley.music.indiana.edu'
 alias ec='emacsclient -n'
 alias ecc='emacsclient -c -n'
+alias mvc='mvim --servername MVIM --remote'
 
 # compiles and runs a C++ program (if compiler succeeds) in one step
 mcc() {
