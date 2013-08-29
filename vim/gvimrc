@@ -1,16 +1,16 @@
 set guioptions-=T
 set guioptions-=L
-set guifont=Consolas:h12
+set guioptions-=r
 set ruler
 
-" tab settings
-set tabstop=4
-set shiftwidth=4
-set expandtab
+if has("unix")
+    set guifont=DejaVu\ Sans\ Mono
+elseif has("macunix")
+    set guifont=Consolas:h12
+endif
 
 " vertical guide
 set cc=78
-"highlight ColorColumn guibg=#073642
 
 "nerdtree
 nnoremap <F5> :NERDTreeToggle<CR>
