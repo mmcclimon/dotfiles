@@ -21,22 +21,28 @@ augroup prewrite
 augroup END
 " }}}
 
+" Abbrevs -----------------------------------------------------{{{
+iabbrev teh the
+" }}}
+
 " Backups -----------------------------------------------------{{{
 if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
+  set nobackup      " do not keep a backup file, use versions instead
 else
-  set backup		" keep a backup file
+  set backup        " keep a backup file
 endif
 set backupdir=~/.vim/backup
 " }}}
 
 " UI ----------------------------------------------------------{{{
-set history=50		" keep 50 lines of command line history
-set ruler		    " show the cursor position all the time
-set showcmd		    " display incomplete commands
-set incsearch		" do incremental searching
+set history=50      " keep 50 lines of command line history
+set ruler           " show the cursor position all the time
+set showcmd         " display incomplete commands
+set incsearch       " do incremental searching
 set smartcase
 set number
+set wildmenu
+set wildmode=list:longest
 
 if has('mouse')
   set mouse=a
@@ -48,7 +54,7 @@ if &t_Co > 2 || has("gui_running")
 endif
 
 function! SyntaxItem()
-	return synIDattr(synID(line("."),col("."),1),"name")
+    return synIDattr(synID(line("."),col("."),1),"name")
 endfunction
 
 set statusline=%<%f\ %h%m%r\ %{SyntaxItem()}%=%-14.(%l,%c%V%)\ %P
@@ -59,14 +65,19 @@ set nofoldenable
 set foldlevel=10
 augroup folding
     au!
-	au BufReadPre * setlocal foldmethod=indent
-	au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+    au BufReadPre * setlocal foldmethod=indent
+    au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
 augroup END
 " }}}
 
 " Global mappings ---------------------------------------------{{{
 let mapleader=","
 nnoremap <silent> <leader>s :nohls<CR>
+nnoremap q: <Nop>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 " }}}
 
 " Plugins -----------------------------------------------------{{{
@@ -83,16 +94,26 @@ hi link MBEVisibleChangedActive Statement
 hi link MBEVisibleNormal Normal
 hi link MBEVisibleChanged Underlined
 " }}}
+
+" CtrlP -------------------------------------------------------{{{
+nnoremap <leader>b :CtrlPBuffer<cr>
+" }}}
 " }}}
 
 " Misc. Filetypes ---------------------------------------------{{{
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
-
 " }}}
 
 " Org mode ----------------------------------------------------{{{
 augroup org_mode
     au!
-    au BufEnter *.org set ft=org
+    au BufEnter *.org set filetype=org
+augroup END
+" }}}
+
+" Ruby --------------------------------------------------------{{{
+augroup ft_ruby
+    au!
+    au Filetype ruby set tabstop=2 shiftwidth=2
 augroup END
 " }}}
