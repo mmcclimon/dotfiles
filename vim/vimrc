@@ -1,4 +1,5 @@
 " vim:fdm=marker
+" vim:ft=vim
 
 " General -----------------------------------------------------{{{
 set nocompatible
@@ -23,6 +24,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'bufkill.vim'
+Bundle 'vim-orgmode'
 
 filetype plugin indent on           " required!
 
