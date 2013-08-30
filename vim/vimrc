@@ -131,7 +131,7 @@ au BufEnter /private/tmp/crontab.* setl backupcopy=yes
 " Org mode ----------------------------------------------------{{{
 augroup org_mode
     au!
-    au BufEnter *.org set filetype=org
+    au BufReadPre *.org set filetype=org
 augroup END
 " }}}
 
