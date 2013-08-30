@@ -3,7 +3,7 @@
         email = michael@mcclimon.org
 [core]
         excludesfile = /Users/mmcclimon/.gitignore_global
-        editor = /usr/local/bin/mvim --servername MVIM --remote-wait
+        editor = /usr/local/bin/mvim --servername MVIM --remote-wait-silent
 [credential]
         helper = osxkeychain
 [color]
