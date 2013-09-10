@@ -50,6 +50,7 @@ else
   set backup        " keep a backup file
 endif
 set backupdir=~/.vim/backup
+set autowrite
 " }}}
 " UI ----------------------------------------------------------{{{
 set history=50      " keep 50 lines of command line history
@@ -118,6 +119,8 @@ nnoremap <F5> :NERDTreeToggle<CR>
 " EasyMotion --------------------------------------------------{{{
 nnoremap <leader>f :call EasyMotion#F(0, 0)<CR>
 " }}}
+" }}}
+
 " MiniBufExplorer ---------------------------------------------{{{
 if has("gui_running")
     let g:miniBufExplorerMoreThanOne=0
@@ -140,6 +143,12 @@ augroup END
 " Make c-x c-c write and close a buffer (useful for git commit
 " edit messages, etc.)
 nnoremap <C-x><C-c> :w<bar>BD<cr>
+
+" Tagbar ------------------------------------------------------{{{
+let g:tagbar_iconchars = ['▸', '▾']
+hi TagbarVisibilityPublic guifg=#04b404
+hi TagbarVisibilityProtected guifg=#0489b1
+hi TagbarVisibilityPrivate guifg=#b40404
 " }}}
 " }}}
 " Misc. Filetypes ---------------------------------------------{{{
