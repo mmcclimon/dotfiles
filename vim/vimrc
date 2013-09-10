@@ -1,10 +1,9 @@
 " vim:fdm=marker
-" vim:ft=vim
+" vim:set filetype=vim
 
 " General -----------------------------------------------------{{{
 set nocompatible
 " }}}
-
 " Vundle ------------------------------------------------------{{{
 filetype off                        " required!
 
@@ -15,6 +14,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/vim-easymotion'
@@ -24,31 +24,25 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'bufkill.vim'
+Bundle 'utl.vim'
 Bundle 'vim-orgmode'
 
 filetype plugin indent on           " required!
 
 " }}}
-
 " Text Editing ------------------------------------------------{{{
 set backspace=indent,eol,start
-filetype plugin indent on
+"filetype plugin indent on
 set autoindent
 set smartindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
 
-augroup prewrite
-    au!
-    au BufWritePre * :FixWhitespace
-augroup END
 " }}}
-
 " Abbrevs -----------------------------------------------------{{{
 iabbrev teh the
 " }}}
-
 " Backups -----------------------------------------------------{{{
 if has("vms")
   set nobackup      " do not keep a backup file, use versions instead
@@ -57,12 +51,12 @@ else
 endif
 set backupdir=~/.vim/backup
 " }}}
-
 " UI ----------------------------------------------------------{{{
 set history=50      " keep 50 lines of command line history
 set ruler           " show the cursor position all the time
 set showcmd         " display incomplete commands
 set incsearch       " do incremental searching
+set ignorecase
 set smartcase
 set number
 set wildmenu
@@ -83,7 +77,6 @@ endfunction
 
 set statusline=%<%f\ %h%m%r\ %{SyntaxItem()}%=%-14.(%l,%c%V%)\ %P
 " }}}
-
 " Folding -----------------------------------------------------{{{
 set nofoldenable
 set foldlevel=10
@@ -93,22 +86,34 @@ augroup folding
     au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
 augroup END
 " }}}
-
 " Global mappings ---------------------------------------------{{{
 let mapleader=","
+let maplocalleader = '\'
 nnoremap <silent> <leader>s :nohls<CR>
 nnoremap q: <Nop>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-" }}}
 
+function! ExecCurrentLine()
+    let l:curline = getline('.')
+    echo ":" . l:curline
+    execute l:curline
+    sleep 1
+    redraw
+endfunction
+
+nnoremap <C-x><C-e> :call ExecCurrentLine()<CR>
+inoremap <c-c> <esc>
+" }}}
 " Plugins -----------------------------------------------------{{{
 " NERDTree ----------------------------------------------------{{{
 nnoremap <F5> :NERDTreeToggle<CR>
 " }}}
-
+" EasyMotion --------------------------------------------------{{{
+nnoremap <leader>f :call EasyMotion#F(0, 0)<CR>
+" }}}
 " MiniBufExplorer ---------------------------------------------{{{
 if has("gui_running")
     let g:miniBufExplorerMoreThanOne=0
@@ -118,23 +123,44 @@ hi link MBEVisibleChangedActive Statement
 hi link MBEVisibleNormal Normal
 hi link MBEVisibleChanged Underlined
 " }}}
-
 " CtrlP -------------------------------------------------------{{{
 nnoremap <leader>b :CtrlPBuffer<cr>
 " }}}
+" FixWhitespace------------------------------------------------{{{
+augroup prewrite
+    au!
+    au BufWritePre * :FixWhitespace
+augroup END
 " }}}
-
+" }}}
 " Misc. Filetypes ---------------------------------------------{{{
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
 " }}}
-
 " Org mode ----------------------------------------------------{{{
 augroup org_mode
     au!
     au BufReadPre *.org set filetype=org
+    au Filetype org set tabstop=2 shiftwidth=2
+    au Filetype org set textwidth=76
 augroup END
-" }}}
 
+" Toggle an Org Checkbox
+" (uses mark z to save place, and wipes out whatever else is there)
+function! OrgCheckboxToggle ()
+  execute "normal! mz"
+  let line = getline(".")
+  if match(line, '- \[ \]') >= 0
+    substitute/- \[ \]/- [X]/
+  elseif match(line, '- \[[xX]\]') >= 0
+    substitute/- \[[xX]\]/- [ ]/
+  endif
+  execute "normal! g`z"
+endfunction
+
+nnoremap <silent> <localleader>cc :call OrgCheckboxToggle()<cr>
+
+hi link org_heading1 Directory
+" }}}
 " Ruby --------------------------------------------------------{{{
 augroup ft_ruby
     au!

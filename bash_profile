@@ -23,7 +23,8 @@ alias pavan='ssh mjmcclim@pavan.music.indiana.edu'
 alias medley='ssh mjmcclim@medley.music.indiana.edu'
 alias ec='emacsclient -n'
 alias ecc='emacsclient -c -n'
-alias mvc='mvim --servername MVIM --remote-silent'
+alias mvc='mvim --servername mvim --remote-silent'
+alias mvcc='mvim --servername mvim'
 
 # put this in a function, since I don't use RVM a lot
 start_rvm() { source ~/.rvm/scripts/rvm; }

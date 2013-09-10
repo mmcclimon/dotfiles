@@ -212,14 +212,16 @@ hi def link org_timestamp_inactive Comment
 " Ordered:
 " 1. list item
 " 1) list item
-syn match org_list_ordered "^\s\+\d\+[.)]\s"
+"syn match org_list_ordered "^\s\+\d\+[.)]\s"
+syn match org_list_ordered "^\s\+\d\+[.)]"
 hi def link org_list_ordered Identifier
 
 " Unordered:
 " - list item
 " * list item
 " + list item
-syn match org_list_unordered "^\s\+[-*+]\s"
+"syn match org_list_unordered "^\s\+[-*+]\s"
+syn match org_list_unordered "^\s\+[-*+]"
 hi def link org_list_unordered Identifier
 
 " Definitions:
@@ -265,7 +267,7 @@ hi def link org_comment Comment
 " Ref: http://orgmode.org/manual/Emphasis-and-monospace.html
 
 syntax match org_bold  '\(\_^\|\s\|[({]\)\zs\*[^ ,'"]\(.\{-}[^ ,'"]\)\?\*\ze\(\_$\|\s\|[)}\.;!\-\\:]\)'
-syntax match org_italic  '\(\_^\|\s\|[({]\)\zs\/[^ ,'"\/]\(.\{-}[^ ,'"]\)\?\/\ze\(\_$\|\s\|[)}\.;!\-\\:]\)'
+syntax match org_italic  '\(\_^\|\s\|[({]\)\zs\/[^ ,'"\/]\(.\{-}[^ ,'"]\)\?\/\ze\(\_$\|\s\|[)}\.;,!\-\\:]\)'
 syntax match org_underline  '\(\_^\|\s\|[({]\)\zs_[^ ,'"]\(.\{-}[^ ,'"]\)\?_\ze\(\_$\|\s\|[)}\.;!\-\\:]\)'
 syntax match org_code  '\(\_^\|\s\|[({]\)\zs=[^ ,'"]\(.\{-}[^ ,'"]\)\?=\ze\(\_$\|\s\|[)}\.;!\-\\:]\)'
 syntax match org_code  '\(\_^\|\s\|[({]\)\zs`[^ ,'"]\(.\{-}[^ ,'"]\)\?`\ze\(\_$\|\s\|[)}\.;!\-\\:]\)'
