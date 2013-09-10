@@ -96,6 +96,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Uppercase last word in insert mode (stolen from Steve Losh).
+" Overwrites z mark
+inoremap <C-u> <esc>mzgUiw`za
+
 function! ExecCurrentLine()
     let l:curline = getline('.')
     echo ":" . l:curline
