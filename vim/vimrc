@@ -132,6 +132,11 @@ augroup prewrite
     au BufWritePre * :FixWhitespace
 augroup END
 " }}}
+" Bufkill -----------------------------------------------------{{{
+" Make c-x c-c write and close a buffer (useful for git commit
+" edit messages, etc.)
+nnoremap <C-x><C-c> :w<bar>BD<cr>
+" }}}
 " }}}
 " Misc. Filetypes ---------------------------------------------{{{
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
