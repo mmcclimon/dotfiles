@@ -14,25 +14,26 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
+" Bundle 'scrooloose/nerdcommenter'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'pangloss/vim-javascript'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
-Bundle 'fholgado/minibufexpl.vim'
-Bundle 'bronson/vim-trailing-whitespace'
+" Bundle 'fholgado/minibufexpl.vim'
+" Bundle 'bronson/vim-trailing-whitespace'
+Bundle 'vim-pandoc/vim-pandoc'
+Bundle 'derekwyatt/vim-scala'
 Bundle 'bufkill.vim'
-Bundle 'utl.vim'
-Bundle 'vim-orgmode'
+" Bundle 'utl.vim'
+" Bundle 'vim-orgmode'
 
 filetype plugin indent on           " required!
 
 " }}}
 " Text Editing ------------------------------------------------{{{
 set backspace=indent,eol,start
-"filetype plugin indent on
 set autoindent
 set smartindent
 set tabstop=4
@@ -42,6 +43,11 @@ set expandtab
 " }}}
 " Abbrevs -----------------------------------------------------{{{
 iabbrev teh the
+iabbrev becuase because
+iabbrev taht that
+iabbrev wiht with
+iabbrev acutal actual
+iabbrev si is
 " }}}
 " Backups -----------------------------------------------------{{{
 if has("vms")
@@ -58,9 +64,13 @@ set showcmd         " display incomplete commands
 set incsearch       " do incremental searching
 set ignorecase
 set smartcase
+set hidden
+set laststatus=2
 set number
 set wildmenu
 set wildmode=list:longest
+set list
+set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
 
 if has('mouse')
   set mouse=a
@@ -130,10 +140,26 @@ hi link MBEVisibleChanged Underlined
 " CtrlP -------------------------------------------------------{{{
 nnoremap <leader>b :CtrlPBuffer<cr>
 " }}}
+" vim-pandoc---------------------------------------------------{{{
+let g:pandoc_use_hard_wraps = 1
+let g:pandoc_auto_format = 1
+" }}}
 " FixWhitespace------------------------------------------------{{{
+function! FixWhitespace()
+    let l:save_cursor = getpos(".")
+    silent! execute ':%s/\s\+$//'
+    call setpos('.', l:save_cursor)
+endfunction
+
+augroup trailing
+    au!
+    au InsertEnter * :set listchars-=trail:·
+    au InsertLeave * :set listchars+=trail:·
+augroup END
+
 augroup prewrite
     au!
-    au BufWritePre * :FixWhitespace
+    au BufWritePre * call FixWhitespace()
 augroup END
 " }}}
 " Bufkill -----------------------------------------------------{{{

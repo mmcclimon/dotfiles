@@ -41,7 +41,7 @@ hi ColorColumn               guibg=#333435 ctermbg=235
 " Folds
 " -----
 " line used for closed folds
-hi Folded                    guifg=#F6F3E8 guibg=#444444 gui=NONE
+hi Folded                    guifg=#C6C3B8 guibg=#3c3442 gui=NONE
 
 " Invisible Characters
 " ------------------
@@ -133,3 +133,8 @@ hi xmlTag                    guifg=#E8BF6A
 hi xmlTagName                guifg=#E8BF6A
 hi xmlEndTag                 guifg=#E8BF6A
 
+" mjm custom colors -----------------------------------------{{{
+hi link pandocAtxHeader     Number
+hi pandocEmphasis           gui=italic
+
+" }}}
