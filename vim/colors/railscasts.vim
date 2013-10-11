@@ -136,4 +136,5 @@ hi xmlEndTag                 guifg=#E8BF6A
 " mjm custom colors -----------------------------------------{{{
 hi link pandocAtxHeader     Number
 hi pandocEmphasis           gui=italic
+
 " }}}

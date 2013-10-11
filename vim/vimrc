@@ -22,8 +22,6 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'vim-pandoc/vim-pandoc'
-" Bundle 'fholgado/minibufexpl.vim'
-" Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'tpope/vim-markdown'
 Bundle 'guns/vim-clojure-static'
 Bundle 'kien/rainbow_parentheses.vim'
@@ -34,7 +32,6 @@ filetype plugin indent on           " required!
 " }}}
 " Text Editing ------------------------------------------------{{{
 set backspace=indent,eol,start
-"filetype plugin indent on
 set autoindent
 set smartindent
 set tabstop=4
@@ -46,6 +43,11 @@ set expandtab
 iabbrev teh the
 iabbrev functino function
 iabbrev Micahel Michael
+iabbrev becuase because
+iabbrev taht that
+iabbrev wiht with
+iabbrev acutal actual
+iabbrev si is
 " }}}
 " Backups -----------------------------------------------------{{{
 if has("vms")
@@ -63,6 +65,7 @@ set showcmd         " display incomplete commands
 set incsearch       " do incremental searching
 set ignorecase
 set smartcase
+set hidden
 set laststatus=2
 set number
 set hidden
