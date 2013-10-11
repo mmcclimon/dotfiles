@@ -50,11 +50,7 @@ iabbrev acutal actual
 iabbrev si is
 " }}}
 " Backups -----------------------------------------------------{{{
-if has("vms")
-  set nobackup      " do not keep a backup file, use versions instead
-else
-  set backup        " keep a backup file
-endif
+set backup        " keep a backup file
 set backupdir=~/.vim/backup
 set autowrite
 " }}}
@@ -107,6 +103,10 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" swap colon/semicolon
+nnoremap ; :
+nnoremap : ;
 
 " Uppercase last word in insert mode (stolen from Steve Losh).
 " Overwrites z mark
