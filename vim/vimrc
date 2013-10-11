@@ -246,3 +246,20 @@ nnoremap <silent> n   n:call HLNext(0.4)<cr>
 nnoremap <silent> N   N:call HLNext(0.4)<cr>
 " }}}
 
+
+" Scratch buffers ---------------------------------------------{{{
+function! CreateOrSwitchToScratchBuffer()
+    if buflisted("_scratch") == 0
+        badd _scratch
+        buffer _scratch
+        set buftype=nofile
+        set filetype=pandoc
+        call append(0, '% This is a scratch buffer, set up with ft=pandoc')
+        call append(1, '% You cannot save this file unless you write it somewhere else first')
+    else
+        buffer _scratch
+    endif
+endfunction
+
+nnoremap <C-x><C-b> :call CreateOrSwitchToScratchBuffer()<CR>
+" }}}
