@@ -14,19 +14,20 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'pangloss/vim-javascript'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
-Bundle 'fholgado/minibufexpl.vim'
-Bundle 'bronson/vim-trailing-whitespace'
-Bundle 'plasticboy/vim-markdown'
+Bundle 'derekwyatt/vim-scala'
+Bundle 'vim-pandoc/vim-pandoc'
+" Bundle 'fholgado/minibufexpl.vim'
+" Bundle 'bronson/vim-trailing-whitespace'
+Bundle 'tpope/vim-markdown'
+Bundle 'guns/vim-clojure-static'
+Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'bufkill.vim'
-Bundle 'utl.vim'
-Bundle 'vim-orgmode'
 
 filetype plugin indent on           " required!
 
@@ -43,6 +44,8 @@ set expandtab
 " }}}
 " Abbrevs -----------------------------------------------------{{{
 iabbrev teh the
+iabbrev functino function
+iabbrev Micahel Michael
 " }}}
 " Backups -----------------------------------------------------{{{
 if has("vms")
@@ -60,9 +63,13 @@ set showcmd         " display incomplete commands
 set incsearch       " do incremental searching
 set ignorecase
 set smartcase
+set laststatus=2
 set number
+set hidden
 set wildmenu
 set wildmode=list:longest
+set list
+set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
 
 if has('mouse')
   set mouse=a
@@ -132,12 +139,30 @@ hi link MBEVisibleNormal Normal
 hi link MBEVisibleChanged Underlined
 " }}}
 " CtrlP -------------------------------------------------------{{{
+" use ack to find known files
+let g:ctrlp_user_command = 'ack -f'
 nnoremap <leader>b :CtrlPBuffer<cr>
 " }}}
+" vim-pandoc---------------------------------------------------{{{
+let g:pandoc_use_hard_wraps = 1
+let g:pandoc_auto_format = 1
+" }}}
 " FixWhitespace------------------------------------------------{{{
+function! FixWhitespace()
+    let l:save_cursor = getpos(".")
+    silent! execute ':%s/\s\+$//'
+    call setpos('.', l:save_cursor)
+endfunction
+
+augroup trailing
+    au!
+    au InsertEnter * :set listchars-=trail:·
+    au InsertLeave * :set listchars+=trail:·
+augroup END
+
 augroup prewrite
     au!
-    au BufWritePre * :FixWhitespace
+    au BufWritePre * call FixWhitespace()
 augroup END
 " }}}
 " Bufkill -----------------------------------------------------{{{
@@ -186,3 +211,35 @@ augroup ft_ruby
     au Filetype ruby set tabstop=2 shiftwidth=2
 augroup END
 " }}}
+" Markdown ----------------------------------------------------{{{
+augroup ft_markdown
+    au!
+    au Filetype markdown set textwidth=78
+augroup END
+" }}}
+" Markdown ----------------------------------------------------{{{
+augroup ft_javascript
+    au!
+    au Filetype javascript set tabstop=2 shiftwidth=2
+augroup END
+" }}}
+
+" Better search highlighting ----------------------------------{{{
+highlight WhiteOnRed guibg=#da4939 guifg=white
+
+function! HLNext (blinktime)
+    let [bufnum, lnum, col, off] = getpos('.')
+    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+    let target_pat = '\c\%#'.@/
+    let ring = matchadd('WhiteOnRed', target_pat, 101)
+    redraw
+    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+    call matchdelete(ring)
+    redraw
+endfunction
+
+" This rewires n and N to do the highlighing...
+nnoremap <silent> n   n:call HLNext(0.4)<cr>
+nnoremap <silent> N   N:call HLNext(0.4)<cr>
+" }}}
+
