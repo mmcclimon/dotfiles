@@ -2,14 +2,20 @@ export PATH=$PATH:/usr/local/mysql/bin
 export PATH=$PATH:~/bin
 export PATH=$PATH:/usr/texbin
 export PATH=$PATH:/usr/local/share/npm/bin
+export PATH=$PATH:/usr/local/sml/bin
+export PATH=$PATH:/usr/games/bin
 export HISTCONTROL=ignoredups
 # export PERL5LIB="/Users/mmcclimon/perl5/test/lib/perl5/site_perl"
 
 export CLICOLOR=1
-export LSCOLORS="gxExcxdxbxegedabagacGg"
+export LSCOLORS="gxexcxdxbxegedabagacGg"
 
 export EDITOR="vim"
 export ALTERNATE_EDITOR=''
+
+export SCALA_HOME=/usr/local/scala
+export PATH=$PATH:$SCALA_HOME/bin
+
 
 # aliases
 alias ..='cd ..'
@@ -17,6 +23,8 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias gs='git status -sb'
 alias gd='git diff'
+alias gc='git commit'
+alias ga='git add'
 alias ld='cd ~-'
 alias gvim="mvim"
 alias pavan='ssh mjmcclim@pavan.music.indiana.edu'
@@ -25,6 +33,7 @@ alias ec='emacsclient -n'
 alias ecc='emacsclient -c -n'
 alias mvc='mvim --servername mvim --remote-silent'
 alias mvcc='mvim --servername mvim'
+alias stallman="curl -s 'http://en.wikiquote.org/wiki/Richard_Stallman' |grep '<li>' | grep -v -E '(Chapter|href|Source:)' | perl -MList::Util -e 'print List::Util::shuffle <>' | head -n1 | sed -E -e 's#</?(li|i|b)>##g'"
 
 # put this in a function, since I don't use RVM a lot
 start_rvm() { source ~/.rvm/scripts/rvm; }
