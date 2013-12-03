@@ -24,6 +24,7 @@ Bundle 'tpope/vim-fugitive'
 " Bundle 'fholgado/minibufexpl.vim'
 " Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'vim-pandoc/vim-pandoc'
+Bundle 'SirVer/ultisnips'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'guns/vim-clojure-static'
 Bundle 'bufkill.vim'
@@ -189,14 +190,22 @@ nnoremap <C-x><C-c> :w<bar>BD<cr>
 " Misc. Filetypes ---------------------------------------------{{{
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
 " }}}
+" UltiSnips ---------------------------------------------------{{{
+let g:UltiSnipsSnippetsDirectories = ['UltiSnips']
+let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/UltiSnips'
+let g:UltiSnipsEditSplit = 'horizontal'
+" }}}
 " Latex -------------------------------------------------------{{{
 let g:tex_flavor = "latex"
 augroup ft_tex
     au!
+    setlocal tabstop=2 shiftwidth=2 textwidth=78
+    setlocal formatoptions+=t
     " better quotes
     au Filetype tex :inoremap <buffer> ` ‘
     au Filetype tex :inoremap <buffer> ' ’
     au Filetype tex :inoremap <buffer> `` “
+    au Filetype tex :inoremap <buffer> '' ”
     au Filetype tex :inoremap <buffer> '' ”
 augroup END
 " }}}
