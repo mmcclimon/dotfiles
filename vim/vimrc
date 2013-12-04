@@ -1,6 +1,3 @@
-" vim:fdm=marker
-" vim:set filetype=vim
-
 " General -----------------------------------------------------{{{
 set nocompatible
 " }}}
@@ -14,23 +11,19 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'scrooloose/nerdtree'
-" Bundle 'scrooloose/nerdcommenter'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'pangloss/vim-javascript'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
-" Bundle 'fholgado/minibufexpl.vim'
-" Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'vim-pandoc/vim-pandoc'
 Bundle 'SirVer/ultisnips'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'guns/vim-clojure-static'
+Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'bufkill.vim'
 Bundle 'slimv.vim'
-" Bundle 'utl.vim'
-" Bundle 'vim-orgmode'
 
 filetype plugin indent on           " required!
 
@@ -46,6 +39,8 @@ set expandtab
 " }}}
 " Abbrevs -----------------------------------------------------{{{
 iabbrev teh the
+iabbrev functino function
+iabbrev Micahel Michael
 iabbrev becuase because
 iabbrev taht that
 iabbrev wiht with
@@ -57,12 +52,9 @@ iabbrev transformatino transformation
 iabbrev transformatinos transformations
 " }}}
 " Backups -----------------------------------------------------{{{
-if has("vms")
-  set nobackup      " do not keep a backup file, use versions instead
-else
-  set backup        " keep a backup file
-endif
+set backup        " keep a backup file
 set backupdir=~/.vim/backup
+set autowrite
 " }}}
 " UI ----------------------------------------------------------{{{
 set history=50      " keep 50 lines of command line history
@@ -71,15 +63,14 @@ set showcmd         " display incomplete commands
 set incsearch       " do incremental searching
 set ignorecase
 set smartcase
-set hidden
 set laststatus=2
 set number
+set hidden
 set wildmenu
 set wildmode=list:longest
 set list
 set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
 set splitright
-" set splitbelow
 
 if has('mouse')
   set mouse=a
@@ -140,6 +131,8 @@ nnoremap <F5> :NERDTreeToggle<CR>
 " EasyMotion --------------------------------------------------{{{
 nnoremap <leader>f :call EasyMotion#F(0, 0)<CR>
 " }}}
+" }}}
+
 " MiniBufExplorer ---------------------------------------------{{{
 if has("gui_running")
     let g:miniBufExplorerMoreThanOne=0
@@ -150,6 +143,9 @@ hi link MBEVisibleNormal Normal
 hi link MBEVisibleChanged Underlined
 " }}}
 " CtrlP -------------------------------------------------------{{{
+" use ack to find known files
+" let g:ctrlp_user_command = 'ack -f'
+let g:ctrlp_custom_ignore = "*.swp,*.zip,.git/*"
 nnoremap <leader>b :CtrlPBuffer<cr>
 " }}}
 " vim-pandoc---------------------------------------------------{{{
@@ -185,6 +181,13 @@ augroup END
 " Make c-x c-c write and close a buffer (useful for git commit
 " edit messages, etc.)
 nnoremap <C-x><C-c> :w<bar>BD<cr>
+nnoremap <C-x><C-k> :w<bar>BW<cr>
+
+" Tagbar ------------------------------------------------------{{{
+let g:tagbar_iconchars = ['▸', '▾']
+hi TagbarVisibilityPublic guifg=#04b404
+hi TagbarVisibilityProtected guifg=#0489b1
+hi TagbarVisibilityPrivate guifg=#b40404
 " }}}
 " }}}
 " Misc. Filetypes ---------------------------------------------{{{
@@ -219,3 +222,67 @@ augroup END
 let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"sbcl --load ~/.vim/bundle/slimv.vim/slime/start-swank.lisp\""'
 let g:slimv_leader = '\'
 " }}}
+" PHP ---------------------------------------------------------{{{
+augroup ft_php
+    au!
+    au Filetype php set tabstop=4 shiftwidth=4
+augroup END
+" }}}
+" Markdown ----------------------------------------------------{{{
+augroup ft_markdown
+    au!
+    au Filetype markdown set textwidth=78
+augroup END
+" }}}
+" JavaScript --------------------------------------------------{{{
+augroup ft_javascript
+    au!
+    au Filetype javascript set tabstop=2 shiftwidth=2
+augroup END
+" }}}
+" Makefiles ---------------------------------------------------{{{
+augroup ft_makefile
+    au!
+    au Filetype make setl tabstop=4 shiftwidth=4
+augroup END
+" }}}
+
+" Better search highlighting ----------------------------------{{{
+highlight WhiteOnRed guibg=#da4939 guifg=white
+
+function! HLNext (blinktime)
+    let [bufnum, lnum, col, off] = getpos('.')
+    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+    let target_pat = '\c\%#'.@/
+    let ring = matchadd('WhiteOnRed', target_pat, 101)
+    redraw
+    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+    call matchdelete(ring)
+    redraw
+endfunction
+
+" This rewires n and N to do the highlighing...
+nnoremap <silent> n   n:call HLNext(0.4)<cr>
+nnoremap <silent> N   N:call HLNext(0.4)<cr>
+" }}}
+
+
+" Scratch buffers ---------------------------------------------{{{
+function! CreateOrSwitchToScratchBuffer()
+    if buflisted("_scratch") == 0
+        badd _scratch
+        buffer _scratch
+        set buftype=nofile
+        set filetype=pandoc
+        call append(0, '% This is a scratch buffer, set up with ft=pandoc')
+        call append(1, '% You cannot save this file unless you write it somewhere else first')
+    else
+        buffer _scratch
+    endif
+endfunction
+
+nnoremap <C-x><C-b> :call CreateOrSwitchToScratchBuffer()<CR>
+" }}}
+
+" vim:fdm=marker
+" vim:set filetype=vim

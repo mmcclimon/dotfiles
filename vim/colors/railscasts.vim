@@ -42,7 +42,7 @@ hi ColorColumn               guibg=#333435 ctermbg=235
 " Folds
 " -----
 " line used for closed folds
-hi Folded                    guifg=#C6C3B8 guibg=#3c3442 gui=NONE
+hi Folded                    guifg=#868686 guibg=#1c2939 gui=NONE
 
 " Invisible Characters
 " ------------------
