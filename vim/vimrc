@@ -18,10 +18,12 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
 Bundle 'vim-pandoc/vim-pandoc'
+Bundle 'Keithbsmiley/rspec.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'guns/vim-clojure-static'
 Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'jiangmiao/auto-pairs'
 Bundle 'bufkill.vim'
 Bundle 'slimv.vim'
 
@@ -156,7 +158,7 @@ let g:pandoc_no_folding = 1
 let g:pandoc_no_spans = 1
 augroup ft_pandoc
     au!
-    au Filetype pandoc set tabstop=2 shiftwidth=2 textwidth=78
+    au Filetype pandoc setlocal tabstop=2 shiftwidth=2 textwidth=78
 augroup END
 " }}}
 " FixWhitespace------------------------------------------------{{{
@@ -200,11 +202,23 @@ let g:UltiSnipsEditSplit = 'horizontal'
 " }}}
 " Latex -------------------------------------------------------{{{
 let g:tex_flavor = "latex"
+
+" turn off auto pairs for quoting, if they're on
+function! UnpairQuotes()
+    if exists("b:AutoPairs")
+        unlet b:AutoPairs["`"]
+        unlet b:AutoPairs["'"]
+        unlet b:AutoPairs['"']
+    endif
+endfunction
+
 augroup ft_tex
     au!
-    setlocal tabstop=2 shiftwidth=2 textwidth=78
-    setlocal formatoptions+=t
+    au Filetype tex,bib setlocal tabstop=2 shiftwidth=2 textwidth=78
+    au Filetype tex setlocal formatoptions+=t
+    au Filetype bib setlocal foldmethod=syntax
     " better quotes
+    au BufReadPost *.tex call UnpairQuotes()
     au Filetype tex :inoremap <buffer> ` ‘
     au Filetype tex :inoremap <buffer> ' ’
     au Filetype tex :inoremap <buffer> `` “
@@ -215,7 +229,7 @@ augroup END
 " Ruby --------------------------------------------------------{{{
 augroup ft_ruby
     au!
-    au Filetype ruby set tabstop=2 shiftwidth=2
+    au Filetype ruby setlocal tabstop=2 shiftwidth=2
 augroup END
 " }}}
 " SLIMV -------------------------------------------------------{{{
@@ -225,7 +239,7 @@ let g:slimv_leader = '\'
 " PHP ---------------------------------------------------------{{{
 augroup ft_php
     au!
-    au Filetype php set tabstop=4 shiftwidth=4
+    au Filetype php setlocal tabstop=4 shiftwidth=4
 augroup END
 " }}}
 " Markdown ----------------------------------------------------{{{
@@ -237,13 +251,13 @@ augroup END
 " JavaScript --------------------------------------------------{{{
 augroup ft_javascript
     au!
-    au Filetype javascript set tabstop=2 shiftwidth=2
+    au Filetype javascript setlocal tabstop=2 shiftwidth=2
 augroup END
 " }}}
 " Makefiles ---------------------------------------------------{{{
 augroup ft_makefile
     au!
-    au Filetype make setl tabstop=4 shiftwidth=4
+    au Filetype make setlocal tabstop=4 shiftwidth=4
 augroup END
 " }}}
 
