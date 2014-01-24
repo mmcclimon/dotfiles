@@ -4,11 +4,15 @@ export PATH=$PATH:/usr/texbin
 export PATH=$PATH:/usr/local/share/npm/bin
 export PATH=$PATH:/usr/local/sml/bin
 export PATH=$PATH:/usr/games/bin
+export PATH=$PATH:/Applications/Postgres93.app/Contents/MacOS/bin
 export HISTCONTROL=ignoredups
 # export PERL5LIB="/Users/mmcclimon/perl5/test/lib/perl5/site_perl"
 
 export CLICOLOR=1
 export LSCOLORS="gxexcxdxbxegedabagacGg"
+
+export IRCNICK=mmcclimon
+export IRCSERVER=irc.freenode.net
 
 export EDITOR="vim"
 export ALTERNATE_EDITOR=''
@@ -34,56 +38,54 @@ alias ecc='emacsclient -c -n'
 alias mvc='mvim --servername mvim --remote-silent'
 alias mvcc='mvim --servername mvim'
 alias stallman="curl -s 'http://en.wikiquote.org/wiki/Richard_Stallman' |grep '<li>' | grep -v -E '(Chapter|href|Source:)' | perl -MList::Util -e 'print List::Util::shuffle <>' | head -n1 | sed -E -e 's#</?(li|i|b)>##g'"
+alias latexwatch='latexmk -xelatex -pvc'
 
 # put this in a function, since I don't use RVM a lot
 start_rvm() { source ~/.rvm/scripts/rvm; }
 
-# colors for prompt
-NORMAL="\[\e[0m\]"
-PROMPT_C="\[\e[38;5;074m\]"
-DIR_C="\[\e[38;5;237m\]"
-BRANCH_C="\[\e[38;5;023m\]"
-SHA1_C="\[\e[38;5;022m\]"
-GIT_STATUS_C="\[\e[38;5;009m\]"
 
-set_ps1_vars() {
+# in a git repo, show git info in prompt
+__prompt_info() {
+    # colors for prompt
+    local reset="\[\e[0m\]"
+    local prompt_c="\[\e[38;5;074m\]"
+    local dir_c="\[\e[38;5;237m\]"
+
+    local p_open="\n${prompt_c}(\t)${reset} ${dir_c}\w${reset}"
+    local p_close="\n${prompt_c}\$${reset} "
+
+    # git info
+    local p_git=''
     local gitdir=$(git rev-parse --git-dir 2> /dev/null)
-    if [ -n "$gitdir" ]; then
-        # in a git repo, set vars accordingly
-        bGIT_PROMPT_LEFT='['
-        bGIT_PROMPT_MIDDLE='|'
-        bGIT_PROMPT_RIGHT=']'
-        bGIT_CURRENT_BRANCH=$(git symbolic-ref HEAD 2> /dev/null | cut -d '/' -f 3)
-        bGIT_CURRENT_SHA1=$(git rev-parse --short HEAD 2> /dev/null)
-        local g_status=$(git status --porcelain 2> /dev/null)
-        if [ -z "$g_status" ]; then
-            bGIT_CURRENT_STATUS=''
-        else
-            bGIT_CURRENT_STATUS='*'
+    if [ -n "$gitdir"  ]; then
+        local branch_c="\[\e[38;5;023m\]"
+        local sha1_c="\[\e[38;5;022m\]"
+        local status_c="\[\e[38;5;009m\]"
+
+        local p_left="${dir_c}[${normal}"
+        local p_mid="${dir_c}|${normal}"
+        local p_right="${dir_c}]${normal}"
+
+        local git_branch=$(git symbolic-ref HEAD 2> /dev/null | cut -d '/' -f 3)
+        local p_branch="${branch_c}${git_branch}${normal}"
+
+        local git_sha=$(git rev-parse --short HEAD 2> /dev/null)
+        local p_sha="${sha1_c}${git_sha}${normal}"
+
+        local git_status=$(git status --porcelain 2> /dev/null)
+        local p_status=''
+        if [ -n "$git_status" ]; then
+            p_status="${status_c}*${normal}"
         fi
-    else
-        # not in git repo, clear variables
-        bGIT_PROMPT_LEFT=''
-        bGIT_PROMPT_MIDDLE=''
-        bGIT_PROMPT_RIGHT=''
-        bGIT_CURRENT_BRANCH=''
-        bGIT_CURRENT_SHA1=''
-        bGIT_CURRENT_STATUS=''
+
+        p_git=" ${p_left}${p_branch}${p_mid}${p_sha}${p_right}${p_status}"
     fi
 
+    PS1="${p_open}${p_git}${p_close}"
 }
 
-if [ $USER = "mmcclimon" ]; then
-    export PROMPT_COMMAND="set_ps1_vars"
-fi
+PROMPT_COMMAND='__prompt_info'
 
-# prompt business
-PS1="\n${PROMPT_C}(\t)${NORMAL} ${DIR_C}\w${NORMAL}"
-# now add git info
-PS1="${PS1} ${BRANCH_C}\$bGIT_PROMPT_LEFT\$bGIT_CURRENT_BRANCH${NORMAL}${DIR_C}\$bGIT_PROMPT_MIDDLE${NORMAL}${SHA1_C}\$bGIT_CURRENT_SHA1${NORMAL}${BRANCH_C}\$bGIT_PROMPT_RIGHT${NORMAL}${GIT_STATUS_C}\$bGIT_CURRENT_STATUS${NORMAL}"
-
-# now add newline with prompt
-PS1="${PS1}\n${PROMPT_C}\$${NORMAL} "
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
         . $(brew --prefix)/etc/bash_completion

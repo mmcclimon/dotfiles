@@ -9,7 +9,8 @@
 [color]
         ui = true
 [alias]
-        gs = status
         co = checkout
+        l = log --oneline
+
 [push]
         default = matching

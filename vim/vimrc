@@ -202,23 +202,15 @@ let g:UltiSnipsEditSplit = 'horizontal'
 " }}}
 " Latex -------------------------------------------------------{{{
 let g:tex_flavor = "latex"
-
-" turn off auto pairs for quoting, if they're on
-function! UnpairQuotes()
-    if exists("b:AutoPairs")
-        unlet b:AutoPairs["`"]
-        unlet b:AutoPairs["'"]
-        unlet b:AutoPairs['"']
-    endif
-endfunction
-
 augroup ft_tex
     au!
     au Filetype tex,bib setlocal tabstop=2 shiftwidth=2 textwidth=78
     au Filetype tex setlocal formatoptions+=t
     au Filetype bib setlocal foldmethod=syntax
+    au Filetype tex :nnoremap <buffer> <C-g> mzgqap`z
     " better quotes
-    au BufReadPost *.tex call UnpairQuotes()
+    " turn off auto pairs for quoting
+    au Filetype tex,bib let b:AutoPairs = {'(':')', '[':']', '{':'}'}
     au Filetype tex :inoremap <buffer> ` ‘
     au Filetype tex :inoremap <buffer> ' ’
     au Filetype tex :inoremap <buffer> `` “
