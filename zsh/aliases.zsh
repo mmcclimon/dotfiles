@@ -1,12 +1,11 @@
 # Push and pop directories on directory stack
-setopt auto_name_dirs
 setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
 
 alias pu='pushd'
 alias po='popd'
-alias cpwd="cd $(pwd -P)"
+alias cpwd='cd $(pwd -P)'
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -23,23 +22,6 @@ alias 6='cd -6'
 alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
-
-cd () {
-  if   [[ "x$*" == "x..." ]]; then
-    cd ../..
-  elif [[ "x$*" == "x...." ]]; then
-    cd ../../..
-  elif [[ "x$*" == "x....." ]]; then
-    cd ../../../..
-  elif [[ "x$*" == "x......" ]]; then
-    cd ../../../../..
-  elif [ -d ~/.autoenv ]; then
-    source ~/.autoenv/activate.sh
-    autoenv_cd "$@"
-  else
-    builtin cd "$@"
-  fi
-}
 
 alias md='mkdir -p'
 alias rd=rmdir
@@ -79,3 +61,4 @@ alias gvim="mvim"
 alias mvc='mvim --servername mvim --remote-silent'
 alias mvcc='mvim --servername mvim'
 alias latexwatch='latexmk -xelatex -pvc'
+alias info='info --vi-keys'

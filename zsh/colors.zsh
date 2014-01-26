@@ -15,5 +15,11 @@ FX=(
 for color in {000..255}; do
     FG[$color]="%{[38;5;${color}m%}"
 done
+
+# os x ls colors
 export CLICOLOR=1
 export LSCOLORS="gxexcxdxbxegedabagacGg"
+
+# gnu ls colors
+[ -e "$HOME/.dircolors" ] && eval `dircolors -b $HOME/.dircolors`
+alias ls='ls --color'

@@ -10,12 +10,6 @@ bindkey "^[[6~" down-line-or-history
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
 
-bindkey "^[[H" beginning-of-line
-bindkey "^[[1~" beginning-of-line
-bindkey "^[OH" beginning-of-line
-bindkey "^[[F"  end-of-line
-bindkey "^[[4~" end-of-line
-bindkey "^[OF" end-of-line
 bindkey ' ' magic-space    # also do history expansion on space
 
 bindkey "^[[1;5C" forward-word
@@ -35,6 +29,9 @@ bindkey "\e[3~" delete-char
 bindkey -v
 bindkey '^P' up-history
 bindkey '^N' down-history
+
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
 
 # backspace and ^h working even after
 # returning from command mode

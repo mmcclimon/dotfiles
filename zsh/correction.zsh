@@ -8,6 +8,7 @@ alias ebuild='nocorrect ebuild'
 alias hpodder='nocorrect hpodder'
 alias sudo='nocorrect sudo'
 
+ENABLE_CORRECTION="true"
 if [[ "$ENABLE_CORRECTION" == "true" ]]; then
   setopt correct_all
 fi
