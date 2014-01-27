@@ -18,4 +18,4 @@ nnoremap <F8> :TagbarToggle<CR>
 
 "colors
 set background=dark
-colorscheme railscasts
+colorscheme hybrid

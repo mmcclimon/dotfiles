@@ -22,6 +22,8 @@ Bundle 'vim-pandoc/vim-pandoc'
 Bundle 'tpope/vim-markdown'
 Bundle 'guns/vim-clojure-static'
 Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'Keithbsmiley/rspec.vim'
+Bundle 'gisraptor/vim-lilypond-integrator'
 Bundle 'bufkill.vim'
 
 filetype plugin indent on           " required!
