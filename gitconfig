@@ -2,14 +2,15 @@
         name = Michael McClimon
         email = michael@mcclimon.org
 [core]
-        excludesfile = /Users/mmcclimon/.gitignore_global
+        excludesfile = /Users/michael/.gitignore_global
         editor = /usr/local/bin/mvim --servername MVIM --remote-wait-silent
 [credential]
         helper = osxkeychain
 [color]
         ui = true
 [alias]
-        gs = status
         co = checkout
+        l = log --oneline
+
 [push]
         default = matching

@@ -17,14 +17,17 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'pangloss/vim-javascript'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
-Bundle 'derekwyatt/vim-scala'
 Bundle 'vim-pandoc/vim-pandoc'
-Bundle 'tpope/vim-markdown'
+Bundle 'Keithbsmiley/rspec.vim'
+Bundle 'SirVer/ultisnips'
+Bundle 'derekwyatt/vim-scala'
 Bundle 'guns/vim-clojure-static'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'Keithbsmiley/rspec.vim'
 Bundle 'gisraptor/vim-lilypond-integrator'
+" Bundle 'jiangmiao/auto-pairs'
 Bundle 'bufkill.vim'
+Bundle 'slimv.vim'
 
 filetype plugin indent on           " required!
 
@@ -47,6 +50,10 @@ iabbrev taht that
 iabbrev wiht with
 iabbrev acutal actual
 iabbrev si is
+iabbrev nto not
+iabbrev substitutino substitution
+iabbrev transformatino transformation
+iabbrev transformatinos transformations
 " }}}
 " Backups -----------------------------------------------------{{{
 set backup        " keep a backup file
@@ -68,7 +75,6 @@ set wildmode=list:longest
 set list
 set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
 set splitright
-set splitbelow
 
 if has('mouse')
   set mouse=a
@@ -104,7 +110,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" swap colon/semicolon
 nnoremap ; :
 nnoremap : ;
 
@@ -149,7 +154,14 @@ nnoremap <leader>b :CtrlPBuffer<cr>
 " }}}
 " vim-pandoc---------------------------------------------------{{{
 let g:pandoc_use_hard_wraps = 1
-let g:pandoc_auto_format = 1
+let g:pandoc_auto_format = 0
+let g:pandoc_no_empty_implicits = 0
+let g:pandoc_no_folding = 1
+let g:pandoc_no_spans = 1
+augroup ft_pandoc
+    au!
+    au Filetype pandoc setlocal tabstop=2 shiftwidth=2 textwidth=78
+augroup END
 " }}}
 " FixWhitespace------------------------------------------------{{{
 function! FixWhitespace()
@@ -185,41 +197,43 @@ hi TagbarVisibilityPrivate guifg=#b40404
 " Misc. Filetypes ---------------------------------------------{{{
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
 " }}}
-" Org mode ----------------------------------------------------{{{
-augroup org_mode
+" UltiSnips ---------------------------------------------------{{{
+let g:UltiSnipsSnippetsDirectories = ['UltiSnips']
+let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/UltiSnips'
+let g:UltiSnipsEditSplit = 'horizontal'
+" }}}
+" Latex -------------------------------------------------------{{{
+let g:tex_flavor = "latex"
+augroup ft_tex
     au!
-    au BufReadPre *.org set filetype=org
-    au Filetype org set tabstop=2 shiftwidth=2
-    au Filetype org set textwidth=76
+    au Filetype tex,bib setlocal tabstop=2 shiftwidth=2 textwidth=78
+    au Filetype tex setlocal formatoptions+=t
+    au Filetype bib setlocal foldmethod=syntax
+    au Filetype tex :nnoremap <buffer> <C-g> mzgqap`z
+    " better quotes
+    " turn off auto pairs for quoting
+    au Filetype tex,bib let b:AutoPairs = {'(':')', '[':']', '{':'}'}
+    au Filetype tex :inoremap <buffer> ` ‘
+    au Filetype tex :inoremap <buffer> ' ’
+    au Filetype tex :inoremap <buffer> `` “
+    au Filetype tex :inoremap <buffer> '' ”
+    au Filetype tex :inoremap <buffer> '' ”
 augroup END
-
-" Toggle an Org Checkbox
-" (uses mark z to save place, and wipes out whatever else is there)
-function! OrgCheckboxToggle ()
-  execute "normal! mz"
-  let line = getline(".")
-  if match(line, '- \[ \]') >= 0
-    substitute/- \[ \]/- [X]/
-  elseif match(line, '- \[[xX]\]') >= 0
-    substitute/- \[[xX]\]/- [ ]/
-  endif
-  execute "normal! g`z"
-endfunction
-
-nnoremap <silent> <localleader>cc :call OrgCheckboxToggle()<cr>
-
-hi link org_heading1 Directory
 " }}}
 " Ruby --------------------------------------------------------{{{
 augroup ft_ruby
     au!
-    au Filetype ruby set tabstop=2 shiftwidth=2
+    au Filetype ruby setlocal tabstop=2 shiftwidth=2
 augroup END
+" }}}
+" SLIMV -------------------------------------------------------{{{
+let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"sbcl --load ~/.vim/bundle/slimv.vim/slime/start-swank.lisp\""'
+let g:slimv_leader = '\'
 " }}}
 " PHP ---------------------------------------------------------{{{
 augroup ft_php
     au!
-    au Filetype php set tabstop=4 shiftwidth=4
+    au Filetype php setlocal tabstop=4 shiftwidth=4
 augroup END
 " }}}
 " Markdown ----------------------------------------------------{{{
@@ -231,13 +245,13 @@ augroup END
 " JavaScript --------------------------------------------------{{{
 augroup ft_javascript
     au!
-    au Filetype javascript set tabstop=2 shiftwidth=2
+    au Filetype javascript setlocal tabstop=2 shiftwidth=2
 augroup END
 " }}}
 " Makefiles ---------------------------------------------------{{{
 augroup ft_makefile
     au!
-    au Filetype make setl tabstop=4 shiftwidth=4
+    au Filetype make setlocal tabstop=4 shiftwidth=4
 augroup END
 " }}}
 
