@@ -18,6 +18,7 @@ endif
 let g:colors_name = "railscasts"
 
 " Colors
+" Background   #1d1f21  (old: 2b231d)
 " Brown        #BC9458
 " Dark Blue    #6D9CBE
 " Dark Green   #519F50
@@ -26,7 +27,7 @@ let g:colors_name = "railscasts"
 " Light Green  #A5C261
 " Tan          #FFC66D
 
-hi Normal                    guifg=#cec2c2 guibg=#2b231d ctermfg=white ctermbg=234
+hi Normal                    guifg=#cec2c2 guibg=#1d1f21 ctermfg=white ctermbg=234
 "hi Normal                    guifg=#E6E1DC guibg=#2B2B2B ctermfg=white ctermbg=234
 hi Cursor                    guifg=#000000 guibg=#FFFFFF ctermfg=0 ctermbg=15
 hi CursorLine                guibg=#333435 ctermbg=235 cterm=NONE
@@ -38,6 +39,7 @@ hi StatusLineNC              guibg=#414243 gui=NONE
 hi VertSplit                 guibg=#414243 gui=NONE guifg=#414243
 hi CursorLineNr              guifg=#bbbbbb ctermfg=248
 hi ColorColumn               guibg=#333435 ctermbg=235
+hi LineNr                    guifg=#373b41
 
 " Folds
 " -----
@@ -67,7 +69,7 @@ hi PMenuThumb                guibg=#AAAAAA gui=NONE
 
 
 "rubyComment
-hi Comment                   guifg=#666666 gui=italic ctermfg=137
+hi Comment                   guifg=#666666 ctermfg=137
 hi Todo                      guifg=#BC9458 guibg=NONE gui=italic ctermfg=94
 
 "rubyPseudoVariable

@@ -1,10 +1,9 @@
 set guioptions-=T
 set guioptions-=L
 set guioptions-=r
-set ruler
 
 if has("macunix")
-    set guifont=Consolas:h12
+    set guifont=Source\ Code\ Pro
 elseif has("unix")
     set guifont=DejaVu\ Sans\ Mono
 endif
@@ -13,9 +12,4 @@ endif
 set cc=78
 
 "nerdtree
-nnoremap <F5> :NERDTreeToggle<CR>
 nnoremap <F8> :TagbarToggle<CR>
-
-"colors
-set background=dark
-colorscheme hybrid

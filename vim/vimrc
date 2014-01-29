@@ -10,7 +10,8 @@ call vundle#rc()
 " Vundle must manage itself!
 Bundle 'gmarik/vundle'
 
-Bundle 'scrooloose/nerdtree'
+" Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-vinegar'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/vim-easymotion'
@@ -38,6 +39,7 @@ set autoindent
 set smartindent
 set tabstop=4
 set shiftwidth=4
+set textwidth=78
 set expandtab
 
 " }}}
@@ -72,9 +74,13 @@ set number
 set hidden
 set wildmenu
 set wildmode=list:longest
+set wildignore+=.git,.svn,local,build
 set list
 set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
 set splitright
+
+set background=dark
+color railscasts
 
 if has('mouse')
   set mouse=a
@@ -129,8 +135,10 @@ nnoremap <C-x><C-e> :call ExecCurrentLine()<CR>
 inoremap <c-c> <esc>
 " }}}
 " Plugins -----------------------------------------------------{{{
-" NERDTree ----------------------------------------------------{{{
-nnoremap <F5> :NERDTreeToggle<CR>
+" netrw -------------------------------------------------------{{{
+nnoremap <F5> :e .<CR>
+let g:netrw_liststyle=3     " tree style
+
 " }}}
 " EasyMotion --------------------------------------------------{{{
 nnoremap <leader>f :call EasyMotion#F(0, 0)<CR>
