@@ -11,5 +11,8 @@ setopt long_list_jobs
 ## pager
 export PAGER="less"
 export LESS="-R"
+export EDITOR=vim
 
 export LC_CTYPE=$LANG
+
+hr() { printf '-%.0s' $(seq $COLUMNS) }
