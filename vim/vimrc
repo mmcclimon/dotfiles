@@ -273,9 +273,9 @@ function! CreateOrSwitchToScratchBuffer()
         badd _scratch
         buffer _scratch
         set buftype=nofile
-        set filetype=pandoc
-        call append(0, '% This is a scratch buffer, set up with ft=pandoc')
-        call append(1, '% You cannot save this file unless you write it somewhere else first')
+        set filetype=markdown
+        call append(0, '<!-- This is a scratch buffer, set up with ft=markdown -->')
+        call append(1, '<!-- You cannot save this file unless you write it somewhere else first -->')
     else
         buffer _scratch
     endif
