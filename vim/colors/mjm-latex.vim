@@ -1,21 +1,14 @@
 " Vim color scheme
 "
-" Name:        railscast.vim
-" Maintainer:  Josh O'Rourke <joshorourke@me.com>
-" License:     public domain
+" Heavily based on railscast.vim, Josh O'Rourke <joshorourke@me.com>
 "
-" A GUI Only port of the RailsCasts TextMate theme [1] to Vim.
-" Some parts of this theme were borrowed from the well-documented Lucius theme [2].
-"
-" [1] http://railscasts.com/about
-" [2] http://www.vim.org/scripts/script.php?script_id=2536
 
 set background=dark
 hi clear
 if exists("syntax_on")
   syntax reset
 endif
-let g:colors_name = "railscasts"
+let g:colors_name = "mjm-latex"
 
 " Colors
 " Background   #1d1f21  (old: 2b231d)
@@ -27,9 +20,9 @@ let g:colors_name = "railscasts"
 " Light Green  #A5C261
 " Tan          #FFC66D
 
-hi Normal                    guifg=#cec2c2 guibg=#1d1f21 ctermfg=white ctermbg=234
+hi Normal                    guifg=#b2b2b2 guibg=#1d1f21 ctermfg=white ctermbg=234
 "hi Normal                    guifg=#E6E1DC guibg=#2B2B2B ctermfg=white ctermbg=234
-hi Cursor                    guifg=#000000 guibg=#FFFFFF ctermfg=0 ctermbg=15
+hi Cursor                    guifg=#000000 guibg=#e0f2f7 ctermfg=0 ctermbg=15
 hi CursorLine                guibg=#333435 ctermbg=235 cterm=NONE
 hi Search                    guibg=#5A647E ctermfg=NONE ctermbg=236 cterm=underline
 hi Visual                    guibg=#5A647E ctermbg=60
@@ -81,7 +74,7 @@ hi Constant                  guifg=#6D9CBE ctermfg=73
 hi Define                    guifg=#CC7833 ctermfg=173
 
 "rubyInterpolation
-hi Delimiter                 guifg=#519F50
+hi Delimiter                 guifg=#6d9cbe
 
 "rubyError, rubyInvalidVariable
 hi Error                     guifg=#FFFFFF guibg=#990000 ctermfg=221 ctermbg=88
@@ -142,4 +135,13 @@ hi pandocEmphasis           gui=italic
 hi pandocFootnoteBlock      guifg=#909090
 hi pandocFootnoteID         guifg=#A5C261
 
+hi link texStatement        Delimiter
+hi texTypeStyle             guifg=#7cc379
+hi texSection               guifg=#da4939
+hi link texRefZone          String
+hi link texSectionName      texRefZone
+hi link texSectionMarker    texSection
+
+hi EasyMotionTargetDefault  guifg=red gui=bold
+hi EasyMotionShadeDefault   guifg=#666666
 " }}}
