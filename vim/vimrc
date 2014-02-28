@@ -18,17 +18,18 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'pangloss/vim-javascript'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-repeat'
 Bundle 'vim-pandoc/vim-pandoc'
 Bundle 'Keithbsmiley/rspec.vim'
 Bundle 'SirVer/ultisnips'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'guns/vim-clojure-static'
-Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'Keithbsmiley/rspec.vim'
-Bundle 'gisraptor/vim-lilypond-integrator'
-" Bundle 'jiangmiao/auto-pairs'
 Bundle 'bufkill.vim'
-Bundle 'slimv.vim'
+" Bundle 'derekwyatt/vim-scala'
+" Bundle 'guns/vim-clojure-static'
+" Bundle 'kien/rainbow_parentheses.vim'
+" Bundle 'gisraptor/vim-lilypond-integrator'
+Bundle 'jiangmiao/auto-pairs'
+" Bundle 'slimv.vim'
 
 filetype plugin indent on           " required!
 
@@ -141,7 +142,7 @@ let g:netrw_liststyle=3     " tree style
 
 " }}}
 " EasyMotion --------------------------------------------------{{{
-nnoremap <leader>f :call EasyMotion#F(0, 0)<CR>
+nmap <leader>f <plug>(easymotion-s)
 " }}}
 " }}}
 
@@ -210,11 +211,12 @@ let g:UltiSnipsSnippetsDirectories = ['UltiSnips']
 let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/UltiSnips'
 let g:UltiSnipsEditSplit = 'horizontal'
 " }}}
-" Latex -------------------------------------------------------{{{
+" LaTeX -------------------------------------------------------{{{
 let g:tex_flavor = "latex"
 augroup ft_tex
     au!
     au Filetype tex,bib setlocal tabstop=2 shiftwidth=2 textwidth=78
+    au Filetype tex,bib color mjm-latex
     au Filetype tex setlocal formatoptions+=t
     au Filetype bib setlocal foldmethod=syntax
     au Filetype tex :nnoremap <buffer> <C-g> mzgqap`z
