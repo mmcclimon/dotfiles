@@ -3,7 +3,7 @@ set guioptions-=L
 set guioptions-=r
 
 if has("macunix")
-    set guifont=Source\ Code\ Pro
+    set guifont=Inconsolata-dz
 elseif has("unix")
     set guifont=DejaVu\ Sans\ Mono
 endif
