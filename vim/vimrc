@@ -14,6 +14,7 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-vinegar'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
+Bundle 'vim-php/tagbar-phpctags.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'pangloss/vim-javascript'
 Bundle 'tpope/vim-surround'
@@ -136,17 +137,7 @@ let g:netrw_liststyle=3     " tree style
 " }}}
 " EasyMotion --------------------------------------------------{{{
 nmap <leader>f <plug>(easymotion-s)
-" }}}
-" }}}
-
-" MiniBufExplorer ---------------------------------------------{{{
-if has("gui_running")
-    let g:miniBufExplorerMoreThanOne=0
-endif
-
-hi link MBEVisibleChangedActive Statement
-hi link MBEVisibleNormal Normal
-hi link MBEVisibleChanged Underlined
+let g:EasyMotion_smartcase = 1
 " }}}
 " CtrlP -------------------------------------------------------{{{
 " use ack to find known files
@@ -191,6 +182,8 @@ nnoremap <C-x><C-k> :w<bar>BW<cr>
 
 " Tagbar ------------------------------------------------------{{{
 let g:tagbar_iconchars = ['▸', '▾']
+let g:tagbar_phpctags_bin='~/bin/ctags'
+let g:tagbar_phpctags_bin='~/bin/phpctags'
 hi TagbarVisibilityPublic guifg=#04b404
 hi TagbarVisibilityProtected guifg=#0489b1
 hi TagbarVisibilityPrivate guifg=#b40404
@@ -228,10 +221,6 @@ augroup ft_ruby
     au!
     au Filetype ruby setlocal tabstop=2 shiftwidth=2
 augroup END
-" }}}
-" SLIMV -------------------------------------------------------{{{
-let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"sbcl --load ~/.vim/bundle/slimv.vim/slime/start-swank.lisp\""'
-let g:slimv_leader = '\'
 " }}}
 " PHP ---------------------------------------------------------{{{
 augroup ft_php
@@ -273,8 +262,8 @@ function! HLNext (blinktime)
 endfunction
 
 " This rewires n and N to do the highlighing...
-nnoremap <silent> n   n:call HLNext(0.4)<cr>
-nnoremap <silent> N   N:call HLNext(0.4)<cr>
+nnoremap <silent> n   n:call HLNext(0.3)<cr>
+nnoremap <silent> N   N:call HLNext(0.3)<cr>
 " }}}
 
 

@@ -4,10 +4,11 @@ pblue="%{$fg_no_bold[blue]%}"
 reset="%{$reset_color%}"
 
 # assumes 'colors' has been sourced before this
-eval pgray='$FG[234]'
+eval pgray='$FG[241]'
 #eval branch_c='%{$fg[green]%}'
 eval branch_c='$FG[023]'
 eval status_c='$FG[009]'
+eval venv_c='$FG[022]'
 
 # Git prompt info
 ############################
@@ -41,8 +42,22 @@ function _gprompt() {
     git_prompt=$gprompt
 }
 
+venv_prompt=''
+
+function _venv_prompt() {
+    local vprompt=''
+    local venv_name="${VIRTUAL_ENV##*/}"
+
+    if [ -n "$venv_name" ]; then
+        vprompt="${venv_c}(${venv_name})$reset"
+    fi
+
+    venv_prompt=$vprompt
+}
+
 function precmd() {
     _gprompt
+    _venv_prompt
 }
 
 
@@ -78,7 +93,7 @@ bindkey -M vicmd '\e' noop
 # now we can actually set the prompt
 setopt prompt_subst
 PROMPT="
-${pgray}[%18<...<%~%<<\${git_prompt}${pgray}]${reset} \${vim_prompt} "
+\${venv_prompt}${pgray}[%18<...<%~%<<\${git_prompt}${pgray}]${reset} \${vim_prompt} "
 
 RPS1="${pgray}%*${reset}"
 

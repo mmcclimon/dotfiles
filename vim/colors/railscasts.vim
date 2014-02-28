@@ -142,4 +142,6 @@ hi pandocEmphasis           gui=italic
 hi pandocFootnoteBlock      guifg=#909090
 hi pandocFootnoteID         guifg=#A5C261
 
+hi MatchParen               guifg=#00cc00 guibg=#333333 gui=underline
+
 " }}}
