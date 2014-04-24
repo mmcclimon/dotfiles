@@ -4,7 +4,7 @@ pblue="%{$fg_no_bold[blue]%}"
 reset="%{$reset_color%}"
 
 # assumes 'colors' has been sourced before this
-eval pgray='$FG[241]'
+eval pgray='$FG[242]'
 #eval branch_c='%{$fg[green]%}'
 eval branch_c='$FG[023]'
 eval status_c='$FG[009]'
@@ -96,5 +96,3 @@ PROMPT="
 \${venv_prompt}${pgray}[%18<...<%~%<<\${git_prompt}${pgray}]${reset} \${vim_prompt} "
 
 RPS1="${pgray}%*${reset}"
-
-

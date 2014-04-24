@@ -57,8 +57,6 @@ alias gc='git commit'
 alias ga='git add'
 
 # misc.
-alias gvim="mvim"
-alias mvc='mvim --servername mvim --remote-silent'
-alias mvcc='mvim --servername mvim'
 alias latexwatch='latexmk -xelatex -pvc'
 alias info='info --vi-keys'
+alias throttle_wifi='sudo iw dev wlan0 set bitrates legacy-2.4 1 2 5.5 11'

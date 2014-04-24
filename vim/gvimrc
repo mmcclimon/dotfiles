@@ -1,6 +1,7 @@
 set guioptions-=T
 set guioptions-=L
 set guioptions-=r
+set guioptions-=m
 
 if has("macunix")
     set guifont=Inconsolata-dz
@@ -13,3 +14,5 @@ set cc=78
 
 "nerdtree
 nnoremap <F8> :TagbarToggle<CR>
+
+color railscasts

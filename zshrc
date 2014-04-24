@@ -16,3 +16,4 @@ source $LIB_PATH/termsupport.zsh
 
 autoload -U compinit
 compinit -C
+

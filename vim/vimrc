@@ -75,7 +75,7 @@ set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
 set splitright
 
 set background=dark
-color railscasts
+color solarized
 
 if has('mouse')
   set mouse=a
