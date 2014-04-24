@@ -10,6 +10,10 @@ setopt long_list_jobs
 
 ## pager
 export PAGER="less"
-export LESS="-R"
+export LESS="-RFX"
+export EDITOR=vim
 
 export LC_CTYPE=$LANG
+export VIRTUAL_ENV_DISABLE_PROMPT=true
+
+hr() { printf '-%.0s' $(seq $COLUMNS) }

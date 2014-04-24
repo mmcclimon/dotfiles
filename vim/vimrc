@@ -14,21 +14,16 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-vinegar'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
+Bundle 'vim-php/tagbar-phpctags.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'pangloss/vim-javascript'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
-Bundle 'vim-pandoc/vim-pandoc'
+Bundle 'tpope/vim-repeat'
 Bundle 'Keithbsmiley/rspec.vim'
 Bundle 'SirVer/ultisnips'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'guns/vim-clojure-static'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'Keithbsmiley/rspec.vim'
-Bundle 'gisraptor/vim-lilypond-integrator'
-" Bundle 'jiangmiao/auto-pairs'
 Bundle 'bufkill.vim'
-Bundle 'slimv.vim'
+Bundle 'AutoClose'
 
 filetype plugin indent on           " required!
 
@@ -141,18 +136,8 @@ let g:netrw_liststyle=3     " tree style
 
 " }}}
 " EasyMotion --------------------------------------------------{{{
-nnoremap <leader>f :call EasyMotion#F(0, 0)<CR>
-" }}}
-" }}}
-
-" MiniBufExplorer ---------------------------------------------{{{
-if has("gui_running")
-    let g:miniBufExplorerMoreThanOne=0
-endif
-
-hi link MBEVisibleChangedActive Statement
-hi link MBEVisibleNormal Normal
-hi link MBEVisibleChanged Underlined
+nmap <leader>f <plug>(easymotion-s)
+let g:EasyMotion_smartcase = 1
 " }}}
 " CtrlP -------------------------------------------------------{{{
 " use ack to find known files
@@ -197,6 +182,8 @@ nnoremap <C-x><C-k> :w<bar>BW<cr>
 
 " Tagbar ------------------------------------------------------{{{
 let g:tagbar_iconchars = ['▸', '▾']
+let g:tagbar_phpctags_bin='~/bin/ctags'
+let g:tagbar_phpctags_bin='~/bin/phpctags'
 hi TagbarVisibilityPublic guifg=#04b404
 hi TagbarVisibilityProtected guifg=#0489b1
 hi TagbarVisibilityPrivate guifg=#b40404
@@ -210,11 +197,12 @@ let g:UltiSnipsSnippetsDirectories = ['UltiSnips']
 let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/UltiSnips'
 let g:UltiSnipsEditSplit = 'horizontal'
 " }}}
-" Latex -------------------------------------------------------{{{
+" LaTeX -------------------------------------------------------{{{
 let g:tex_flavor = "latex"
 augroup ft_tex
     au!
     au Filetype tex,bib setlocal tabstop=2 shiftwidth=2 textwidth=78
+    au Filetype tex,bib color mjm-latex
     au Filetype tex setlocal formatoptions+=t
     au Filetype bib setlocal foldmethod=syntax
     au Filetype tex :nnoremap <buffer> <C-g> mzgqap`z
@@ -233,10 +221,6 @@ augroup ft_ruby
     au!
     au Filetype ruby setlocal tabstop=2 shiftwidth=2
 augroup END
-" }}}
-" SLIMV -------------------------------------------------------{{{
-let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"sbcl --load ~/.vim/bundle/slimv.vim/slime/start-swank.lisp\""'
-let g:slimv_leader = '\'
 " }}}
 " PHP ---------------------------------------------------------{{{
 augroup ft_php
@@ -278,8 +262,8 @@ function! HLNext (blinktime)
 endfunction
 
 " This rewires n and N to do the highlighing...
-nnoremap <silent> n   n:call HLNext(0.4)<cr>
-nnoremap <silent> N   N:call HLNext(0.4)<cr>
+nnoremap <silent> n   n:call HLNext(0.3)<cr>
+nnoremap <silent> N   N:call HLNext(0.3)<cr>
 " }}}
 
 
@@ -289,9 +273,9 @@ function! CreateOrSwitchToScratchBuffer()
         badd _scratch
         buffer _scratch
         set buftype=nofile
-        set filetype=pandoc
-        call append(0, '% This is a scratch buffer, set up with ft=pandoc')
-        call append(1, '% You cannot save this file unless you write it somewhere else first')
+        set filetype=markdown
+        call append(0, '<!-- This is a scratch buffer, set up with ft=markdown -->')
+        call append(1, '<!-- You cannot save this file unless you write it somewhere else first -->')
     else
         buffer _scratch
     endif
