@@ -1,8 +1,8 @@
 typeset -U path     # uniques
 
 # make sure right perl/ruby are here
-export PERLBREW_ROOT=~/perl5/perlbrew
-source ~/perl5/perlbrew/etc/bashrc
+export PERLBREW_ROOT=~/.perl5/perlbrew
+source ~/.perl5/perlbrew/etc/bashrc
 source ~/.rvm/scripts/rvm
 
 function prepend_to_path    { path=("$1" $path); }
