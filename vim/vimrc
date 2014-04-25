@@ -23,7 +23,6 @@ Bundle 'tpope/vim-repeat'
 Bundle 'Keithbsmiley/rspec.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'bufkill.vim'
-Bundle 'AutoClose'
 
 filetype plugin indent on           " required!
 
@@ -193,7 +192,7 @@ hi TagbarVisibilityPrivate guifg=#b40404
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
 " }}}
 " UltiSnips ---------------------------------------------------{{{
-let g:UltiSnipsSnippetsDirectories = ['UltiSnips']
+let g:UltiSnipsSnippetDirectories = ['UltiSnips']
 let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/UltiSnips'
 let g:UltiSnipsEditSplit = 'horizontal'
 " }}}

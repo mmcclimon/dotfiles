@@ -2,7 +2,7 @@
         name = Michael McClimon
         email = michael@mcclimon.org
 [core]
-        excludesfile = /Users/michael/.gitignore_global
+	excludesfile = /Users/michael/.gitignore_global
         editor = /usr/local/bin/mvim --servername MVIM --remote-wait-silent
 [credential]
         helper = osxkeychain
@@ -14,3 +14,9 @@
 
 [push]
         default = matching
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
