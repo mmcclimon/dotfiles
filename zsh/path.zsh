@@ -10,8 +10,9 @@ function append_to_path     { path+=("$1"); }
 function prepend_to_manpath { manpath=("$1" $manpath); }
 function append_to_manpath  { manpath+=("$1"); }
 
-prepend_to_path ~/bin
 prepend_to_path /usr/local/texlive/2013/bin/i386-linux
+prepend_to_path /usr/local/bin
+prepend_to_path ~/bin
 
 append_to_manpath /usr/local/texlive/2013/texmf-dist/doc/man
 
