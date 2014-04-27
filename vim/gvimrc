@@ -1,11 +1,12 @@
 set guioptions-=T
 set guioptions-=L
 set guioptions-=r
+set guioptions-=m
 
 if has("macunix")
     set guifont=Inconsolata-dz
 elseif has("unix")
-    set guifont=DejaVu\ Sans\ Mono
+    set guifont=Consolas\ 8
 endif
 
 " vertical guide
@@ -13,3 +14,5 @@ set cc=78
 
 "nerdtree
 nnoremap <F8> :TagbarToggle<CR>
+
+color railscasts
