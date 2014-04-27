@@ -1,0 +1,9 @@
+set author-width = 5
+set show-id = true
+set show-date = false
+
+# capital R rebases interactively on that commit
+bind main R !<git rebase -i %(commit)
+
+# colors
+color id    blue default
