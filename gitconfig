@@ -2,7 +2,7 @@
         name = Michael McClimon
         email = michael@mcclimon.org
 [core]
-        excludesfile = /Users/michael/.gitignore_global
+        excludesfile = /home/michael/.gitignore_global
         editor = vim
 [credential]
 	helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
