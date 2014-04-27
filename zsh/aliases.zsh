@@ -60,3 +60,4 @@ alias ga='git add'
 alias latexwatch='latexmk -xelatex -pvc'
 alias info='info --vi-keys'
 alias throttle_wifi='sudo iw dev wlan0 set bitrates legacy-2.4 1 2 5.5 11'
+alias tmux="tmux -2"
