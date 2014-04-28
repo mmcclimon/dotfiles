@@ -1,9 +1,23 @@
-set author-width = 5
 set show-id = true
-set show-date = false
+set author-width = 5
+set show-date = short
+set line-graphics = ascii
 
 # capital R rebases interactively on that commit
 bind main R !<git rebase -i %(commit)
 
 # colors
-color id    blue default
+color id color25 default
+color date color23 default
+color cursor color250 color24
+color title-focus default color23
+
+# graph colors
+color graph-commit color52 default
+color palette-0 color58 default
+color palette-1 color64 default
+color palette-2 color72 default
+color palette-3 color34 default
+color palette-4 color39 default
+color palette-5 color117 default
+color palette-6 color94 default
