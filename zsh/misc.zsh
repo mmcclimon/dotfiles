@@ -15,6 +15,8 @@ export EDITOR=vim
 export LESS="-R"
 export MANLESS=''
 
+export TERM='xterm-256color'
+
 export LC_CTYPE=$LANG
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 
