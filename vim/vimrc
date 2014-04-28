@@ -4,25 +4,26 @@ set nocompatible
 " Vundle ------------------------------------------------------{{{
 filetype off                        " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " Vundle must manage itself!
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
-" Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-vinegar'
-Bundle 'kien/ctrlp.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'vim-php/tagbar-phpctags.vim'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'pangloss/vim-javascript'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-repeat'
-Bundle 'Keithbsmiley/rspec.vim'
-Bundle 'SirVer/ultisnips'
-Bundle 'bufkill.vim'
+Plugin 'bufkill.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Keithbsmiley/rspec.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'vim-php/tagbar-phpctags.vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'tpope/vim-fugitive'
+Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-vinegar'
+
+call vundle#end()
 
 filetype plugin indent on           " required!
 
