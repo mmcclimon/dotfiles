@@ -22,8 +22,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'Keithbsmiley/rspec.vim'
 Bundle 'SirVer/ultisnips'
+Bundle 'jnwhiteh/vim-golang'
 Bundle 'bufkill.vim'
-Bundle 'AutoClose'
 
 filetype plugin indent on           " required!
 
@@ -244,6 +244,13 @@ augroup END
 augroup ft_makefile
     au!
     au Filetype make setlocal tabstop=4 shiftwidth=4
+augroup END
+" }}}
+" Golang ------------------------------------------------------{{{
+augroup ft_golang
+    au!
+    au Filetype go setlocal noexpandtab
+    au Filetype go autocmd BufWritePre <buffer> Fmt
 augroup END
 " }}}
 
