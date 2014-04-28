@@ -144,4 +144,7 @@ hi link texSectionMarker    texSection
 
 hi EasyMotionTargetDefault  guifg=red gui=bold
 hi EasyMotionShadeDefault   guifg=#666666
+
+hi MatchParen               gui=bold guibg=#333333 guifg=#00aa00
+
 " }}}

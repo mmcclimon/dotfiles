@@ -68,7 +68,7 @@ set number
 set hidden
 set wildmenu
 set wildmode=list:longest
-set wildignore+=.git,.svn,local,build
+set wildignore+=.git,.svn,local,build,vendor,.sass-cache
 set list
 set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
 set splitright
@@ -141,7 +141,8 @@ let g:EasyMotion_smartcase = 1
 " CtrlP -------------------------------------------------------{{{
 " use ack to find known files
 " let g:ctrlp_user_command = 'ack -f'
-let g:ctrlp_custom_ignore = "*.swp,*.zip,.git/*"
+let g:ctrlp_show_hidden = 0
+let g:ctrlp_custom_ignore = "*.swp,*.zip,.git/*,build/*,.sass-cache.*,vendor,local,doc,db"
 nnoremap <leader>b :CtrlPBuffer<cr>
 " }}}
 " vim-pandoc---------------------------------------------------{{{
