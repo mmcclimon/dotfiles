@@ -178,6 +178,18 @@
 		</menu>
 		<menu id="network" label="Network">
 		    <menu execute="cb-x-www-browser-pipemenu" id="wwwbrowsers" label="WWW Browsers"/>
+			<menu id="Web Browsers">
+				<action name="Firefox">
+					<command>
+						firefox
+					</command>
+				</action>
+				<action name="Chrome">
+					<command>
+						google-chrome
+					</command>
+				</action>
+			</menu>
 			<item label="gFTP Client">
 				<action name="Execute">
 					<command>

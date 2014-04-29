@@ -59,5 +59,6 @@ alias ga='git add'
 # misc.
 alias latexwatch='latexmk -xelatex -pvc'
 alias info='info --vi-keys'
+alias remap_keyboard="xmodmap ~/.Xmodmaprc; xcape -e 'Control_L=Escape'"
 alias throttle_wifi='sudo iw dev wlan0 set bitrates legacy-2.4 1 2 5.5 11'
 alias tmux="tmux -2"
