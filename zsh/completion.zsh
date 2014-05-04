@@ -67,3 +67,5 @@ if [ "x$COMPLETION_WAITING_DOTS" = "xtrue" ]; then
   zle -N expand-or-complete-with-dots
   bindkey "^I" expand-or-complete-with-dots
 fi
+
+fpath=(/usr/local/share/zsh/site-functions $fpath)
