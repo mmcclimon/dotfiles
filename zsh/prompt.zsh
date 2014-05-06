@@ -55,8 +55,23 @@ function _venv_prompt() {
     venv_prompt=$vprompt
 }
 
+svn_prompt=''
+
+function _svn_prompt() {
+    local sprompt=''
+    if [ -d '.svn' ]; then
+        local rev=$(svn info 2>/dev/null | grep '^Revision' | sed -e 's/Revision: //')
+        local dirty=''
+        [ "$(svn status)" ] && dirty="$status_c*$reset"
+        sprompt=" at ${branch_c}r${rev}${reset}${dirty}"
+    fi
+
+    svn_prompt="${sprompt}"
+}
+
 function precmd() {
     _gprompt
+    _svn_prompt
     _venv_prompt
 }
 
@@ -93,6 +108,6 @@ bindkey -M vicmd '\e' noop
 # now we can actually set the prompt
 setopt prompt_subst
 PROMPT="
-\${venv_prompt}${pgray}[%18<...<%~%<<\${git_prompt}${pgray}]${reset} \${vim_prompt} "
+\${venv_prompt}${pgray}[%18<...<%~%<<\${git_prompt}${pgray}\${svn_prompt}]${reset} \${vim_prompt} "
 
 RPS1="${pgray}%*${reset}"
