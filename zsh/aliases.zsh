@@ -51,10 +51,18 @@ alias sl=ls # often screw this up
 alias .='source'
 
 # git
-alias gs='git status -sb'
 alias gd='git diff'
 alias gc='git commit'
 alias ga='git add'
+
+# use gs for '$VCS status' all the time
+function gs() {
+    if [ -d '.svn' ]; then
+        svn status
+    else
+        git status -sb
+    fi
+}
 
 # misc.
 alias latexwatch='latexmk -xelatex -pvc'
