@@ -59,7 +59,9 @@ svn_prompt=''
 
 function _svn_prompt() {
     local sprompt=''
-    if [ -d '.svn' ]; then
+    local sdir="$(svn info 2>/dev/null)"
+
+    if [ -n "$sdir" ]; then
         local rev=$(svn info 2>/dev/null | grep '^Revision' | sed -e 's/Revision: //')
         local dirty=''
         [ "$(svn status)" ] && dirty="$status_c*$reset"

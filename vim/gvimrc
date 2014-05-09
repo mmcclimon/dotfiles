@@ -4,7 +4,7 @@ set guioptions-=r
 set guioptions-=m
 
 if has("macunix")
-    set guifont=Inconsolata-dz
+    set guifont=Consolas:h11
 elseif has("unix")
     set guifont=Consolas\ 8
 endif

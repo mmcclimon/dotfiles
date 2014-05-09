@@ -51,20 +51,28 @@ alias sl=ls # often screw this up
 alias .='source'
 
 # git
-alias gd='git diff'
 alias gc='git commit'
 alias ga='git add'
 
 # use gs for '$VCS status' all the time
 function gs() {
-    if [ -d '.svn' ]; then
-        svn status
+    local svndir="$(svn info 2>/dev/null)"
+    if [ -n "$svndir" ]; then
+        svn status --ignore-externals -q
     else
         git status -sb
+    fi
+}
+
+function gd() {
+    local svndir="$(svn info 2>/dev/null)"
+    if [ -n "$svndir" ]; then
+        svn diff | view -
+    else
+        git diff
     fi
 }
 
 # misc.
 alias latexwatch='latexmk -xelatex -pvc'
 alias info='info --vi-keys'
-alias throttle_wifi='sudo iw dev wlan0 set bitrates legacy-2.4 1 2 5.5 11'
