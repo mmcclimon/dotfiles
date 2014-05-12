@@ -58,7 +58,7 @@ alias ga='git add'
 function gs() {
     local svndir="$(svn info 2>/dev/null)"
     if [ -n "$svndir" ]; then
-        svn status --ignore-externals -q
+        svn status --ignore-externals | grep -v '^X'
     else
         git status -sb
     fi

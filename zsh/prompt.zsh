@@ -64,7 +64,7 @@ function _svn_prompt() {
     if [ -n "$sdir" ]; then
         local rev=$(svn info 2>/dev/null | grep '^Revision' | sed -e 's/Revision: //')
         local dirty=''
-        [ "$(svn status)" ] && dirty="$status_c*$reset"
+        [ "$(svn status --ignore-externals | grep -v '^X')" ] && dirty="$status_c*$reset"
         sprompt=" at ${branch_c}r${rev}${reset}${dirty}"
     fi
 
