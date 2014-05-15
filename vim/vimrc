@@ -10,6 +10,7 @@ call vundle#begin()
 " Vundle must manage itself!
 Plugin 'gmarik/Vundle.vim'
 
+Plugin 'dagwieers/asciidoc-vim'
 Plugin 'bufkill.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
@@ -234,6 +235,12 @@ augroup END
 augroup ft_markdown
     au!
     au Filetype markdown set textwidth=78
+augroup END
+" }}}
+" AsciiDoc ----------------------------------------------------{{{
+augroup ft_asciidoc
+    au!
+    au BufNewFile,BufRead *.adoc set filetype=asciidoc
 augroup END
 " }}}
 " JavaScript --------------------------------------------------{{{
