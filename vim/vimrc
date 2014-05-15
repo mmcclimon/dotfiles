@@ -255,6 +255,12 @@ augroup ft_makefile
     au Filetype make setlocal tabstop=4 shiftwidth=4
 augroup END
 " }}}
+" Diff files --------------------------------------------------{{{
+augroup ft_diff
+    au!
+    au Filetype diff setlocal nonumber
+augroup END
+" }}}
 
 " Better search highlighting ----------------------------------{{{
 highlight WhiteOnRed guibg=#da4939 guifg=white

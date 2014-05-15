@@ -2,6 +2,7 @@
 delete.field = {Bdsk-File-1}
 delete.field = {Bdsk-Url-1}
 delete.field = {Date-Modified}
+delete.field = {Date-Added}
 
 # pretty-print settings
 print.use.tab = off
