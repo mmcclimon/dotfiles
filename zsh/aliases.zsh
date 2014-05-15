@@ -67,9 +67,9 @@ function gs() {
 function gd() {
     local svndir="$(svn info 2>/dev/null)"
     if [ -n "$svndir" ]; then
-        svn diff | view -
+        svn diff "$@" | view -
     else
-        git diff
+        git diff "$@"
     fi
 }
 
