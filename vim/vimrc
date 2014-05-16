@@ -182,7 +182,7 @@ augroup END
 " edit messages, etc.)
 nnoremap <C-x><C-c> :w<bar>BD<cr>
 nnoremap <C-x><C-k> :w<bar>BW<cr>
-
+" }}}
 " Tagbar ------------------------------------------------------{{{
 let g:tagbar_iconchars = ['▸', '▾']
 let g:tagbar_phpctags_bin='~/bin/ctags'
@@ -229,6 +229,7 @@ augroup END
 augroup ft_php
     au!
     au Filetype php setlocal tabstop=4 shiftwidth=4
+    au BufNewFile,BufRead *.thtml set filetype=php
 augroup END
 " }}}
 " Markdown ----------------------------------------------------{{{
