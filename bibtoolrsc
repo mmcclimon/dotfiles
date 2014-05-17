@@ -14,10 +14,10 @@ print.wide.equal = on
 # fields order, just like biborder
 sort = on
 sort.order = {
-    * = author # editor # key # booktitle # title # shorttitle # sorttitle #
-        crossref # chapter # journal # volume # type # number # howpublished #
-        institution # organization # address # publisher # school # edition #
-        pages # day # month # year # note
+    * = author # editor # key # booktitle # title # subtitle # shorttitle #
+        sorttitle # crossref # chapter # journal # volume # type # number #
+        howpublished # institution # organization # address # publisher # school #
+        edition # pages # day # month # year # note
 }
 
 # lowercase types
