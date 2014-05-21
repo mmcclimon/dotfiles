@@ -10,8 +10,10 @@ call vundle#begin()
 " Vundle must manage itself!
 Plugin 'gmarik/Vundle.vim'
 
+Plugin 'dagwieers/asciidoc-vim'
 Plugin 'bufkill.vim'
 Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
 Plugin 'Keithbsmiley/rspec.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-php/tagbar-phpctags.vim'
@@ -235,6 +237,12 @@ augroup ft_markdown
     au Filetype markdown set textwidth=78
 augroup END
 " }}}
+" AsciiDoc ----------------------------------------------------{{{
+augroup ft_asciidoc
+    au!
+    au BufNewFile,BufRead *.adoc set filetype=asciidoc
+augroup END
+" }}}
 " JavaScript --------------------------------------------------{{{
 augroup ft_javascript
     au!
@@ -245,6 +253,12 @@ augroup END
 augroup ft_makefile
     au!
     au Filetype make setlocal tabstop=4 shiftwidth=4
+augroup END
+" }}}
+" Diff files --------------------------------------------------{{{
+augroup ft_diff
+    au!
+    au Filetype diff setlocal nonumber
 augroup END
 " }}}
 
