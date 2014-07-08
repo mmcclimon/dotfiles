@@ -12,8 +12,9 @@ setopt long_list_jobs
 export PAGER="less"
 export LESS="-RFX"
 export EDITOR=vim
-export LESS="-R"
 export MANLESS=''
+
+export VIM="/usr/local/vimscript/runtime"
 
 export LC_CTYPE=$LANG
 export VIRTUAL_ENV_DISABLE_PROMPT=true

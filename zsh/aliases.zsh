@@ -76,3 +76,4 @@ function gd() {
 # misc.
 alias latexwatch='latexmk -xelatex -pvc'
 alias info='info --vi-keys'
+alias seleniumserver='java -jar /usr/local/lib/selenium-server-standalone-2.41.0.jar -Dwebdriver.firefox.bin=/Users/michael/Applications/Firefox.app/Contents/MacOS/firefox-bin'
