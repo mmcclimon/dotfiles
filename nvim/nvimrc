@@ -1,0 +1,217 @@
+set nocompatible
+
+" Vundle ------------------------------------------------------{{{
+filetype off                        " required!
+
+set rtp+=~/.nvim/bundle/Vundle.vim
+call vundle#rc()
+
+" Vundle must manage itself!
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'chriskempson/base16-vim'
+Plugin 'bufkill.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Keithbsmiley/rspec.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'vim-php/tagbar-phpctags.vim'
+Plugin 'guns/vim-clojure-static'
+Plugin 'Lokaltog/vim-easymotion'
+" Plugin 'jratner/vim-flavored-markdown'
+Plugin 'tpope/vim-fugitive'
+Plugin 'pangloss/vim-javascript'
+Plugin 'vim-perl/vim-perl'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+
+" call vundle#end()
+
+filetype plugin indent on           " required!
+" }}}
+
+" Text Editing ------------------------------------------------{{{
+syntax on
+
+set backspace=indent,eol,start
+set autoindent
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set textwidth=78
+set expandtab
+" }}}
+" UI ----------------------------------------------------------{{{
+set history=50      " keep 50 lines of command line history
+set ruler           " show the cursor position all the time
+set showcmd         " display incomplete commands
+set incsearch       " do incremental searching
+set hlsearch
+set ignorecase
+set smartcase
+set laststatus=2
+set relativenumber
+" set number
+" set norelativenumber
+set hidden
+set wildmenu
+set wildmode=list:longest
+set wildignore+=.git,.svn,local,build,vendor,.sass-cache
+set list
+set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
+" set fillchars=diff:⣿,vert:\|
+set fillchars=diff:⣿,vert:\│
+set splitright
+function! SyntaxItem()
+    return synIDattr(synID(line("."),col("."),1),"name")
+endfunction
+
+set statusline=%<%f\ %h%m%r\ %{SyntaxItem()}%=%-14.(%l,%c%V%)\ %P
+
+" Color -------------------------------------------------------{{{
+color base16-default
+hi VertSplit ctermbg=none
+set cc=78
+" }}}
+
+if has('mouse')
+  set mouse=a
+endif
+" }}}
+" Folding -----------------------------------------------------{{{
+set nofoldenable
+set foldlevel=10
+augroup folding
+    au!
+    au BufReadPre * setlocal foldmethod=indent
+    au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+augroup END
+" }}}
+" Global mappings ---------------------------------------------{{{
+let mapleader=","
+let maplocalleader = '\'
+
+nnoremap ; :
+nnoremap : ;
+
+nnoremap <silent> <leader>s :nohls<CR>
+nnoremap q: <Nop>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+nnoremap <F8> :TagbarToggle<CR>
+
+" Uppercase last word in insert mode (stolen from Steve Losh).
+" Overwrites z mark
+inoremap <C-u> <esc>mzgUiw`za
+
+" }}}
+" Plugins -----------------------------------------------------{{{
+" CtrlP -------------------------------------------------------{{{
+nnoremap <leader>b :CtrlPBuffer<cr>
+" }}}
+" FixWhitespace------------------------------------------------{{{
+function! FixWhitespace()
+    let l:save_cursor = getpos(".")
+    silent! execute ':%s/\s\+$//'
+    call setpos('.', l:save_cursor)
+endfunction
+
+augroup trailing
+    au!
+    au InsertEnter * :set listchars-=trail:·
+    au InsertLeave * :set listchars+=trail:·
+augroup END
+
+augroup prewrite
+    au!
+    au BufWritePre * call FixWhitespace()
+augroup END
+" }}}
+" Bufkill -----------------------------------------------------{{{
+" Make c-x c-k write and wipe a buffer (useful for git commit
+" edit messages, etc.)
+nnoremap <C-x><C-k> :w<bar>BW<cr>
+" }}}
+" NERDTree ----------------------------------------------------{{{
+nnoremap <F5> :NERDTreeToggle<CR>
+augroup ps_nerdtree
+    au!
+    au Filetype nerdtree setlocal nolist
+    au Filetype nerdtree nnoremap <buffer> H :vertical resize -5<cr>
+    au Filetype nerdtree nnoremap <buffer> L :vertical resize +5<cr>
+augroup END
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDChristmasTree = 1
+let NERDTreeChDirMode = 2
+let NERDTreeHighlightCursorline = 1
+" }}}
+" Tagbar ------------------------------------------------------{{{
+let g:tagbar_iconchars = ['▸', '▾']
+let g:tagbar_phpctags_bin='~/bin/ctags'
+let g:tagbar_phpctags_bin='~/bin/phpctags'
+" hi TagbarVisibilityPublic guifg=#04b404
+" hi TagbarVisibilityProtected guifg=#0489b1
+" hi TagbarVisibilityPrivate guifg=#b40404
+" }}}
+" }}}
+" Filetypes ---------------------------------------------------{{{
+au BufEnter /private/tmp/crontab.* setl backupcopy=yes
+" LaTeX -------------------------------------------------------{{{
+let g:tex_flavor = "latex"
+augroup ft_tex
+    au!
+    au Filetype tex,bib setlocal tabstop=2 shiftwidth=2 textwidth=78
+    " au Filetype tex,bib color mjm-latex
+    au Filetype tex setlocal formatoptions+=t
+    au Filetype bib setlocal foldmethod=syntax
+    au Filetype tex :nnoremap <buffer> <C-g> mzgqap`z
+    " better quotes
+    au Filetype tex :inoremap <buffer> ` ‘
+    au Filetype tex :inoremap <buffer> ' ’
+    au Filetype tex :inoremap <buffer> `` “
+    au Filetype tex :inoremap <buffer> '' ”
+    au Filetype tex :inoremap <buffer> '' ”
+augroup END
+" }}}
+" PHP ---------------------------------------------------------{{{
+augroup ft_php
+    au!
+    au Filetype php setlocal tabstop=4 shiftwidth=4
+    au BufNewFile,BufRead *.thtml set filetype=php
+augroup END
+" }}}
+" Makefiles ---------------------------------------------------{{{
+augroup ft_makefile
+    au!
+    au Filetype make setlocal tabstop=4 shiftwidth=4
+augroup END
+" }}}
+" Diff files --------------------------------------------------{{{
+augroup ft_diff
+    au!
+    au Filetype diff setlocal nonumber
+augroup END
+" }}}
+" }}}
+" Scratch buffers ---------------------------------------------{{{
+function! CreateOrSwitchToScratchBuffer()
+    if buflisted("_scratch") == 0
+        badd _scratch
+        buffer _scratch
+        set buftype=nofile
+        set filetype=markdown
+        call append(0, '<!-- This is a scratch buffer, set up with ft=markdown -->')
+        call append(1, '<!-- You cannot save this file unless you write it somewhere else first -->')
+    else
+        buffer _scratch
+    endif
+endfunction
+
+nnoremap <C-x><C-b> :call CreateOrSwitchToScratchBuffer()<CR>
+" }}}
+
+" vim: ft=vim fdm=marker

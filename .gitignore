@@ -5,3 +5,4 @@ emacs.d/backups
 
 # Vundle will handle this, so I stop dealing with stupid subprojects
 vim/bundle
+nvim/bundle
