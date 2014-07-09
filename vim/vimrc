@@ -11,6 +11,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'dagwieers/asciidoc-vim'
+Plugin 'chriskempson/base16-vim'
 Plugin 'bufkill.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
@@ -18,9 +19,12 @@ Plugin 'Keithbsmiley/rspec.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-php/tagbar-phpctags.vim'
 Plugin 'SirVer/ultisnips'
+Plugin 'guns/vim-clojure-static'
 Plugin 'Lokaltog/vim-easymotion'
+Plugin 'jratner/vim-flavored-markdown'
 Plugin 'tpope/vim-fugitive'
 Plugin 'pangloss/vim-javascript'
+Plugin 'vim-perl/vim-perl'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
@@ -77,7 +81,7 @@ set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
 set splitright
 
 set background=dark
-color solarized
+colorscheme base16-default
 
 if has('mouse')
   set mouse=a
