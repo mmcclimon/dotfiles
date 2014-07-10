@@ -25,8 +25,6 @@ Plugin 'vim-perl/vim-perl'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 
-" call vundle#end()
-
 filetype plugin indent on           " required!
 " }}}
 
@@ -70,8 +68,11 @@ set statusline=%<%f\ %h%m%r\ %{SyntaxItem()}%=%-14.(%l,%c%V%)\ %P
 
 " Color -------------------------------------------------------{{{
 color base16-default
-hi VertSplit ctermbg=none
 set cc=78
+
+hi VertSplit ctermbg=none
+hi ModeMsg ctermfg=4 cterm=none term=none
+hi link PhpVarSelector PhpIdentifier
 " }}}
 
 if has('mouse')
