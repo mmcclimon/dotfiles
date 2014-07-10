@@ -13,6 +13,12 @@ export PAGER="less"
 export LESS="-RFX"
 export EDITOR=vim
 export MANLESS=''
+export MANWIDTH=80
+
+# play nice with tmux
+if [[ -n "$TMUX" ]]; then
+    export DISABLE_AUTO_TITLE=true
+fi
 
 export VIM="/usr/local/vimscript/runtime"
 
