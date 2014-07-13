@@ -10,7 +10,7 @@ setopt long_list_jobs
 
 ## pager
 export PAGER="less"
-export LESS="-RFX"
+export LESS="-RF"
 export EDITOR=vim
 export MANLESS=''
 export MANWIDTH=80

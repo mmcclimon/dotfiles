@@ -197,6 +197,12 @@ augroup ft_diff
     au Filetype diff setlocal nonumber
 augroup END
 " }}}
+" Git ---------------------------------------------------------{{{
+augroup ft_git
+    au!
+    au Filetype git,gitcommit,gitrebase setlocal textwidth=72
+augroup END
+" }}}
 " }}}
 " Scratch buffers ---------------------------------------------{{{
 function! CreateOrSwitchToScratchBuffer()
