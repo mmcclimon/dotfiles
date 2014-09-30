@@ -76,3 +76,4 @@ function gd() {
 # misc.
 alias latexwatch='latexmk -xelatex -pvc'
 alias info='info --vi-keys'
+alias bedtime='pmset displaysleepnow'
