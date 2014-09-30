@@ -1,0 +1,90 @@
+# snippets for MTO
+
+snippet invf "inversion symbol, footnotes" i
+".fn_inversion("${1:rn}", "${2:inv}")."
+endsnippet
+
+snippet sdf "scale degree, footnote" i
+".fn_scaledegree("${1:sd}")."
+endsnippet
+
+snippet natf "natural sign, footnote" i
+".fn_natural("${1:name}")."
+endsnippet
+
+
+snippet sharpf "sharp sign, footnote" i
+".fn_sharp("${1:name}")."
+endsnippet
+
+snippet flatf "flat sign, footnote" i
+".fn_flat("${1:name}")."
+endsnippet
+
+snippet citeaf "footnote cite" i
+".fn_cite($${1:author_year})."$0
+endsnippet
+
+snippet citerpf "footnote cite pages only" i
+".fn_cite_pages_only($${1:author_year}, "${2:pages}")."$0
+endsnippet
+
+snippet citepf "footnote cite pages" i
+".fn_cite_pages($${1:author_year}, "${2:pages}")."$0
+endsnippet
+
+snippet citeypf "footnote cite year, pages" i
+".fn_cite_year_pages($${1:author_year}, "${2:pages}")."$0
+endsnippet
+
+snippet citeyf "footnote cite year, pages" i
+".fn_cite_year($${1:author_year})."$0
+endsnippet
+
+snippet ndash "en-dash" i
+&#8211;
+endsnippet
+
+snippet inv "inversion" i
+<?php inversion("${1:RN}",${2:inv})?>$0
+endsnippet
+
+snippet citerp "cite pages only" i
+<?php cite_pages_only($${1:author_year}, "${2:pages}")?>$0
+endsnippet
+
+snippet sd "scale degree" i
+<?php scaledegree("${1:sd}")?>$0
+endsnippet
+
+snippet citeyp "cite year pages" i
+<?php cite_year_pages($${1:author_year}, "${2:pages}")?>$0
+endsnippet
+
+snippet citeyear "cite year" i
+<?php cite_year($${1:author_year})?>$0
+endsnippet
+
+snippet citea "cite" i
+<?php cite($${1:author_year})?>$0
+endsnippet
+
+snippet citep "cite pages" i
+<?php cite_pages($${1:author_year}, "${2:pages}")?>$0
+endsnippet
+
+snippet sharp "sharp" i
+<?php sharp("${1:note}")?>$0
+endsnippet
+
+snippet flat "flat" i
+<?php flat("${1:note}")?>$0
+endsnippet
+
+snippet nat "natural" i
+<?php natural("${1:note}")?>$0
+endsnippet
+
+snippet __fn "footnote" i
+<?php footnote($fn${1:num})?>
+endsnippet

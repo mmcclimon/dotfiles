@@ -1,16 +1,14 @@
-" General -----------------------------------------------------{{{
 set nocompatible
-" }}}
+
 " Vundle ------------------------------------------------------{{{
 filetype off                        " required!
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+set rtp+=~/.nvim/bundle/Vundle.vim
+call vundle#rc()
 
 " Vundle must manage itself!
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'dagwieers/asciidoc-vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'bufkill.vim'
 Plugin 'kien/ctrlp.vim'
@@ -18,23 +16,21 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Keithbsmiley/rspec.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-php/tagbar-phpctags.vim'
-Plugin 'SirVer/ultisnips'
 Plugin 'guns/vim-clojure-static'
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'jratner/vim-flavored-markdown'
+" Plugin 'jratner/vim-flavored-markdown'
 Plugin 'tpope/vim-fugitive'
 Plugin 'pangloss/vim-javascript'
 Plugin 'vim-perl/vim-perl'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-vinegar'
-
-call vundle#end()
 
 filetype plugin indent on           " required!
-
 " }}}
+
 " Text Editing ------------------------------------------------{{{
+syntax on
+
 set backspace=indent,eol,start
 set autoindent
 set smartindent
@@ -42,61 +38,46 @@ set tabstop=4
 set shiftwidth=4
 set textwidth=78
 set expandtab
-
-" }}}
-" Abbrevs -----------------------------------------------------{{{
-iabbrev teh the
-iabbrev functino function
-iabbrev Micahel Michael
-iabbrev becuase because
-iabbrev taht that
-iabbrev wiht with
-iabbrev acutal actual
-iabbrev si is
-iabbrev nto not
-iabbrev substitutino substitution
-iabbrev transformatino transformation
-iabbrev transformatinos transformations
-" }}}
-" Backups -----------------------------------------------------{{{
-set backup        " keep a backup file
-set backupdir=~/.vim/backup
-set autowrite
 " }}}
 " UI ----------------------------------------------------------{{{
 set history=50      " keep 50 lines of command line history
 set ruler           " show the cursor position all the time
 set showcmd         " display incomplete commands
 set incsearch       " do incremental searching
+set hlsearch
 set ignorecase
 set smartcase
 set laststatus=2
-set number
+set relativenumber
+" set number
+" set norelativenumber
 set hidden
 set wildmenu
 set wildmode=list:longest
 set wildignore+=.git,.svn,local,build,vendor,.sass-cache
 set list
 set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
+" set fillchars=diff:⣿,vert:\|
+set fillchars=diff:⣿,vert:\│
 set splitright
-
-set background=dark
-colorscheme base16-default
-
-if has('mouse')
-  set mouse=a
-endif
-
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
-
 function! SyntaxItem()
     return synIDattr(synID(line("."),col("."),1),"name")
 endfunction
 
 set statusline=%<%f\ %h%m%r\ %{SyntaxItem()}%=%-14.(%l,%c%V%)\ %P
+
+" Color -------------------------------------------------------{{{
+color base16-default
+set cc=78
+
+hi VertSplit ctermbg=none
+hi ModeMsg ctermfg=4 cterm=none term=none
+hi link PhpVarSelector PhpIdentifier
+" }}}
+
+if has('mouse')
+  set mouse=a
+endif
 " }}}
 " Folding -----------------------------------------------------{{{
 set nofoldenable
@@ -110,6 +91,10 @@ augroup END
 " Global mappings ---------------------------------------------{{{
 let mapleader=","
 let maplocalleader = '\'
+
+nnoremap ; :
+nnoremap : ;
+
 nnoremap <silent> <leader>s :nohls<CR>
 nnoremap q: <Nop>
 nnoremap <C-h> <C-w>h
@@ -117,51 +102,16 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-nnoremap ; :
-nnoremap : ;
+nnoremap <F8> :TagbarToggle<CR>
 
 " Uppercase last word in insert mode (stolen from Steve Losh).
 " Overwrites z mark
 inoremap <C-u> <esc>mzgUiw`za
 
-function! ExecCurrentLine()
-    let l:curline = getline('.')
-    echo ":" . l:curline
-    execute l:curline
-    sleep 1
-    redraw
-endfunction
-
-nnoremap <C-x><C-e> :call ExecCurrentLine()<CR>
-inoremap <c-c> <esc>
 " }}}
 " Plugins -----------------------------------------------------{{{
-" netrw -------------------------------------------------------{{{
-nnoremap <F5> :e .<CR>
-let g:netrw_liststyle=3     " tree style
-
-" }}}
-" EasyMotion --------------------------------------------------{{{
-nmap <leader>f <plug>(easymotion-s)
-let g:EasyMotion_smartcase = 1
-" }}}
 " CtrlP -------------------------------------------------------{{{
-" use ack to find known files
-" let g:ctrlp_user_command = 'ack -f'
-let g:ctrlp_show_hidden = 0
-let g:ctrlp_custom_ignore = "*.swp,*.zip,.git/*,build/*,.sass-cache.*,vendor,local,doc,db"
 nnoremap <leader>b :CtrlPBuffer<cr>
-" }}}
-" vim-pandoc---------------------------------------------------{{{
-let g:pandoc_use_hard_wraps = 1
-let g:pandoc_auto_format = 0
-let g:pandoc_no_empty_implicits = 0
-let g:pandoc_no_folding = 1
-let g:pandoc_no_spans = 1
-augroup ft_pandoc
-    au!
-    au Filetype pandoc setlocal tabstop=2 shiftwidth=2 textwidth=78
-augroup END
 " }}}
 " FixWhitespace------------------------------------------------{{{
 function! FixWhitespace()
@@ -182,40 +132,45 @@ augroup prewrite
 augroup END
 " }}}
 " Bufkill -----------------------------------------------------{{{
-" Make c-x c-c write and close a buffer (useful for git commit
+" Make c-x c-k write and wipe a buffer (useful for git commit
 " edit messages, etc.)
-nnoremap <C-x><C-c> :w<bar>BD<cr>
 nnoremap <C-x><C-k> :w<bar>BW<cr>
+" }}}
+" NERDTree ----------------------------------------------------{{{
+nnoremap <F5> :NERDTreeToggle<CR>
+augroup ps_nerdtree
+    au!
+    au Filetype nerdtree setlocal nolist
+    au Filetype nerdtree nnoremap <buffer> H :vertical resize -5<cr>
+    au Filetype nerdtree nnoremap <buffer> L :vertical resize +5<cr>
+augroup END
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDChristmasTree = 1
+let NERDTreeChDirMode = 2
+let NERDTreeHighlightCursorline = 1
 " }}}
 " Tagbar ------------------------------------------------------{{{
 let g:tagbar_iconchars = ['▸', '▾']
 let g:tagbar_phpctags_bin='~/bin/ctags'
 let g:tagbar_phpctags_bin='~/bin/phpctags'
-hi TagbarVisibilityPublic guifg=#04b404
-hi TagbarVisibilityProtected guifg=#0489b1
-hi TagbarVisibilityPrivate guifg=#b40404
+" hi TagbarVisibilityPublic guifg=#04b404
+" hi TagbarVisibilityProtected guifg=#0489b1
+" hi TagbarVisibilityPrivate guifg=#b40404
 " }}}
 " }}}
-" Misc. Filetypes ---------------------------------------------{{{
+" Filetypes ---------------------------------------------------{{{
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
-" }}}
-" UltiSnips ---------------------------------------------------{{{
-let g:UltiSnipsSnippetDirectories = ['UltiSnips']
-let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/UltiSnips'
-let g:UltiSnipsEditSplit = 'horizontal'
-" }}}
 " LaTeX -------------------------------------------------------{{{
 let g:tex_flavor = "latex"
 augroup ft_tex
     au!
     au Filetype tex,bib setlocal tabstop=2 shiftwidth=2 textwidth=78
-    au Filetype tex,bib color mjm-latex
+    " au Filetype tex,bib color mjm-latex
     au Filetype tex setlocal formatoptions+=t
     au Filetype bib setlocal foldmethod=syntax
     au Filetype tex :nnoremap <buffer> <C-g> mzgqap`z
     " better quotes
-    " turn off auto pairs for quoting
-    au Filetype tex,bib let b:AutoPairs = {'(':')', '[':']', '{':'}'}
     au Filetype tex :inoremap <buffer> ` ‘
     au Filetype tex :inoremap <buffer> ' ’
     au Filetype tex :inoremap <buffer> `` “
@@ -223,41 +178,11 @@ augroup ft_tex
     au Filetype tex :inoremap <buffer> '' ”
 augroup END
 " }}}
-" Ruby --------------------------------------------------------{{{
-augroup ft_ruby
-    au!
-    au Filetype ruby setlocal tabstop=2 shiftwidth=2
-augroup END
-" }}}
 " PHP ---------------------------------------------------------{{{
 augroup ft_php
     au!
     au Filetype php setlocal tabstop=4 shiftwidth=4
     au BufNewFile,BufRead *.thtml set filetype=php
-augroup END
-" }}}
-" Mail --------------------------------------------------------{{{
-augroup ft_mail
-    au!
-    au Filetype mail setlocal textwidth=72
-augroup END
-" }}}
-" Markdown ----------------------------------------------------{{{
-augroup ft_markdown
-    au!
-    au Filetype markdown set textwidth=78
-augroup END
-" }}}
-" AsciiDoc ----------------------------------------------------{{{
-augroup ft_asciidoc
-    au!
-    au BufNewFile,BufRead *.adoc set filetype=asciidoc
-augroup END
-" }}}
-" JavaScript --------------------------------------------------{{{
-augroup ft_javascript
-    au!
-    au Filetype javascript setlocal tabstop=2 shiftwidth=2
 augroup END
 " }}}
 " Makefiles ---------------------------------------------------{{{
@@ -272,27 +197,13 @@ augroup ft_diff
     au Filetype diff setlocal nonumber
 augroup END
 " }}}
-
-" Better search highlighting ----------------------------------{{{
-highlight WhiteOnRed guibg=#da4939 guifg=white
-
-function! HLNext (blinktime)
-    let [bufnum, lnum, col, off] = getpos('.')
-    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
-    let target_pat = '\c\%#'.@/
-    let ring = matchadd('WhiteOnRed', target_pat, 101)
-    redraw
-    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-    call matchdelete(ring)
-    redraw
-endfunction
-
-" This rewires n and N to do the highlighing...
-nnoremap <silent> n   n:call HLNext(0.3)<cr>
-nnoremap <silent> N   N:call HLNext(0.3)<cr>
+" Git ---------------------------------------------------------{{{
+augroup ft_git
+    au!
+    au Filetype git,gitcommit,gitrebase setlocal textwidth=72
+augroup END
 " }}}
-
-
+" }}}
 " Scratch buffers ---------------------------------------------{{{
 function! CreateOrSwitchToScratchBuffer()
     if buflisted("_scratch") == 0
@@ -310,5 +221,4 @@ endfunction
 nnoremap <C-x><C-b> :call CreateOrSwitchToScratchBuffer()<CR>
 " }}}
 
-" vim:fdm=marker
-" vim:set filetype=vim
+" vim: ft=vim fdm=marker

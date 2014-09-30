@@ -16,4 +16,4 @@ set cc=78
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F5> :NERDTreeToggle<CR>
 
-color railscasts
+"color railscasts

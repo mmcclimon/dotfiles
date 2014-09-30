@@ -1,13 +1,13 @@
 # Colors
 ############################
-pblue="%{$fg_no_bold[blue]%}"
 reset="%{$reset_color%}"
 
 # assumes 'colors' has been sourced before this
+eval pblue='$FG[031]'
 eval pgray='$FG[242]'
 #eval branch_c='%{$fg[green]%}'
 eval branch_c='$FG[023]'
-eval status_c='$FG[009]'
+eval status_c='$FG[001]'
 eval venv_c='$FG[022]'
 
 # Git prompt info
