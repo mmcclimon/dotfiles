@@ -16,4 +16,10 @@ set cc=78
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F5> :NERDTreeToggle<CR>
 
+function EmbiggenFont()
+    set guifont=Ubuntu\ Mono:h16
+endfunction
+
+command Embiggen call EmbiggenFont()
+
 "color railscasts
