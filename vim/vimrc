@@ -16,9 +16,10 @@ Plugin 'bufkill.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Keithbsmiley/rspec.vim'
+Plugin 'wting/rust.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-php/tagbar-phpctags.vim'
-Plugin 'SirVer/ultisnips'
+" Plugin 'SirVer/ultisnips'
 Plugin 'guns/vim-clojure-static'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'jratner/vim-flavored-markdown'
@@ -26,6 +27,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'pangloss/vim-javascript'
 Plugin 'vim-perl/vim-perl'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-rsi'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
 
@@ -240,10 +242,19 @@ function! CompleteBibKeys(findstart, base)
     endif
 endfunction
 
+function! SetupTexColors()
+    hi texStatement guifg=#a0a0a0
+    hi Delimiter    guifg=#a0a0a0
+    hi texRefZone   guifg=#507050
+    hi texSection   guifg=#996666
+    hi texTypeStyle guifg=#a0a0f0
+    " hi texDelimiter guifg=#a0a0a0
+endfunction
+
 augroup ft_tex
     au!
     au Filetype tex,bib setlocal tabstop=2 shiftwidth=2 textwidth=78
-    au Filetype tex,bib color mjm-latex
+    au Filetype tex call SetupTexColors()
     au Filetype tex setlocal formatoptions+=t
     au Filetype bib setlocal foldmethod=syntax
     au Filetype tex :nnoremap <buffer> <C-g> mzgqap`z
@@ -305,26 +316,6 @@ augroup ft_diff
     au Filetype diff setlocal nonumber
 augroup END
 " }}}
-
-" Better search highlighting ----------------------------------{{{
-highlight WhiteOnRed guibg=#da4939 guifg=white
-
-function! HLNext (blinktime)
-    let [bufnum, lnum, col, off] = getpos('.')
-    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
-    let target_pat = '\c\%#'.@/
-    let ring = matchadd('WhiteOnRed', target_pat, 101)
-    redraw
-    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-    call matchdelete(ring)
-    redraw
-endfunction
-
-" This rewires n and N to do the highlighing...
-nnoremap <silent> n   n:call HLNext(0.3)<cr>
-nnoremap <silent> N   N:call HLNext(0.3)<cr>
-" }}}
-
 
 " Scratch buffers ---------------------------------------------{{{
 function! CreateOrSwitchToScratchBuffer()
