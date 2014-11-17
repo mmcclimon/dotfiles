@@ -5,6 +5,8 @@
 (require 'package)
 (add-to-list 'package-archives
          '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+         '("melpa" . "http://melpa.milkbox.net/packages/"))
 (package-initialize)
 
 ;;; Interface settings
@@ -16,7 +18,7 @@
 
 ; set up modes/variables
 (progn
-  (load-theme 'misterioso)   ; color theme
+  (load-theme 'misterioso)              ; color theme
   (set-cursor-color "#ffffff")          ; ...with one tiny edit
   (column-number-mode t)                ; show column in mode line
   (menu-bar-mode 1)                     ; show menus (override better-defaults)
@@ -65,6 +67,7 @@
 (evil-mode 1)
 
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)  ; don't use M-x
+(global-set-key (kbd "M-x") 'execute-extended-command)      ; don't use M-x
 (define-key global-map (kbd "RET") 'newline-and-indent)     ; ret. also indents
 
 ; swap colon-semicolon for evil
