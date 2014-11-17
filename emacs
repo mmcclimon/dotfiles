@@ -16,7 +16,7 @@
 
 ; set up modes/variables
 (progn
-  (load-theme 'misterioso)              ; color theme
+  (load-theme 'misterioso)   ; color theme
   (set-cursor-color "#ffffff")          ; ...with one tiny edit
   (column-number-mode t)                ; show column in mode line
   (menu-bar-mode 1)                     ; show menus (override better-defaults)
@@ -24,12 +24,13 @@
   (ido-mode 'buffers))                  ; better buffer switching
 
 (setq inhibit-startup-message t         ; no splash screen
+      vc-follow-symlinks t              ; don't ask about symlinks
       fci-rule-column 80                ; rule at column 80
       fci-rule-color "#444444")         ; dark gray column rule
 
 (add-to-list                            ; set default font
  'default-frame-alist
- '(font . "DejaVu Sans Mono-12"))
+ '(font . "DejaVu Sans Mono-11"))
 
 (if (window-system)                     ; make initial window 120 x 50
     (set-frame-size
@@ -66,6 +67,16 @@
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)  ; don't use M-x
 (define-key global-map (kbd "RET") 'newline-and-indent)     ; ret. also indents
 
+; swap colon-semicolon for evil
+(define-key evil-normal-state-map ";" 'evil-ex)
+(define-key evil-normal-state-map ":" 'evil-repeat-find-char)
+
+;;;; TeX
+;   ----------------------------------------------
+; turn off terrible subscripting in TeX mode
+(setq tex-font-script-display '(-0.0 0.0)
+      tex-suscript-height-ratio 1.0)
+
 
 ;;; Hooks
 ;   ----------------------------------------------
@@ -73,3 +84,11 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)       ; wrap text
 (add-hook 'after-change-major-mode-hook
           (lambda () (fci-mode 1)))                 ; add column indicator
+
+(add-hook 'tex-mode-hook (lambda ()
+  (custom-set-faces
+    '(font-lock-keyword-face ((t (:foreground "#906464"))))
+    '(font-lock-constant-face ((t (:foreground "#709070"))))
+    '(font-lock-function-name-face ((t (:foreground "#709070"))))
+    '(font-lock-builtin--face ((t (:foreground "#a03333"))))
+    )))
