@@ -2,6 +2,8 @@ mutt/cache/*
 *.elc
 emacs.d/auto-save-list
 emacs.d/backups
+emacs.d/elpa
+emacs.d/places
 
 # Vundle will handle this, so I stop dealing with stupid subprojects
 vim/bundle
