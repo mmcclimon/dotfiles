@@ -96,14 +96,12 @@
 (add-hook 'after-change-major-mode-hook
           (lambda () (fci-mode 1)))                 ; add column indicator
 
-(add-hook 'tex-mode-hook (lambda ()
-  (custom-set-faces
-    '(font-lock-keyword-face ((t (:foreground "#906464"))))
-    '(font-lock-constant-face ((t (:foreground "#709070"))))
-    '(font-lock-function-name-face ((t (:foreground "#709070"))))
-    '(font-lock-builtin--face ((t (:foreground "#a03333"))))
-    )))
+;;; Filetypes
+(add-to-list 'auto-mode-alist
+             '("\\.eml\\'" . mail-mode))
 
+;;; Server
+(server-start)
 
 ;; move custom stuff to another file
 (setq custom-file "~/.emacs.d/custom.el")
