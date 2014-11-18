@@ -5,19 +5,30 @@
 (require 'package)
 (add-to-list 'package-archives
          '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+         '("melpa" . "http://melpa.milkbox.net/packages/"))
 (package-initialize)
+
+;; install missing packages
+(defvar required-packages
+  '(better-defaults color-theme fill-column-indicator sublime-themes evil))
+
+(dolist (pkg required-packages)
+  (when (not (package-installed-p pkg))
+    (package-install pkg)))
+
 
 ;;; Interface settings
 ;   ----------------------------------------------
 
 ;; UI packages
+(require 'better-defaults)
 (require 'color-theme)
 (require 'fill-column-indicator)
 
 ; set up modes/variables
 (progn
-  (load-theme 'misterioso)   ; color theme
-  (set-cursor-color "#ffffff")          ; ...with one tiny edit
+  (load-theme 'brin t)                  ; color theme
   (column-number-mode t)                ; show column in mode line
   (menu-bar-mode 1)                     ; show menus (override better-defaults)
   (fci-mode 1)                          ; column ruler
@@ -32,9 +43,9 @@
  'default-frame-alist
  '(font . "DejaVu Sans Mono-11"))
 
-(if (window-system)                     ; make initial window 120 x 50
+(if (window-system)                     ; make initial window 165 x 50
     (set-frame-size
-     (selected-frame) 120 50))
+     (selected-frame) 165 50))
 
 
 ;;; Text editing
@@ -92,3 +103,8 @@
     '(font-lock-function-name-face ((t (:foreground "#709070"))))
     '(font-lock-builtin--face ((t (:foreground "#a03333"))))
     )))
+
+
+;; move custom stuff to another file
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file 'noerror)
