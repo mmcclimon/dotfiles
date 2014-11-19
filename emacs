@@ -30,14 +30,18 @@
 (progn
   (load-theme 'brin t)                  ; color theme
   (column-number-mode t)                ; show column in mode line
+  (line-number-mode t)                  ; show line numbers too
   (menu-bar-mode 1)                     ; show menus (override better-defaults)
   (fci-mode 1)                          ; column ruler
   (ido-mode 'buffers))                  ; better buffer switching
 
 (setq inhibit-startup-message t         ; no splash screen
       vc-follow-symlinks t              ; don't ask about symlinks
+      echo-keystrokes 0.1               ; show in-progress keystrokes
       fci-rule-column 80                ; rule at column 80
       fci-rule-color "#444444")         ; dark gray column rule
+
+(defalias 'yes-or-no-p 'y-or-n-p)       ; don't make me type "yes"
 
 (add-to-list                            ; set default font
  'default-frame-alist
@@ -59,8 +63,10 @@
       require-final-newline 't)         ; unix-friendly trailing newline
 
 ; default vars
-(setq-default tab-width 4               ; tabs are four spaces
-              indent-tabs-mode nil)     ; tab works like a tab key
+(setq-default tab-width 4                       ; tabs are four spaces
+              indent-tabs-mode nil              ; tab works like a tab key
+              sentence-end-double-space nil     ; sentences end with one space
+              fill-column 78)                   ; good width for default
 
 ; backups
 (setq backup-by-copying t
