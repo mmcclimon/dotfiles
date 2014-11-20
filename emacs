@@ -98,7 +98,8 @@
 ; auctex/reftex
 (require 'reftex)
 (setq TeX-auto-save t
-      TeX-parse-self t)
+      TeX-parse-self t
+      reftex-plug-into-AUCTeX t)
 (setq-default TeX-master nil)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 
@@ -120,3 +121,7 @@
 ;; move custom stuff to another file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
+
+;; Local Variables:
+;; mode: emacs-lisp
+;; End:
