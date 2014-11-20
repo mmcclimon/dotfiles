@@ -11,7 +11,8 @@
 
 ;; install missing packages
 (defvar required-packages
-  '(better-defaults color-theme fill-column-indicator sublime-themes evil))
+  '(better-defaults color-theme fill-column-indicator sublime-themes evil
+    auctex))
 
 (dolist (pkg required-packages)
   (when (not (package-installed-p pkg))
@@ -93,6 +94,13 @@
 ; turn off terrible subscripting in TeX mode
 (setq tex-font-script-display '(-0.0 0.0)
       tex-suscript-height-ratio 1.0)
+
+; auctex/reftex
+(require 'reftex)
+(setq TeX-auto-save t
+      TeX-parse-self t)
+(setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 
 
 ;;; Hooks
