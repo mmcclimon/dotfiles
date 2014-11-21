@@ -20,8 +20,6 @@ if [[ -n "$TMUX" ]]; then
     export DISABLE_AUTO_TITLE=true
 fi
 
-export VIM="/usr/local/vimscript/runtime"
-
 export LC_CTYPE=$LANG
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 
