@@ -48,9 +48,10 @@
  'default-frame-alist
  '(font . "DejaVu Sans Mono-11"))
 
-(if (window-system)                     ; make initial window 165 x 50
-    (set-frame-size
-     (selected-frame) 165 50))
+
+; (if (window-system)                     ; make initial window 165 x 50
+;     (set-frame-size
+;      (selected-frame) 165 50))
 
 
 ;;; Text editing
@@ -101,8 +102,14 @@
       TeX-parse-self t
       reftex-plug-into-AUCTeX t)
 (setq-default TeX-master nil)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(add-hook 'LaTeX-mode-hook (lambda()
+                             (turn-on-reftex)
+                             (TeX-fold-mode 1)))
 
+; make sure tex binaries get into PATH
+(setenv "PATH"
+        (concat "/usr/texbin" ":" "~/bin" ":"
+                (getenv "PATH")))
 
 ;;; Hooks
 ;   ----------------------------------------------
