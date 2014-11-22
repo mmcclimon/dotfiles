@@ -64,6 +64,12 @@
       tab-always-indent nil             ; tab actually works like a tab key
       require-final-newline 't)         ; unix-friendly trailing newline
 
+; mouse scrollling
+(setq mouse-wheel-scroll-amount '(2 ((shift) . 1))      ; one line at a time
+      mouse-wheel-progressive-speed nil                 ; don't accelerate
+      mouse-wheel-follow-mouse 't)                      ; scroll window under mouse
+
+
 ; default vars
 (setq-default tab-width 4                       ; tabs are four spaces
               indent-tabs-mode nil              ; tab works like a tab key

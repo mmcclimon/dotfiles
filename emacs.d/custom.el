@@ -32,7 +32,8 @@
      ("ii-V"
       ("tf"))
      ("ii-V-I"
-      ("tfo"))))))
+      ("tfo")))))
+ '(reftex-label-alist (quote (("example" 120 nil nil nil ("Example"))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
