@@ -90,6 +90,8 @@
 (define-key evil-normal-state-map ";" 'evil-ex)
 (define-key evil-normal-state-map ":" 'evil-repeat-find-char)
 
+(define-key evil-normal-state-map ",b" 'ido-switch-buffer)
+
 ;;;; TeX
 ;   ----------------------------------------------
 ; turn off terrible subscripting in TeX mode
