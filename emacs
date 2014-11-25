@@ -14,9 +14,20 @@
   '(better-defaults color-theme fill-column-indicator sublime-themes evil
     auctex))
 
-(dolist (pkg required-packages)
-  (when (not (package-installed-p pkg))
-    (package-install pkg)))
+(defun required-packages-installed-p (packages)
+  "Check if all required packages are installed"
+  (let ((rest (cdr packages)))
+    (if (package-installed-p (car packages))
+        (if (eq rest nil) t (required-packages-installed-p rest))
+      nil)))
+
+(unless (required-packages-installed-p required-packages)
+  (message "%s" "Installing required packages...")
+  (package-refresh-contents)
+  (dolist (pkg required-packages)
+    (when (not (package-installed-p pkg))
+      (package-install pkg)))
+  (message "%s" "Packages installed"))
 
 
 ;;; Interface settings
