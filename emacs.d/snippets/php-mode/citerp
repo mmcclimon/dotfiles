@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: cite pages only
+# key: citerp
+# binding: direct-keybinding
+# --
+<?php cite_pages_only($${1:author_year}, "${2:pages}")?>

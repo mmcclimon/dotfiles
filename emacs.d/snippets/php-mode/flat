@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: flat
+# key: flat
+# binding: direct-keybinding
+# --
+<?php flat("${1:note}")?>

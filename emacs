@@ -12,7 +12,7 @@
 ;; install missing packages
 (defvar required-packages
   '(better-defaults color-theme fill-column-indicator sublime-themes evil
-    auctex))
+    auctex yasnippets))
 
 (defun required-packages-installed-p (packages)
   "Check if all required packages are installed"

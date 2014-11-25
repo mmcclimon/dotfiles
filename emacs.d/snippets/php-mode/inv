@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: inversion
+# key: inv
+# binding: direct-keybinding
+# --
+<?php inversion("${1:RN}",${2:inv})?>

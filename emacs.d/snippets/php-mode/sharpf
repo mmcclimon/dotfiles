@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: sharp, footnote
+# key: sharpf
+# binding: direct-keybinding
+# --
+".fn_sharp("${1:name}")."

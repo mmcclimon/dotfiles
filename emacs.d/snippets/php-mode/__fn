@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: footnote
+# key: __fn
+# binding: direct-keybinding
+# --
+<?php footnote(\$fn${1:num})?>

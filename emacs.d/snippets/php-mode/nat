@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: natural
+# key: nat
+# binding: direct-keybinding
+# --
+<?php natural("${1:note}")?>

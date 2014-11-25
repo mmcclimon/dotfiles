@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: cite year, footnote
+# key: citeyf
+# binding: direct-keybinding
+# --
+.fn_cite_year($${1:author_year})."

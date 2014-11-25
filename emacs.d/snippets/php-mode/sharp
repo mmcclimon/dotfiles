@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: sharp
+# key: sharp
+# binding: direct-keybinding
+# --
+<?php sharp("${1:note}")?>

@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: natural, footnote
+# key: natf
+# binding: direct-keybinding
+# --
+".fn_natural("${1:name}")."

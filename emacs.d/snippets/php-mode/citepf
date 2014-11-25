@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# key: citepf
+# name: cite pages, footnote
+# binding: direct-keybinding
+# --
+".fn_cite_pages($${1:author_year}, "${2:pages}")."
