@@ -12,7 +12,7 @@
 ;; install missing packages
 (defvar required-packages
   '(better-defaults color-theme fill-column-indicator sublime-themes evil
-    auctex yasnippets))
+    auctex yasnippets evil-surround web-mode))
 
 (defun required-packages-installed-p (packages)
   "Check if all required packages are installed"
@@ -98,7 +98,9 @@
 ;;; Key bindings
 ;   ----------------------------------------------
 (require 'evil)                         ; vim bindings
+(require 'evil-surround)
 (evil-mode 1)
+(global-evil-surround-mode 1)
 
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)  ; don't use M-x
 (define-key global-map (kbd "RET") 'newline-and-indent)     ; ret. also indents
