@@ -12,7 +12,7 @@
 ;; install missing packages
 (defvar required-packages
   '(better-defaults color-theme fill-column-indicator sublime-themes evil
-    auctex yasnippets evil-surround web-mode))
+    auctex yasnippet evil-surround web-mode ace-jump-mode paredit))
 
 (defun required-packages-installed-p (packages)
   "Check if all required packages are installed"
@@ -60,11 +60,6 @@
  '(font . "DejaVu Sans Mono-11"))
 
 
-; (if (window-system)                     ; make initial window 165 x 50
-;     (set-frame-size
-;      (selected-frame) 165 50))
-
-
 ;;; Text editing
 ;   ----------------------------------------------
 
@@ -110,6 +105,7 @@
 (define-key evil-normal-state-map ":" 'evil-repeat-find-char)
 
 (define-key evil-normal-state-map ",b" 'ido-switch-buffer)
+(define-key evil-normal-state-map (kbd ",f") 'ace-jump-mode)
 
 ;;;; TeX
 ;   ----------------------------------------------
@@ -127,9 +123,10 @@
                              (turn-on-reftex)
                              (TeX-fold-mode 1)))
 
-; make sure tex binaries get into PATH
+; make sure tex binaries + GNU coreutils get into PATH
 (setenv "PATH"
         (concat "/usr/texbin" ":" "~/bin" ":"
+                "/usr/local/opt/coreutils/libexec/gnubin" ":"
                 (getenv "PATH")))
 
 ;;; Hooks
