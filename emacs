@@ -12,7 +12,7 @@
 ;; install missing packages
 (defvar required-packages
   '(better-defaults color-theme fill-column-indicator sublime-themes evil
-    auctex yasnippets evil-surround web-mode))
+    auctex yasnippet evil-surround web-mode))
 
 (defun required-packages-installed-p (packages)
   "Check if all required packages are installed"
@@ -127,9 +127,12 @@
                              (turn-on-reftex)
                              (TeX-fold-mode 1)))
 
+(setq-default ispell-program-name "aspell")
+(setq ispell-list-command "--list")
+
 ; make sure tex binaries get into PATH
 (setenv "PATH"
-        (concat "/usr/texbin" ":" "~/bin" ":"
+        (concat "/usr/texbin" ":" "~/bin" ":" "/usr/local/bin" ":"
                 (getenv "PATH")))
 
 ;;; Hooks
