@@ -123,10 +123,12 @@
                              (turn-on-reftex)
                              (TeX-fold-mode 1)))
 
-; make sure tex binaries + GNU coreutils get into PATH
+(setq-default ispell-program-name "aspell")
+(setq ispell-list-command "--list")
+
+; make sure tex binaries get into PATH
 (setenv "PATH"
-        (concat "/usr/texbin" ":" "~/bin" ":"
-                "/usr/local/opt/coreutils/libexec/gnubin" ":"
+        (concat "/usr/texbin" ":" "~/bin" ":" "/usr/local/bin" ":"
                 (getenv "PATH")))
 
 ;;; Hooks
