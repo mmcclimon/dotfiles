@@ -12,7 +12,8 @@
 ;; install missing packages
 (defvar required-packages
   '(better-defaults color-theme fill-column-indicator sublime-themes evil
-    auctex yasnippet evil-surround web-mode ace-jump-mode paredit))
+    auctex yasnippet evil-surround web-mode ace-jump-mode neotree paredit
+    clojure-mode clojure-mode-extra-font-locking cider rainbow-delimiters))
 
 (defun required-packages-installed-p (packages)
   "Check if all required packages are installed"
@@ -135,8 +136,10 @@
 ;   ----------------------------------------------
 (add-hook 'before-save-hook 'whitespace-cleanup)    ; no messy space
 (add-hook 'text-mode-hook 'turn-on-auto-fill)       ; wrap text
-(add-hook 'after-change-major-mode-hook
+(add-hook 'prog-mode-hook
           (lambda () (fci-mode 1)))                 ; add column indicator
+(add-hook 'mail-mode-hook
+          (lambda () (setq fill-column 72)))
 
 ;;; Filetypes
 (add-to-list 'auto-mode-alist
