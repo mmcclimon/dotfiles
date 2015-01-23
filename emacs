@@ -107,7 +107,12 @@
 
 (define-key evil-normal-state-map ",b" 'ido-switch-buffer)
 (define-key evil-normal-state-map (kbd ",f") 'ace-jump-mode)
+
+;;; non-evil bindings
+;   ----------------------------------------------
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(define-key global-map (kbd "M-[") 'backward-paragraph)
+(define-key global-map (kbd "M-]") 'forward-paragraph)
 
 ;;;; TeX
 ;   ----------------------------------------------
