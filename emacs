@@ -149,11 +149,16 @@
 
 ;; only turn on 80-column rule if the window is wider than 80 chars, to avoid
 ;; long-line indicators
-(add-hook 'window-configuration-change-hook
-          (lambda()
-            (if (> (window-total-width) (+ 4 fci-rule-column))
-                (fci-mode 1)
-              (fci-mode -1))))
+(defun conditionally-turn-on-fci-mode ()
+  (if (and
+       (> (window-total-width) (+ 4 fci-rule-column))
+       (derived-mode-p 'prog-mode))
+      (fci-mode 1)
+    (fci-mode -1)))
+
+(add-hook 'window-configuration-change-hook 'conditionally-turn-on-fci-mode)
+
+
 
 ;;; Filetypes
 (add-to-list 'auto-mode-alist
