@@ -41,7 +41,7 @@
 
 ; set up modes/variables
 (progn
-  (load-theme 'brin t)                  ; color theme
+  (load-theme 'hickey t)                ; color theme
   (column-number-mode t)                ; show column in mode line
   (line-number-mode t)                  ; show line numbers too
   (menu-bar-mode 1)                     ; show menus (override better-defaults)
@@ -95,8 +95,6 @@
 ;   ----------------------------------------------
 (require 'evil)                         ; vim bindings
 (require 'evil-surround)
-(evil-mode 1)
-(global-evil-surround-mode 1)
 
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)  ; don't use M-x
 (define-key global-map (kbd "RET") 'newline-and-indent)     ; ret. also indents
@@ -113,6 +111,7 @@
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 (define-key global-map (kbd "M-[") 'backward-paragraph)
 (define-key global-map (kbd "M-]") 'forward-paragraph)
+(define-key global-map (kbd "C-x r i") 'string-insert-rectangle)
 
 ;;;; TeX
 ;   ----------------------------------------------
@@ -128,6 +127,7 @@
 (setq-default TeX-master nil)
 (add-hook 'LaTeX-mode-hook (lambda()
                              (turn-on-reftex)
+                             (turn-on-flyspell)
                              (TeX-fold-mode 1)))
 
 (setq-default ispell-program-name "aspell")
@@ -137,6 +137,12 @@
 (setenv "PATH"
         (concat "/usr/texbin" ":" "~/bin" ":" "/usr/local/bin" ":"
                 (getenv "PATH")))
+
+;;; Magit
+;   ----------------------------------------------
+(setq magit-process-connection-type nil
+      magit-git-executable "/usr/local/bin/git")
+(global-set-key (kbd "C-c G") 'magit-status)
 
 ;;; Hooks
 ;   ----------------------------------------------
@@ -157,7 +163,7 @@
     (fci-mode -1)))
 
 (add-hook 'window-configuration-change-hook 'conditionally-turn-on-fci-mode)
-
+(add-hook 'after-make-frame-functions 'conditionally-turn-on-fci-mode)
 
 
 ;;; Filetypes
