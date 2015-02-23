@@ -7,6 +7,8 @@ alias heroku='nocorrect heroku'
 alias ebuild='nocorrect ebuild'
 alias hpodder='nocorrect hpodder'
 alias sudo='nocorrect sudo'
+alias open='nocorrect open'
+alias emacs='nocorrect emacs'
 
 ENABLE_CORRECTION="true"
 if [[ "$ENABLE_CORRECTION" == "true" ]]; then
