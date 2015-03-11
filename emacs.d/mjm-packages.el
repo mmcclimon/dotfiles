@@ -12,7 +12,7 @@
 
 ;; install missing packages
 (defvar required-packages
-  '(color-theme fill-column-indicator sublime-themes evil
+  '(color-theme fill-column-indicator base16-theme sublime-themes evil
     auctex yasnippet evil-surround web-mode ace-jump-mode neotree paredit
     clojure-mode clojure-mode-extra-font-locking cider rainbow-delimiters))
 

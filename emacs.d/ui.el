@@ -6,7 +6,7 @@
 (require 'fill-column-indicator)
 
 (progn
-  (load-theme 'hickey t)                ; color theme
+  (load-theme 'base16-default t)        ; color theme
   (column-number-mode t)                ; show column in mode line
   (line-number-mode t)                  ; show line numbers too
   (menu-bar-mode 1)                     ; show menus
@@ -31,11 +31,15 @@
       mouse-wheel-progressive-speed nil                 ; don't accelerate
       mouse-wheel-follow-mouse 't)                      ; scroll window under mouse
 
+
 (defalias 'yes-or-no-p 'y-or-n-p)       ; don't make me type "yes"
 
 (add-to-list                            ; set default font
  'default-frame-alist
- '(font . "DejaVu Sans Mono-11"))
+ '(font . "Monaco-10"))
+
+; patch color theme
+(set-face-attribute 'fringe nil :background "#202020")
 
 ; backup settings
 (setq backup-by-copying t
