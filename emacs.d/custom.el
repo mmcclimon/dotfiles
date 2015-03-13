@@ -33,4 +33,7 @@
  '(ledger-font-posting-amount-face ((t (:inherit font-lock-keyword-face))))
  '(ledger-font-posting-date-face ((t (:inherit font-lock-constant-face))))
  '(ledger-occur-xact-face ((t nil)))
- '(link-visited ((t (:inherit term-color-purple :underline t)))))
+ '(link ((t (:inherit term-color-blue :underline t))))
+ '(link-visited ((t (:inherit term-color-purple :underline t))))
+ '(mode-line ((t (:background "#505050" :foreground "#e0e0e0"))))
+ '(mode-line-inactive ((t (:inherit mode-line :background "gray20" :foreground "gray50" :weight light)))))
