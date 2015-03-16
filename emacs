@@ -18,6 +18,9 @@
 ; start server here, in main init file
 (server-start)
 
+; clear the stupid echo area
+(message nil)
+
 ;; Local Variables:
 ;; mode: emacs-lisp
 ;; End:
