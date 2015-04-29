@@ -3,7 +3,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(TeX-fold-macro-spec-list (quote (("{1}" ("h")) ("[f]" ("footnote" "marginpar" "fn")) ("[c]" ("cite")) ("[l]" ("label")) ("[r]" ("ref" "pageref" "eqref")) ("[i]" ("index" "glossary")) ("[1]:||*" ("item")) ("..." ("dots")) ("(C)" ("copyright")) ("(R)" ("textregistered")) ("TM" ("texttrademark")) (1 ("part" "chapter" "section" "subsection" "subsubsection" "paragraph" "subparagraph" "part*" "chapter*" "section*" "subsection*" "subsubsection*" "paragraph*" "subparagraph*" "emph" "textit" "textsl" "textmd" "textrm" "textsf" "texttt" "textbf" "textsc" "textup")) ("ii-V" ("tf")) ("ii-V-I" ("tfo")) ("ii-V-i" ("tfmo")))))
+ '(TeX-fold-macro-spec-list (quote (("{1}" ("h")) ("[f]" ("footnote" "marginpar" "fn")) ("[c]" ("cite" "nocite" "footcite")) ("[l]" ("label")) ("[r]" ("ref" "pageref" "eqref")) ("[i]" ("index" "glossary")) ("[1]:||*" ("item")) ("..." ("dots")) ("(C)" ("copyright")) ("(R)" ("textregistered")) ("TM" ("texttrademark")) (1 ("part" "chapter" "section" "subsection" "subsubsection" "paragraph" "subparagraph" "part*" "chapter*" "section*" "subsection*" "subsubsection*" "paragraph*" "subparagraph*" "emph" "textit" "textsl" "textmd" "textrm" "textsf" "texttt" "textbf" "textsc" "textup")) ("ii-V" ("tf")) ("ii-V-I" ("tfo")) ("ii-V-i" ("tfmo")) ("*" ("\\star")))))
+ '(cperl-invalid-face (quote default) t)
  '(custom-safe-themes (quote ("8022cea21aa4daca569aee5c1b875fbb3f3248a5debc6fc8cf5833f2936fbb22" "e9776d12e4ccb722a2a732c6e80423331bcb93f02e089ba2a4b02e85de1cf00e" default)))
  '(exec-path (quote ("/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/Cellar/emacs/24.4/libexec/emacs/24.4/x86_64-apple-darwin14.0.0" "/usr/local/bin" "/Users/michael/bin" "/usr/local/texbin")))
  '(inhibit-startup-echo-area-message "michael")
@@ -22,6 +23,7 @@
  '(TeX-fold-folded-face ((t (:foreground "DarkSlateGray4"))))
  '(flyspell-duplicate ((t (:underline (:color "chartreuse4" :style wave)))))
  '(flyspell-incorrect ((t (:underline (:color "red" :style wave)))))
+ '(font-latex-italic-face ((t (:inherit italic))))
  '(font-latex-sectioning-5-face ((t (:inherit font-lock-variable-name-face :weight bold))))
  '(font-latex-string-face ((t (:inherit font-lock-doc-string-face))))
  '(font-latex-subscript-face ((t nil)))
@@ -36,6 +38,8 @@
  '(ledger-occur-xact-face ((t nil)))
  '(link ((t (:inherit font-lock-function-name-face :underline t))))
  '(link-visited ((t (:inherit font-lock-keyword-face :underline t))))
+ '(linum ((t (:background "#202020" :foreground "#707070" :height 0.9))) t)
  '(mode-line ((t (:background "#505050" :foreground "#e0e0e0"))))
  '(mode-line-inactive ((t (:inherit mode-line :background "gray20" :foreground "gray50" :weight light))))
+ '(neo-button-face ((t (:inherit link :underline nil))))
  '(variable-pitch ((t (:weight light :height 1.3 :family "Source Sans Pro")))))

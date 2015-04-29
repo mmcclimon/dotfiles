@@ -21,7 +21,14 @@
 (require 'evil)
 (require 'evil-surround)
 (evil-mode 1)
+(global-evil-surround-mode 1)
 (progn
   (define-key evil-normal-state-map ";" 'evil-ex)
   (define-key evil-normal-state-map ":" 'evil-repeat-find-char)
   (define-key evil-normal-state-map (kbd ",f") 'ace-jump-mode))
+
+; don't use evil in modes that remap everything anyway
+(setq evil-emacs-state-modes (append evil-emacs-state-modes
+                                     '(neotree-mode
+                                       dired-mode
+                                       magit-status-mode)))

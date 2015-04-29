@@ -22,3 +22,10 @@
 ;; mail
 (add-hook 'mail-mode-hook (lambda () (setq fill-column 72)))
 (add-to-list 'auto-mode-alist '("\\.eml\\'" . mail-mode))
+
+
+;; Perl
+(defalias 'perl-mode 'cperl-mode)
+(setq-default cperl-invalid-face 'default
+              cperl-indent-parens-as-block t
+              cperl-indent-level tab-width)
