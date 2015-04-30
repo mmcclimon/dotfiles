@@ -20,6 +20,13 @@ sort.order = {
         edition # pages # day # month # year # note
 }
 
+# special field order for music (discography) entries
+new.entry.type = "music"
+sort.order = {
+    music = author # sortauthor # nameaddon # title # userd # origdate # series #
+            number # year # type
+}
+
 # lowercase types
 new.entry.type = "string"
 new.entry.type = "article"
@@ -32,7 +39,6 @@ new.entry.type = "inproceedings"
 new.entry.type = "manual"
 new.entry.type = "mastersthesis"
 new.entry.type = "misc"
-new.entry.type = "music"
 new.entry.type = "phdthesis"
 new.entry.type = "proceedings"
 new.entry.type = "review"
