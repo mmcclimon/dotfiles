@@ -11,7 +11,9 @@
  '(ledger-clear-whole-transactions t)
  '(ledger-highlight-xact-under-point nil)
  '(neo-theme (quote arrow))
- '(reftex-bibliography-commands (quote ("bibliography" "nobibliography" "setupbibtex\\[.*?database=" "addbibresource")))
+ '(reftex-bibliography-commands
+   (quote
+    ("bibliography" "nobibliography" "setupbibtex\\[.*?database=" "addbibresource")))
  '(reftex-label-alist (quote (("example" 120 nil nil nil ("Example")))))
  '(reftex-ref-macro-prompt nil)
  '(tree-widget-image-enable nil))
@@ -39,6 +41,7 @@
  '(link ((t (:inherit font-lock-function-name-face :underline t))))
  '(link-visited ((t (:inherit font-lock-keyword-face :underline t))))
  '(linum ((t (:background "#202020" :foreground "#707070" :height 0.9))) t)
+ '(markdown-italic-face ((t (:slant italic))))
  '(mode-line ((t (:background "#505050" :foreground "#e0e0e0"))))
  '(mode-line-inactive ((t (:inherit mode-line :background "gray20" :foreground "gray50" :weight light))))
  '(neo-button-face ((t (:inherit link :underline nil))))
