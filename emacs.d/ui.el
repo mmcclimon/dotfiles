@@ -77,8 +77,12 @@
   (if (and
        (> (window-total-width) (+ 4 fci-rule-column))
        (derived-mode-p 'prog-mode))
-      (fci-mode 1)
-    (fci-mode -1)))
+      (progn
+        (fci-mode 1)
+        (linum-mode 1))
+    (progn
+      (fci-mode -1)
+      (linum-mode -1))))
 
 (add-hook 'prog-mode-hook (lambda () (fci-mode 1)))     ; always start on
 (add-hook 'window-configuration-change-hook 'conditionally-turn-on-fci-mode)
