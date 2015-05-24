@@ -12,6 +12,12 @@
 (add-hook 'before-save-hook 'whitespace-cleanup)    ; no messy space
 (add-hook 'text-mode-hook 'turn-on-auto-fill)       ; wrap text
 
+;; abbreviations
+(setq abbrev-file-name "~/.emacs.d/abbrev_defs"
+      save-abbrevs t)
+(setq-default abbrev-mode t)
+
+
 
 ;; Emacs's open-line functionality is dumb
 (defvar newline-and-indent t
