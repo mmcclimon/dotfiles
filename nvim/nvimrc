@@ -49,6 +49,7 @@ set ignorecase
 set smartcase
 set laststatus=2
 set relativenumber
+set bg=dark
 " set number
 " set norelativenumber
 set hidden

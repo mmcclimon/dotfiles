@@ -17,7 +17,7 @@
       save-abbrevs t)
 (setq-default abbrev-mode t)
 
-
+(put 'downcase-region 'disabled nil)
 
 ;; Emacs's open-line functionality is dumb
 (defvar newline-and-indent t

@@ -44,5 +44,6 @@ new.entry.type = "proceedings"
 new.entry.type = "review"
 new.entry.type = "techreport"
 new.entry.type = "unpublished"
+new.entry.type = "video"
 
 # vim:syntax=cfg
