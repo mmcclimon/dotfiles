@@ -64,6 +64,7 @@
  '(flyspell-incorrect ((t (:underline (:color "red" :style wave)))))
  '(font-latex-italic-face ((t (:inherit italic))))
  '(font-latex-sectioning-5-face ((t (:inherit font-lock-variable-name-face :weight bold))))
+ '(font-latex-sedate-face ((t (:foreground "#8899aa"))))
  '(font-latex-string-face ((t (:inherit font-lock-doc-string-face))))
  '(font-latex-subscript-face ((t nil)))
  '(font-lock-comment-face ((t (:foreground "#707070"))))

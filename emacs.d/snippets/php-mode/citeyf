@@ -3,4 +3,4 @@
 # key: citeyf
 # binding: direct-keybinding
 # --
-.fn_cite_year($${1:author_year})."
+".fn_cite_year($${1:author_year})."
