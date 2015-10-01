@@ -21,6 +21,7 @@
 (require 'evil)
 (require 'evil-surround)
 (evil-mode 1)
+(evil-rsi-mode)
 (global-evil-surround-mode 1)
 (progn
   (define-key evil-normal-state-map ";" 'evil-ex)

@@ -36,7 +36,7 @@
 
 (add-to-list                            ; set default font
  'default-frame-alist
- '(font . "Monaco-10"))
+ '(font . "Input-11"))
 
 ; patch color theme
 (set-face-attribute 'fringe nil :background "#202020")

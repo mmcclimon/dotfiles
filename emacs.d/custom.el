@@ -84,6 +84,7 @@
  '(mode-line-inactive ((t (:inherit mode-line :background "gray20" :foreground "gray50" :weight light))))
  '(neo-button-face ((t (:inherit link :underline nil))))
  '(variable-pitch ((t (:weight light :height 1.3 :family "Source Sans Pro"))))
+ '(web-mode-html-entity-face ((t (:inherit font-lock-comment-face))))
  '(whitespace-newline ((t (:foreground "dimgray" :weight normal))))
  '(whitespace-space ((t (:foreground "dimgray"))))
  '(whitespace-tab ((t (:foreground "dim gray")))))

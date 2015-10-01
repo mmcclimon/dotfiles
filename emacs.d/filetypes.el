@@ -20,9 +20,13 @@
                              (TeX-fold-mode 1)))
 
 ;; mail
-(add-hook 'mail-mode-hook (lambda () (setq fill-column 72)))
+(add-hook 'mail-mode-hook (lambda ()
+                            (setq fill-column 72)
+                            (turn-on-flyspell)))
 (add-to-list 'auto-mode-alist '("\\.eml\\'" . mail-mode))
 
+;; web-mode
+(setq web-mode-enable-html-entities-fontification t)
 
 ;; Perl
 (defalias 'perl-mode 'cperl-mode)
