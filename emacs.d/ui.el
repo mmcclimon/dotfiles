@@ -20,8 +20,10 @@
       vc-follow-symlinks t              ; don't ask about symlinks
       echo-keystrokes 0.1               ; show in-progress keystrokes
       ido-enable-flex-matching t        ; better fuzzy matchin
+      ns-pop-up-frames nil              ; open new files in existing frame
       fci-rule-column 80                ; rule at column 80
       fci-rule-color "#444444")         ; dark gray column rule
+
 
 ; sane scrolling
 (setq scroll-margin 2                                   ; scroll-off
@@ -60,7 +62,7 @@
   (setq x-select-enable-clipboard t
         x-select-enable-primary t
         mouse-yank-at-point t
-        visible-bell t
+        visible-bell nil
         ediff-window-setup-function 'ediff-setup-windows-plain
         save-place-file (concat user-emacs-directory "places")
         backup-directory-alist `(("." . ,(concat user-emacs-directory

@@ -21,7 +21,6 @@
 (require 'evil)
 (require 'evil-surround)
 (evil-mode 1)
-(evil-rsi-mode)
 (global-evil-surround-mode 1)
 (progn
   (define-key evil-normal-state-map ";" 'evil-ex)
@@ -33,6 +32,17 @@
                                      '(neotree-mode
                                        dired-mode
                                        magit-status-mode)))
+
+;; fake evil-rsi
+(evil-define-key 'insert map "\C-a" #'beginning-of-line)
+(evil-define-key 'motion map "\C-a" #'beginning-of-line)
+(evil-define-key 'insert map "\C-b" #'backward-char)
+(evil-define-key 'insert map "\C-d" #'delete-char)
+(evil-define-key 'insert map "\C-e" #'end-of-line)
+(evil-define-key 'motion map "\C-e" #'end-of-line)
+(evil-define-key 'insert map "\C-f" #'forward-char)
+(evil-define-key 'insert map "\C-h" #'delete-backward-char)
+
 
 ;; Make escape quit everything
 (defun minibuffer-keyboard-quit ()
