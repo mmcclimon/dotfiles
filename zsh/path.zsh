@@ -16,6 +16,6 @@ prepend_to_path $(brew --prefix)/opt/coreutils/libexec/gnubin
 prepend_to_manpath $(brew --prefix)/opt/coreutils/libexec/gnuman
 prepend_to_path ~/bin
 
-append_to_path /usr/texbin
+append_to_path /usr/local/texbin
 
 export PATH
