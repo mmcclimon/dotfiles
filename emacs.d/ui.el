@@ -62,7 +62,7 @@
   (setq x-select-enable-clipboard t
         x-select-enable-primary t
         mouse-yank-at-point t
-        visible-bell nil
+        visible-bell t
         ediff-window-setup-function 'ediff-setup-windows-plain
         save-place-file (concat user-emacs-directory "places")
         backup-directory-alist `(("." . ,(concat user-emacs-directory

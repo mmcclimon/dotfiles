@@ -18,6 +18,13 @@
   (define-key global-map (kbd "M-]") 'forward-paragraph)
   (define-key global-map (kbd "C-x r i") 'string-insert-rectangle))
 
+; Mac things
+(progn
+  (setq mac-option-modifier 'meta)
+  (setq mac-command-modifier 'super)
+  (global-set-key (kbd "s-m") 'iconify-frame)
+  (global-set-key (kbd "s-q") 'save-buffers-kill-terminal))
+
 (require 'evil)
 (require 'evil-surround)
 (evil-mode 1)
