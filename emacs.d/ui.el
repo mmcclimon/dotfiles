@@ -14,7 +14,7 @@
   (scroll-bar-mode -1)                  ; don't use scrollbars
   (show-paren-mode 1)                   ; flash parens
   (fci-mode 1)                          ; column ruler
-  (ido-mode 'buffers))                  ; better buffer switching
+  (ido-mode))                           ; better buffer switching
 
 (setq inhibit-startup-message t         ; no splash screen
       vc-follow-symlinks t              ; don't ask about symlinks

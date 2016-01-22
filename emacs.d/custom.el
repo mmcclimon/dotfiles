@@ -68,6 +68,7 @@
  '(font-latex-string-face ((t (:inherit font-lock-doc-string-face))))
  '(font-latex-subscript-face ((t nil)))
  '(font-lock-comment-face ((t (:foreground "#707070"))))
+ '(ido-subdir ((t (:foreground "DarkSeaGreen4"))))
  '(ledger-font-auto-xact-face ((t (:inherit font-lock-type-face :weight normal))))
  '(ledger-font-payee-cleared-face ((t (:inherit ledger-font-posting-date-face))))
  '(ledger-font-payee-uncleared-face ((t (:inherit font-lock-warning-face :weight bold))))
