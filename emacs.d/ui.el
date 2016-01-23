@@ -21,6 +21,7 @@
       echo-keystrokes 0.1               ; show in-progress keystrokes
       ido-enable-flex-matching t        ; better fuzzy matchin
       ns-pop-up-frames nil              ; open new files in existing frame
+      frame-title-format "%b"           ; buffer name in title bar
       fci-rule-column 80                ; rule at column 80
       fci-rule-color "#444444")         ; dark gray column rule
 

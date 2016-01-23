@@ -41,14 +41,14 @@
                                        magit-status-mode)))
 
 ;; fake evil-rsi
-(evil-define-key 'insert map "\C-a" #'beginning-of-line)
-(evil-define-key 'motion map "\C-a" #'beginning-of-line)
-(evil-define-key 'insert map "\C-b" #'backward-char)
-(evil-define-key 'insert map "\C-d" #'delete-char)
-(evil-define-key 'insert map "\C-e" #'end-of-line)
-(evil-define-key 'motion map "\C-e" #'end-of-line)
-(evil-define-key 'insert map "\C-f" #'forward-char)
-(evil-define-key 'insert map "\C-h" #'delete-backward-char)
+(define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
+(define-key evil-motion-state-map (kbd "C-a") 'beginning-of-line)
+(define-key evil-insert-state-map (kbd "C-b") 'backward-char)
+(define-key evil-insert-state-map (kbd "C-d") 'delete-char)
+(define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
+(define-key evil-motion-state-map (kbd "C-e") 'end-of-line)
+(define-key evil-insert-state-map (kbd "C-f") 'forward-char)
+(define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
 
 
 ;; Make escape quit everything
