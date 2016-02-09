@@ -42,11 +42,11 @@
 
 ;; fake evil-rsi
 (define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
-(define-key evil-motion-state-map (kbd "C-a") 'beginning-of-line)
+; (define-key evil-motion-state-map (kbd "C-a") 'beginning-of-line)
 (define-key evil-insert-state-map (kbd "C-b") 'backward-char)
 (define-key evil-insert-state-map (kbd "C-d") 'delete-char)
 (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
-(define-key evil-motion-state-map (kbd "C-e") 'end-of-line)
+; (define-key evil-motion-state-map (kbd "C-e") 'end-of-line)
 (define-key evil-insert-state-map (kbd "C-f") 'forward-char)
 (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
 
