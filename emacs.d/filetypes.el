@@ -33,3 +33,17 @@
 (setq-default cperl-invalid-face 'default
               cperl-indent-parens-as-block t
               cperl-indent-level tab-width)
+
+
+;; ledger mode
+;; ----------
+
+(defun mjm-ledger-mode-keybindings ()
+  "Better keybindings for ledger mode"
+  (progn
+    (evil-define-key 'normal ledger-mode-map (kbd ",q") 'ledger-post-align-xact)
+    (evil-define-key 'normal ledger-mode-map (kbd ",c") 'ledger-toggle-current)
+    (evil-define-key 'normal ledger-mode-map (kbd ",p") 'ledger-navigate-prev-xact-or-directive)
+    (evil-define-key 'normal ledger-mode-map (kbd ",p") 'ledger-navigate-next-xact-or-directive)))
+
+(add-hook 'ledger-mode-hook 'mjm-ledger-mode-keybindings)
