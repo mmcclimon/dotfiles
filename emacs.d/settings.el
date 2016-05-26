@@ -63,6 +63,8 @@
 ; patch color theme
 (set-face-attribute 'fringe nil :background "#202020")
 
+(setq org-src-fontify-natively t)
+
 (add-to-list
  'default-frame-alist
  '(font . "Input-11"))
@@ -114,6 +116,134 @@
 (add-hook 'prog-mode-hook (lambda () (fci-mode 1)))     ; always start on
 (add-hook 'window-configuration-change-hook 'conditionally-turn-on-fci-mode)
 (add-hook 'after-make-frame-functions 'conditionally-turn-on-fci-mode)
+
+(setq-default tab-always-indent nil             ; tab actually works like a tab key
+              require-final-newline 't          ; unix-friendly trailing newline
+              tab-width 4                       ; tabs are four spaces
+              indent-tabs-mode nil              ; tab works like a tab key
+              sentence-end-double-space nil     ; sentences end with one space
+              fill-column 78)                   ; good width for default
+
+(add-hook 'before-save-hook 'whitespace-cleanup)    ; no messy space
+(add-hook 'text-mode-hook 'turn-on-auto-fill)       ; wrap text
+
+(put 'downcase-region 'disabled nil)            ; why is this turned off?
+
+(setq abbrev-file-name "~/.emacs.d/abbrev_defs"
+      save-abbrevs t)
+(setq-default abbrev-mode t)
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
+(global-set-key (kbd "C-x C-m") 'execute-extended-command)
+(define-key global-map (kbd "RET") 'newline-and-indent)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(define-key global-map (kbd "M-[") 'backward-paragraph)
+(define-key global-map (kbd "M-]") 'forward-paragraph)
+
+(setq mac-option-modifier 'meta)
+(setq mac-command-modifier 'super)
+(global-set-key (kbd "s-m") 'iconify-frame)
+(global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
+(global-set-key (kbd "s-c") 'evil-yank)
+
+(require 'evil)
+(require 'evil-surround)
+(require 'evil-leader)
+(global-evil-leader-mode 1)
+(evil-mode 1)
+(global-evil-surround-mode 1)
+
+(define-key evil-normal-state-map ";" 'evil-ex)
+(define-key evil-normal-state-map ":" 'evil-repeat-find-char)
+
+(setq evil-emacs-state-modes (append evil-emacs-state-modes
+                                     '(neotree-mode
+                                       dired-mode
+                                       magit-status-mode)))
+
+(define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
+(define-key evil-insert-state-map (kbd "C-b") 'backward-char)
+(define-key evil-insert-state-map (kbd "C-d") 'delete-char)
+(define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
+(define-key evil-insert-state-map (kbd "C-f") 'forward-char)
+
+(evil-leader/set-leader ",")
+(evil-leader/set-key
+    "f" 'ace-jump-mode)
+
+(defun minibuffer-keyboard-quit ()
+  "Abort recursive edit.
+In Delete Selection mode, if the mark is active, just deactivate it;
+then it takes a second \\[keyboard-quit] to abort the minibuffer."
+  (interactive)
+  (if (and delete-selection-mode transient-mark-mode mark-active)
+      (setq deactivate-mark  t)
+    (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
+    (abort-recursive-edit)))
+
+(define-key evil-normal-state-map [escape] 'keyboard-quit)
+(define-key evil-visual-state-map [escape] 'keyboard-quit)
+(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+
+(defun mjm-ledger-mode-keybindings ()
+  "Better keybindings for ledger mode"
+  (progn
+    (evil-define-key 'normal ledger-mode-map (kbd ",q") 'ledger-post-align-xact)
+    (evil-define-key 'normal ledger-mode-map (kbd ",c") 'ledger-toggle-current)
+    (evil-define-key 'normal ledger-mode-map (kbd ",p") 'ledger-navigate-prev-xact-or-directive)
+    (evil-define-key 'normal ledger-mode-map (kbd ",n") 'ledger-navigate-next-xact-or-directive)))
+
+(add-hook 'ledger-mode-hook 'mjm-ledger-mode-keybindings)
+
+(add-hook 'mail-mode-hook (lambda ()
+                            (setq fill-column 72)
+                            (turn-on-flyspell)))
+(add-to-list 'auto-mode-alist '("\\.eml\\'" . mail-mode))
+
+(add-hook 'markdown-mode-hook
+          (lambda ()
+            (local-set-key (kbd "RET") 'electric-newline-and-maybe-indent)))
+
+(defalias 'perl-mode 'cperl-mode)
+(setq-default cperl-invalid-face 'default
+              cperl-indent-parens-as-block t
+              cperl-indent-level tab-width)
+
+(setq tex-font-script-display '(-0.0 0.0)
+      tex-suscript-height-ratio 1.0)
+
+(require 'reftex)
+(setq TeX-auto-save t
+      TeX-parse-self t
+      reftex-plug-into-AUCTeX t)
+
+(setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook (lambda()
+                             (turn-on-reftex)
+                             (turn-on-flyspell)
+                             (TeX-fold-mode 1)))
+
+(setq web-mode-enable-html-entities-fontification t)
+
+(setq-default ispell-program-name "aspell")
+(setq ispell-list-command "--list")
+
+(setq magit-process-connection-type nil
+      magit-git-executable "/usr/local/bin/git")
+(global-set-key (kbd "C-c G") 'magit-status)
+
+(server-start)
+
+(message nil)
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)

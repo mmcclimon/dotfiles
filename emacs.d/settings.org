@@ -235,6 +235,290 @@ and call this every time.
 
 
 
+* Text editing
+
+** General
+
+  These are settings for general text-editing things.
+
+#+BEGIN_SRC emacs-lisp
+
+(setq-default tab-always-indent nil             ; tab actually works like a tab key
+              require-final-newline 't          ; unix-friendly trailing newline
+              tab-width 4                       ; tabs are four spaces
+              indent-tabs-mode nil              ; tab works like a tab key
+              sentence-end-double-space nil     ; sentences end with one space
+              fill-column 78)                   ; good width for default
+
+(add-hook 'before-save-hook 'whitespace-cleanup)    ; no messy space
+(add-hook 'text-mode-hook 'turn-on-auto-fill)       ; wrap text
+
+(put 'downcase-region 'disabled nil)            ; why is this turned off?
+
+#+END_SRC
+
+** Abbrevs
+
+  Abbrev-mode is really useful since I often screw up typing simple things.
+
+#+BEGIN_SRC emacs-lisp
+(setq abbrev-file-name "~/.emacs.d/abbrev_defs"
+      save-abbrevs t)
+(setq-default abbrev-mode t)
+#+END_SRC
+
+
+
+* Keybindings
+
+** Global keybindings
+
+These mostly have to do with keys for standard UI bits and modes that are
+available everywhere.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
+(global-set-key (kbd "C-x C-m") 'execute-extended-command)
+(define-key global-map (kbd "RET") 'newline-and-indent)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(define-key global-map (kbd "M-[") 'backward-paragraph)
+(define-key global-map (kbd "M-]") 'forward-paragraph)
+#+END_SRC
+
+** Mac-specific things
+
+I don't really care for the CUA bindings, but I do like a few of the standard
+command-key bindings.
+
+#+BEGIN_SRC emacs-lisp
+(setq mac-option-modifier 'meta)
+(setq mac-command-modifier 'super)
+(global-set-key (kbd "s-m") 'iconify-frame)
+(global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
+(global-set-key (kbd "s-c") 'evil-yank)
+#+END_SRC
+
+** Evil settings
+
+   Emacs is only useful with vim bindings. I tried for a long time to use the
+   Emacs bindings, but couldn't remember what magic key sequence did what. Oh
+   well.
+
+   First, turn on all of the evil bits.
+
+#+BEGIN_SRC emacs-lisp
+(require 'evil)
+(require 'evil-surround)
+(require 'evil-leader)
+(global-evil-leader-mode 1)
+(evil-mode 1)
+(global-evil-surround-mode 1)
+#+END_SRC
+
+   Swap colon/semicolon.
+
+#+BEGIN_SRC emacs-lisp
+(define-key evil-normal-state-map ";" 'evil-ex)
+(define-key evil-normal-state-map ":" 'evil-repeat-find-char)
+#+END_SRC
+
+   There are some mode which have reasonable keybings already, so don't use
+   evil for those modes.
+
+#+BEGIN_SRC emacs-lisp
+(setq evil-emacs-state-modes (append evil-emacs-state-modes
+                                     '(neotree-mode
+                                       dired-mode
+                                       magit-status-mode)))
+#+END_SRC
+
+*** Evil-rsi
+
+    This takes the non-insane bits from evil-rsi, so that readline bindings
+    more-or-less work in insert mode.
+
+#+BEGIN_SRC emacs-lisp
+(define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
+(define-key evil-insert-state-map (kbd "C-b") 'backward-char)
+(define-key evil-insert-state-map (kbd "C-d") 'delete-char)
+(define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
+(define-key evil-insert-state-map (kbd "C-f") 'forward-char)
+#+END_SRC
+
+*** Evil-leader bindings
+
+    Use comma as leader, with a bunch of leader bindings.
+
+#+BEGIN_SRC emacs-lisp
+(evil-leader/set-leader ",")
+(evil-leader/set-key
+    "f" 'ace-jump-mode)
+#+END_SRC
+
+*** Keyboard quitting
+
+    I can't use =C-g= for quitting things, because I like banging on escape
+    until something happens. Here we define a function that bails out of
+    everything, and bind it to =ESC= in a bunch of different places.
+
+#+BEGIN_SRC emacs-lisp
+(defun minibuffer-keyboard-quit ()
+  "Abort recursive edit.
+In Delete Selection mode, if the mark is active, just deactivate it;
+then it takes a second \\[keyboard-quit] to abort the minibuffer."
+  (interactive)
+  (if (and delete-selection-mode transient-mark-mode mark-active)
+      (setq deactivate-mark  t)
+    (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
+    (abort-recursive-edit)))
+
+(define-key evil-normal-state-map [escape] 'keyboard-quit)
+(define-key evil-visual-state-map [escape] 'keyboard-quit)
+(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+#+END_SRC
+
+
+* Filetypes
+
+These are all mode-specific settings.
+
+** Ledger
+
+[[http://ledger-cli.org][Ledger]] is software I use to keep track of my finances, and is super useful.
+
+#+BEGIN_SRC emacs-lisp
+(defun mjm-ledger-mode-keybindings ()
+  "Better keybindings for ledger mode"
+  (progn
+    (evil-define-key 'normal ledger-mode-map (kbd ",q") 'ledger-post-align-xact)
+    (evil-define-key 'normal ledger-mode-map (kbd ",c") 'ledger-toggle-current)
+    (evil-define-key 'normal ledger-mode-map (kbd ",p") 'ledger-navigate-prev-xact-or-directive)
+    (evil-define-key 'normal ledger-mode-map (kbd ",n") 'ledger-navigate-next-xact-or-directive)))
+
+(add-hook 'ledger-mode-hook 'mjm-ledger-mode-keybindings)
+#+END_SRC
+
+** Mail
+
+I don't /really/ write email in emacs so much any more, but these are the
+settings I used when I did more often.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'mail-mode-hook (lambda ()
+                            (setq fill-column 72)
+                            (turn-on-flyspell)))
+(add-to-list 'auto-mode-alist '("\\.eml\\'" . mail-mode))
+#+END_SRC
+
+** Markdown
+
+The default "enter" behavior seems to add whitespace more-or-less randomly to
+the beginning of the next line. This is slightly better.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'markdown-mode-hook
+          (lambda ()
+            (local-set-key (kbd "RET") 'electric-newline-and-maybe-indent)))
+#+END_SRC
+** Perl
+
+Cperl mode is better than perl-mode, for reasons I don't really understand.
+
+#+BEGIN_SRC emacs-lisp
+(defalias 'perl-mode 'cperl-mode)
+(setq-default cperl-invalid-face 'default
+              cperl-indent-parens-as-block t
+              cperl-indent-level tab-width)
+#+END_SRC
+** TeX
+
+Oh man, the default TeX superscript/subscript fontification is /really/ ugly.
+
+#+BEGIN_SRC emacs-lisp
+(setq tex-font-script-display '(-0.0 0.0)
+      tex-suscript-height-ratio 1.0)
+#+END_SRC
+
+RefTeX settings, without which I wouldn't have kept (relatively) sane writing
+a dissertation.
+
+#+BEGIN_SRC emacs-lisp
+(require 'reftex)
+(setq TeX-auto-save t
+      TeX-parse-self t
+      reftex-plug-into-AUCTeX t)
+#+END_SRC
+
+And some general TeX settings. Always ask for the master file, always turn on
+reftex and flyspell, and collapse ugly TeX macros.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook (lambda()
+                             (turn-on-reftex)
+                             (turn-on-flyspell)
+                             (TeX-fold-mode 1)))
+#+END_SRC
+
+** Web mode
+
+Makes PHP files not awful.
+
+#+BEGIN_SRC emacs-lisp
+(setq web-mode-enable-html-entities-fontification t)
+#+END_SRC
+
+
+* Processes
+
+This code deals with miscellaneous external processes that interact with Emacs
+itself.
+
+** aspell
+
+#+BEGIN_SRC emacs-lisp
+(setq-default ispell-program-name "aspell")
+(setq ispell-list-command "--list")
+#+END_SRC
+
+** Git
+
+Also including some magit config here.
+
+#+BEGIN_SRC emacs-lisp
+(setq magit-process-connection-type nil
+      magit-git-executable "/usr/local/bin/git")
+(global-set-key (kbd "C-c G") 'magit-status)
+#+END_SRC
+
+
+
+* Final settings
+
+Do these at the very end.
+
+Set up the server last, so that if there's a server already running everything
+else gets set up anyway.
+
+#+BEGIN_SRC emacs-lisp
+(server-start)
+#+END_SRC
+
+And get rid of the stupid messages in the minibuffer.
+
+#+BEGIN_SRC emacs-lisp
+(message nil)
+#+END_SRC
+
 * Custom-set variables
 
   Add in stuff from =M-x customize=, but only at the very end that at the end.
