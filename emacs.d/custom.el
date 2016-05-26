@@ -48,6 +48,8 @@
  '(ledger-clear-whole-transactions t)
  '(ledger-highlight-xact-under-point nil)
  '(neo-theme (quote arrow))
+ '(org-agenda-files nil)
+ '(org-babel-load-languages (quote ((emacs-lisp . t))))
  '(reftex-bibliography-commands
    (quote
     ("bibliography" "nobibliography" "setupbibtex\\[.*?database=" "addbibresource")))

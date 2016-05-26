@@ -25,6 +25,11 @@
                             (turn-on-flyspell)))
 (add-to-list 'auto-mode-alist '("\\.eml\\'" . mail-mode))
 
+;; markdown mode
+(add-hook 'markdown-mode-hook
+          (lambda ()
+            (local-set-key (kbd "RET") 'electric-newline-and-maybe-indent)))
+
 ;; web-mode
 (setq web-mode-enable-html-entities-fontification t)
 
@@ -44,6 +49,6 @@
     (evil-define-key 'normal ledger-mode-map (kbd ",q") 'ledger-post-align-xact)
     (evil-define-key 'normal ledger-mode-map (kbd ",c") 'ledger-toggle-current)
     (evil-define-key 'normal ledger-mode-map (kbd ",p") 'ledger-navigate-prev-xact-or-directive)
-    (evil-define-key 'normal ledger-mode-map (kbd ",p") 'ledger-navigate-next-xact-or-directive)))
+    (evil-define-key 'normal ledger-mode-map (kbd ",n") 'ledger-navigate-next-xact-or-directive)))
 
 (add-hook 'ledger-mode-hook 'mjm-ledger-mode-keybindings)

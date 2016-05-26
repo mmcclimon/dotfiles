@@ -1,0 +1,248 @@
+#+TITLE: Emacs config
+#+AUTHOR: Michael McClimon
+#+EMAIL: michael@mcclimon.org
+#+OPTIONS: toc:3
+
+* Emacs Config
+
+  This is a test of trying to keep my Emacs config in org mode, because
+  obviously I need some new way to procrastinate.
+
+
+* Packages
+
+  This sections deals with all of the external packages I want.
+
+  First, we'll add the repos and initialize everything.
+
+#+BEGIN_SRC emacs-lisp
+
+(require 'package)
+
+(add-to-list 'package-archives
+         '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+         '("melpa" . "http://melpa.milkbox.net/packages/"))
+(package-initialize)
+
+#+END_SRC
+
+  The variable =required-packages= lists everything I want.
+
+#+BEGIN_SRC emacs-lisp
+
+(defvar required-packages
+  '(color-theme
+    fill-column-indicator
+    base16-theme
+    sublime-themes
+    neotree
+    paredit
+    evil
+    evil-leader
+    evil-surround
+    ace-jump-mode
+    auctex
+    yasnippet
+    web-mode))
+
+#+END_SRC
+
+  This function runs through all of the required packages and installs them if
+  they're missing.
+
+#+BEGIN_SRC emacs-lisp
+
+(defun required-packages-installed-p (packages)
+  "Check if all required packages are installed"
+  (let ((rest (cdr packages)))
+    (if (package-installed-p (car packages))
+        (if (eq rest nil) t (required-packages-installed-p rest))
+      nil)))
+
+(unless (required-packages-installed-p required-packages)
+  (message "%s" "Installing required packages...")
+  (package-refresh-contents)
+  (dolist (pkg required-packages)
+    (when (not (package-installed-p pkg))
+      (package-install pkg)))
+  (message "%s" "Packages installed"))
+
+#+END_SRC
+
+
+
+* UI settings
+
+  This contains all of the miscellaneous settings for the look and feel of
+  Emacs.
+
+** Packages
+
+   Load up the packages we're gonna need
+
+#+BEGIN_SRC emacs-lisp
+
+(require 'color-theme)
+(require 'fill-column-indicator)
+
+#+END_SRC
+
+** Misc. settings
+
+A bunch of random settings for what the window looks like, get rid of some
+annoying default behavior.
+
+#+BEGIN_SRC emacs-lisp
+
+(progn
+  (load-theme 'base16-default t)        ; color theme
+  (column-number-mode t)                ; show column in mode line
+  (line-number-mode t)                  ; show line numbers too
+  (menu-bar-mode 1)                     ; show menus
+  (tool-bar-mode -1)                    ; don't show toolbar
+  (scroll-bar-mode -1)                  ; don't use scrollbars
+  (show-paren-mode 1)                   ; flash parens
+  (fci-mode 1)                          ; column ruler
+  (ido-mode))                           ; better buffer switching
+
+(setq inhibit-startup-message t         ; no splash screen
+      vc-follow-symlinks t              ; don't ask about symlinks
+      echo-keystrokes 0.1               ; show in-progress keystrokes
+      ido-enable-flex-matching t        ; better fuzzy matchin
+      ns-pop-up-frames nil              ; open new files in existing frame
+      frame-title-format "%b")          ; buffer name in title bar
+
+(defalias 'yes-or-no-p 'y-or-n-p)       ; don't make me type "yes"
+
+; patch color theme
+(set-face-attribute 'fringe nil :background "#202020")
+
+#+END_SRC
+
+Nice fontification in org-mode files.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t)
+#+END_SRC
+
+Set default font for frames.
+
+#+BEGIN_SRC emacs-lisp
+
+(add-to-list
+ 'default-frame-alist
+ '(font . "Input-11"))
+
+#+END_SRC
+
+** Scrolling
+
+   Emacs scrolling is super bizarre and unintuitive. This makes it more like
+   vim's scrolling, which I like and am used to.
+
+#+BEGIN_SRC emacs-lisp
+
+(setq scroll-margin 2                                   ; scroll-off
+      scroll-conservatively 9999                        ; don't recenter point
+      scroll-step 1                                     ; scroll one line at a time
+      mouse-wheel-scroll-amount '(2 ((shift) . 1))      ; one line at a time
+      mouse-wheel-progressive-speed nil                 ; don't accelerate
+      mouse-wheel-follow-mouse 't)                      ; scroll window under mouse
+
+#+END_SRC
+
+** Backups
+
+Emacs backup system is black magic to me, but these settings seem not to lose
+anything, so I might as well keep them.
+
+#+BEGIN_SRC emacs-lisp
+
+(setq backup-by-copying t
+      backup-directory-alist '(("." . "~/.emacs.d/backups"))
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
+
+#+END_SRC
+
+** Better defaults
+
+This is stuff shamelessly ripped off from the better-defaults package, only
+without the things I find really annoying
+
+#+BEGIN_SRC emacs-lisp
+(progn
+  (autoload 'zap-up-to-char "misc"
+    "Kill up to, but not including ARGth occurrence of CHAR." t)
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'forward)
+  (require 'saveplace)
+  (setq-default save-place t)
+  (setq x-select-enable-clipboard t
+        x-select-enable-primary t
+        mouse-yank-at-point t
+        visible-bell t
+        ediff-window-setup-function 'ediff-setup-windows-plain
+        save-place-file (concat user-emacs-directory "places")
+        backup-directory-alist `(("." . ,(concat user-emacs-directory
+                                                 "backups")))))
+#+END_SRC
+
+** FCI mode
+
+I really like fci-mode, which shows a visual indicator of the fill-column.
+It's annoying, though, when the window is small, since it adds long-line
+indicators on every line. It's also much more useful in prog-modes than in
+text-modes.
+
+First, settings:
+
+#+BEGIN_SRC emacs-lisp
+(setq fci-rule-column 80
+      fci-rule-color "#444444")
+#+END_SRC
+
+This function figures out where fci-mode is useful and maybe turns it on,
+along with linum-mode (which shows line numbers)
+
+#+BEGIN_SRC emacs-lisp
+
+(defun conditionally-turn-on-fci-mode ()
+  (if (and
+       (> (window-total-width) (+ 4 fci-rule-column))
+       (derived-mode-p 'prog-mode))
+      (progn
+        (fci-mode 1)
+        (linum-mode 1))
+    (progn
+      (fci-mode -1)
+      (linum-mode -1))))
+#+END_SRC
+
+Then we hook into the prog-mode hooks, along with window-resizing functions
+and call this every time.
+
+#+BEGIN_SRC emacs-lisp
+
+(add-hook 'prog-mode-hook (lambda () (fci-mode 1)))     ; always start on
+(add-hook 'window-configuration-change-hook 'conditionally-turn-on-fci-mode)
+(add-hook 'after-make-frame-functions 'conditionally-turn-on-fci-mode)
+
+#+END_SRC
+
+
+
+* Custom-set variables
+
+  Add in stuff from =M-x customize=, but only at the very end that at the end.
+
+
+#+BEGIN_SRC emacs-lisp
+
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file 'noerror)
+
+#+END_SRC
