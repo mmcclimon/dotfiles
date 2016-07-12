@@ -232,6 +232,37 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
                              (turn-on-flyspell)
                              (TeX-fold-mode 1)))
 
+(defun save-line-num-for-folding ()
+"Save current line number and point position so we can compare later.
+
+This sets two buffer-local variables, tex-line-num and prev-point-pos."
+  (interactive)
+  (unless (window-minibuffer-p)
+    (setq-local tex-line-num (line-number-at-pos))
+    (setq-local prev-point-pos (point))))
+
+(defun unfold-para-around-point ()
+  "Unfolds the paragraph around point and folds up where we just left.
+
+This has to do some additional checking because we really don't want to do this
+in the minibuffer or refold/unfold if the point hasn't actually changes lines."
+  (interactive)
+  (unless (window-minibuffer-p)
+    (unless (equal tex-line-num (line-number-at-pos))
+      (save-excursion
+        (goto-char prev-point-pos)
+        (TeX-fold-paragraph))
+      (unless (and (bolp) (eolp))
+        (TeX-fold-clearout-paragraph)))))
+
+(defun add-tex-folding-hooks ()
+  (defvar-local tex-line-num 1 "Local variable to save previous line number.")
+  (defvar-local prev-point-pos 1 "Local variable to save previous point-position.")
+  (add-hook 'pre-command-hook 'save-line-num-for-folding nil :local)
+  (add-hook 'post-command-hook 'unfold-para-around-point nil :local))
+
+(add-hook 'LaTeX-mode-hook 'add-tex-folding-hooks)
+
 (setq web-mode-enable-html-entities-fontification t)
 
 (setq-default ispell-program-name "aspell")
