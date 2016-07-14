@@ -495,11 +495,12 @@ in the minibuffer or refold/unfold if the point hasn't actually changes lines."
   (interactive)
   (unless (window-minibuffer-p)
     (unless (equal tex-line-num (line-number-at-pos))
-      (save-excursion
-        (goto-char prev-point-pos)
-        (TeX-fold-paragraph))
-      (unless (and (bolp) (eolp))
-        (TeX-fold-clearout-paragraph)))))
+      (when TeX-unfold-para-around-point
+        (save-excursion
+          (goto-char prev-point-pos)
+          (TeX-fold-paragraph))
+        (unless (and (bolp) (eolp))
+          (TeX-fold-clearout-paragraph))))))
 #+END_SRC
 
 And now, actually set up the hooks when we're in LaTeX-mode. We'll do this via
@@ -509,6 +510,10 @@ a function instead of a mess of lambdas.
 (defun add-tex-folding-hooks ()
   (defvar-local tex-line-num 1 "Local variable to save previous line number.")
   (defvar-local prev-point-pos 1 "Local variable to save previous point-position.")
+  (defcustom TeX-unfold-para-around-point t
+    "Unfold text around the mark, if active."
+    :type 'boolean
+    :group 'TeX-fold)
   (add-hook 'pre-command-hook 'save-line-num-for-folding nil :local)
   (add-hook 'post-command-hook 'unfold-para-around-point nil :local))
 
