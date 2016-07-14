@@ -4,6 +4,7 @@ emacs.d/auto-save-list
 emacs.d/backups
 emacs.d/elpa
 emacs.d/places
+emacs.d/settings.el
 emacs.d/tramp
 emacs.d/url
 
