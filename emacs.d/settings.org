@@ -35,6 +35,7 @@
   '(fill-column-indicator
     base16-theme
     sublime-themes
+    twilight-bright-theme
     neotree
     paredit
     evil
@@ -82,7 +83,7 @@
 
 #+BEGIN_SRC emacs-lisp
 
-(require 'fill-column-indicator)
+  (require 'fill-column-indicator)
 
 #+END_SRC
 
@@ -113,7 +114,7 @@ annoying default behavior.
 (defalias 'yes-or-no-p 'y-or-n-p)       ; don't make me type "yes"
 #+END_SRC
 
-*** Colors
+** Colors
 
     I like the base16-default colors, /mostly/. Here we'll patch the bits I
     don't like. (If it's done via the customize interface, if I switch themes
@@ -200,11 +201,22 @@ Nice fontification in org-mode files.
 Set default font for frames.
 
 #+BEGIN_SRC emacs-lisp
-
 (add-to-list
  'default-frame-alist
  '(font . "Input-11"))
+#+END_SRC
 
+Add some functions for switching between light and dark themes.
+
+#+BEGIN_SRC emacs-lisp
+  (defun dark-theme ()
+    (interactive)
+    (load-theme 'base16-default t))
+
+  (defun light-theme ()
+    (interactive)
+    (load-theme 'twilight-bright t)
+    (setq line-spacing 0.5))
 #+END_SRC
 
 ** Scrolling
