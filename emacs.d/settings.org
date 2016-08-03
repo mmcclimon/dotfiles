@@ -195,6 +195,37 @@ annoying default behavior.
 
 #+END_SRC
 
+But occasionally I like to use a light theme (especially if writing text).
+
+#+BEGIN_SRC emacs-lisp
+
+  (defun load-twilight-bright ()
+    (interactive)
+    (mapcar #'disable-theme custom-enabled-themes)    ; clear old theme out
+    (load-theme 'twilight-bright t)
+    (custom-theme-set-faces                           ; patch this one
+     'twilight-bright
+     '(ido-subdir ((t (:foreground "#5f9411"))))
+     '(font-latex-italic-face ((t (:inherit italic))))
+     '(font-latex-math-face ((t (:inherit font-lock-string-face))))
+     '(font-latex-sectioning-5-face ((t (:inherit font-lock-variable-name-face :weight bold))))
+     '(font-latex-sedate-face ((t (:foreground "LightSkyBlue3"))))
+     '(font-latex-string-face ((t (:inherit font-lock-doc-string-face))))
+     '(font-latex-subscript-face ((t nil)))
+     '(TeX-fold-folded-face ((t (:foreground "LightPink3"))))
+     '(ledger-font-auto-xact-face ((t (:inherit font-lock-type-face :weight normal))))
+     '(ledger-font-posting-date-face ((t (:inherit font-lock-constant-face :background "white"))))
+     '(ledger-font-payee-cleared-face ((t (:inherit ledger-font-posting-date-face :background "white"))))
+     '(ledger-font-payee-uncleared-face ((t (:inherit font-lock-warning-face :weight bold :bacgkround "white"))))
+     '(ledger-font-pending-face ((t (:inherit ledger-font-payee-uncleared-face :weight bold :background "white"))))
+     '(ledger-font-posting-account-face ((t (:inherit font-lock-variable-name-face :background "white"))))
+     '(ledger-font-posting-amount-face ((t (:inherit font-lock-keyword-face :background "white"))))
+     '(ledger-occur-xact-face ((t nil)))
+     '(ledger-occur-xact-face ((t nil)))
+     '(org-block-background ((t (:background "#f9feff"))))))
+
+#+END_SRC
+
 Nice fontification in org-mode files.
 
 #+BEGIN_SRC emacs-lisp
@@ -218,8 +249,7 @@ Add some functions for switching between light and dark themes.
 
   (defun light-theme ()
     (interactive)
-    (mapcar #'disable-theme custom-enabled-themes)
-    (load-theme 'twilight-bright t))
+    (load-twilight-bright))
 #+END_SRC
 
 ** Scrolling
