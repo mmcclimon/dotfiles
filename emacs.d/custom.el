@@ -10,11 +10,11 @@
      ("[f]"
       ("footnote" "marginpar" "fn"))
      ("[c]"
-      ("cite" "nocite" "footcite"))
+      ("cite" "nocite" "footcite" "autocite" "autocite*" "cite*"))
      ("[l]"
       ("label"))
      ("[r]"
-      ("ref" "pageref" "eqref"))
+      ("ref" "pageref" "eqref" "autoref"))
      ("[i]"
       ("index" "glossary"))
      ("[1]:||*"
