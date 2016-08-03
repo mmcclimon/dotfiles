@@ -40,7 +40,7 @@
  '(cperl-invalid-face (quote default) t)
  '(custom-safe-themes
    (quote
-    ("8022cea21aa4daca569aee5c1b875fbb3f3248a5debc6fc8cf5833f2936fbb22" "e9776d12e4ccb722a2a732c6e80423331bcb93f02e089ba2a4b02e85de1cf00e" default)))
+    ("107d4fc77b12ffd38c276d8ab38901d96a2e8c9bb2a780170a919a3e80c97074" "e77a81353dad06d0db1a9351a9475e1177585fd4a0eff4d3c8aa71a18d11a2e2" "ad458d62c0648199289b15bd1d4ad81130361a92f8615e5367e1dff91150095d" "fe1682ca8f7a255cf295e76b0361438a21bb657d8846a05d9904872aa2fb86f2" "3cd28471e80be3bd2657ca3f03fbb2884ab669662271794360866ab60b6cb6e6" "8022cea21aa4daca569aee5c1b875fbb3f3248a5debc6fc8cf5833f2936fbb22" "e9776d12e4ccb722a2a732c6e80423331bcb93f02e089ba2a4b02e85de1cf00e" default)))
  '(exec-path
    (quote
     ("/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/Cellar/emacs/24.4/libexec/emacs/24.4/x86_64-apple-darwin14.0.0" "/usr/local/bin" "/Users/michael/bin" "/usr/local/texbin")))
@@ -61,33 +61,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(TeX-fold-folded-face ((t (:foreground "DarkSlateGray4"))))
- '(flyspell-duplicate ((t (:underline (:color "chartreuse4" :style wave)))))
- '(flyspell-incorrect ((t (:underline (:color "red" :style wave)))))
- '(font-latex-italic-face ((t (:inherit italic))))
- '(font-latex-sectioning-5-face ((t (:inherit font-lock-variable-name-face :weight bold))))
- '(font-latex-sedate-face ((t (:foreground "#8899aa"))))
- '(font-latex-string-face ((t (:inherit font-lock-doc-string-face))))
- '(font-latex-subscript-face ((t nil)))
- '(font-lock-comment-face ((t (:foreground "#707070"))))
- '(ido-subdir ((t (:foreground "DarkSeaGreen4"))))
- '(ledger-font-auto-xact-face ((t (:inherit font-lock-type-face :weight normal))))
- '(ledger-font-payee-cleared-face ((t (:inherit ledger-font-posting-date-face))))
- '(ledger-font-payee-uncleared-face ((t (:inherit font-lock-warning-face :weight bold))))
- '(ledger-font-pending-face ((t (:inherit ledger-font-payee-uncleared-face :weight bold))))
- '(ledger-font-posting-account-face ((t (:inherit font-lock-function-name-face))))
- '(ledger-font-posting-amount-face ((t (:inherit font-lock-keyword-face))))
- '(ledger-font-posting-date-face ((t (:inherit font-lock-constant-face))))
- '(ledger-occur-xact-face ((t nil)))
- '(link ((t (:inherit font-lock-function-name-face :underline t))))
- '(link-visited ((t (:inherit font-lock-keyword-face :underline t))))
- '(linum ((t (:background "#202020" :foreground "#707070" :height 0.9))))
- '(markdown-italic-face ((t (:slant italic))))
- '(mode-line ((t (:background "#505050" :foreground "#e0e0e0"))))
- '(mode-line-inactive ((t (:inherit mode-line :background "gray20" :foreground "gray50" :weight light))))
- '(neo-button-face ((t (:inherit link :underline nil))))
- '(variable-pitch ((t (:weight light :height 1.3 :family "Source Sans Pro"))))
- '(web-mode-html-entity-face ((t (:inherit font-lock-comment-face))))
- '(whitespace-newline ((t (:foreground "dimgray" :weight normal))))
- '(whitespace-space ((t (:foreground "dimgray"))))
- '(whitespace-tab ((t (:foreground "dim gray")))))
+ )

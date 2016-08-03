@@ -32,8 +32,7 @@
 #+BEGIN_SRC emacs-lisp
 
 (defvar required-packages
-  '(color-theme
-    fill-column-indicator
+  '(fill-column-indicator
     base16-theme
     sublime-themes
     neotree
@@ -83,7 +82,6 @@
 
 #+BEGIN_SRC emacs-lisp
 
-(require 'color-theme)
 (require 'fill-column-indicator)
 
 #+END_SRC
@@ -96,7 +94,6 @@ annoying default behavior.
 #+BEGIN_SRC emacs-lisp
 
 (progn
-  (load-theme 'base16-default t)        ; color theme
   (column-number-mode t)                ; show column in mode line
   (line-number-mode t)                  ; show line numbers too
   (menu-bar-mode 1)                     ; show menus
@@ -114,9 +111,83 @@ annoying default behavior.
       frame-title-format "%b")          ; buffer name in title bar
 
 (defalias 'yes-or-no-p 'y-or-n-p)       ; don't make me type "yes"
+#+END_SRC
 
-; patch color theme
-(set-face-attribute 'fringe nil :background "#202020")
+*** Colors
+
+    I like the base16-default colors, /mostly/. Here we'll patch the bits I
+    don't like. (If it's done via the customize interface, if I switch themes
+    later the customized bits hang around, which is really annoying.)
+
+#+BEGIN_SRC emacs-lisp
+(load-theme 'base16-default t)        ; color theme
+
+(with-eval-after-load "base16-default-theme"
+  (custom-theme-set-faces
+   'base16-default
+
+   ;; font-lock faces
+   '(font-lock-comment-face ((t (:foreground "#707070"))))
+   '(font-lock-comment-face ((t (:foreground "#b0b0b0"))))
+   '(font-lock-constant-face ((t (:foreground "#90a959"))))
+   '(font-lock-function-name-face ((t (:foreground "#6a9fb5"))))
+   '(font-lock-keyword-face ((t (:foreground "#aa759f"))))
+   '(font-lock-string-face ((t (:foreground "#90a959"))))
+   '(font-lock-type-face ((t (:foreground "#f4bf75"))))
+   '(font-lock-variable-name-face ((t (:foreground "#ac4142"))))
+   '(font-lock-warning-face ((t (:foreground "#ac4142"))))
+
+   ;; everything else
+   '(flyspell-duplicate ((t (:underline (:color "chartreuse4" :style wave)))))
+   '(flyspell-incorrect ((t (:underline (:color "red" :style wave)))))
+   '(font-latex-italic-face ((t (:inherit italic))))
+   '(font-latex-sectioning-5-face ((t (:inherit font-lock-variable-name-face :weight bold))))
+   '(font-latex-sedate-face ((t (:foreground "#8899aa"))))
+   '(font-latex-string-face ((t (:inherit font-lock-doc-string-face))))
+   '(font-latex-subscript-face ((t nil)))
+   '(fringe ((t (:background "#202020"))))
+   '(ido-subdir ((t (:foreground "DarkSeaGreen4"))))
+   '(ido-subdir ((t (:foreground "DarkSeaGreen4"))))
+   '(ledger-font-auto-xact-face ((t (:inherit font-lock-type-face :weight normal))))
+   '(ledger-font-payee-cleared-face ((t (:inherit ledger-font-posting-date-face))))
+   '(ledger-font-payee-uncleared-face ((t (:inherit font-lock-warning-face :weight bold))))
+   '(ledger-font-pending-face ((t (:inherit ledger-font-payee-uncleared-face :weight bold))))
+   '(ledger-font-posting-account-face ((t (:inherit font-lock-function-name-face))))
+   '(ledger-font-posting-amount-face ((t (:inherit font-lock-keyword-face))))
+   '(ledger-font-posting-date-face ((t (:inherit font-lock-constant-face))))
+   '(ledger-occur-xact-face ((t nil)))
+   '(ledger-occur-xact-face ((t nil)))
+   '(link ((t (:inherit font-lock-function-name-face :underline t))))
+   '(link ((t (:inherit font-lock-function-name-face :underline t))))
+   '(link-visited ((t (:inherit font-lock-keyword-face :underline t))))
+   '(link-visited ((t (:inherit font-lock-keyword-face :underline t))))
+   '(linum ((t (:background "#202020" :foreground "#707070" :height 0.9))))
+   '(linum ((t (:background "#505050" :foreground "#e0e0e0"))))
+   '(markdown-italic-face ((t (:slant italic))))
+   '(minibuffer-prompt ((t (:foreground "#6a9fb5"))))
+   '(mode-line ((t (:background "#505050" :foreground "#e0e0e0"))))
+   '(mode-line ((t (:background "#505050" :foreground "#e0e0e0"))))
+   '(mode-line-inactive ((t (:inherit mode-line :background "gray20" :foreground "gray50" :weight light))))
+   '(mode-line-inactive ((t (:inherit mode-line :background "gray20" :foreground "gray50" :weight light))))
+   '(neo-button-face ((t (:inherit link :underline nil))))
+   '(org-date ((t (:foreground "#aa759f"))))
+   '(org-done ((t (:foreground "#90a959"))))
+   '(org-hide ((t (:foreground "#505050"))))
+   '(org-link ((t (:foreground "#6a9fb5"))))
+   '(org-todo ((t (:foreground "#ac4142"))))
+   '(region ((t (:background "#b0b0b0"))))
+   '(show-paren-match ((t (:background "#6a9fb5" :foreground "#505050"))))
+   '(show-paren-mismatch ((t (:background "#d28445" :foreground "#505050"))))
+   '(TeX-fold-folded-face ((t (:foreground "DarkSlateGray4"))))
+   '(variable-pitch ((t (:weight light :height 1.3 :family "Source Sans Pro"))))
+   '(variable-pitch ((t (:weight light :height 1.3 :family "Source Sans Pro"))))
+   '(web-mode-html-entity-face ((t (:inherit font-lock-comment-face))))
+   '(whitespace-newline ((t (:foreground "dimgray" :weight normal))))
+   '(whitespace-newline ((t (:foreground "dimgray" :weight normal))))
+   '(whitespace-space ((t (:foreground "dimgray"))))
+   '(whitespace-space ((t (:foreground "dimgray"))))
+   '(whitespace-tab ((t (:foreground "dim gray"))))
+   '(whitespace-tab ((t (:foreground "dim gray"))))))
 
 #+END_SRC
 
