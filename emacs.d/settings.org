@@ -545,6 +545,26 @@ the beginning of the next line. This is slightly better.
           (lambda ()
             (local-set-key (kbd "RET") 'electric-newline-and-maybe-indent)))
 #+END_SRC
+
+** Org
+
+I am, very slowly, attempting to learn org-mode (this document
+notwithstanding).
+
+First, use comma-bindings to navigate.
+
+#+BEGIN_SRC emacs-lisp
+
+  (defun mjm-org-mode-keybindings ()
+    (evil-define-key 'normal org-mode-map (kbd ",n") 'outline-next-visible-heading)
+    (evil-define-key 'normal org-mode-map (kbd ",p") 'outline-previous-visible-heading)
+    (evil-define-key 'normal org-mode-map (kbd ",u") 'outline-up-heading)
+    (evil-define-key 'normal org-mode-map (kbd ",c") 'org-ctrl-c-ctrl-c))
+
+  (add-hook 'org-mode-hook 'mjm-org-mode-keybindings)
+
+#+END_SRC
+
 ** Perl
 
 Cperl mode is better than perl-mode, for reasons I don't really understand.
