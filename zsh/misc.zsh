@@ -15,6 +15,9 @@ export EDITOR=vim
 export MANLESS=''
 export MANWIDTH=80
 
+## misc environment vars
+export TEXMFHOME="$HOME/.texmf"
+
 # play nice with tmux
 if [[ -n "$TMUX" ]]; then
     export DISABLE_AUTO_TITLE=true
