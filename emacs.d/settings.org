@@ -38,10 +38,10 @@
     twilight-bright-theme
     neotree
     paredit
+    avy
     evil
     evil-leader
     evil-surround
-    ace-jump-mode
     auctex
     yasnippet
     web-mode))
@@ -401,7 +401,6 @@ available everywhere.
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)
 (define-key global-map (kbd "RET") 'newline-and-indent)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 (define-key global-map (kbd "M-[") 'backward-paragraph)
 (define-key global-map (kbd "M-]") 'forward-paragraph)
 #+END_SRC
@@ -473,7 +472,7 @@ command-key bindings.
 #+BEGIN_SRC emacs-lisp
 (evil-leader/set-leader ",")
 (evil-leader/set-key
-    "f" 'ace-jump-mode)
+    "f" 'avy-goto-char)
 #+END_SRC
 
 *** Keyboard quitting
