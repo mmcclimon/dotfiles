@@ -17,6 +17,7 @@ export MANWIDTH=80
 
 ## misc environment vars
 export TEXMFHOME="$HOME/.texmf"
+export GCAL="-s 1"
 
 # play nice with tmux
 if [[ -n "$TMUX" ]]; then
