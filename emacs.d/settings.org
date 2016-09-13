@@ -452,6 +452,35 @@ command-key bindings.
                                        magit-status-mode)))
 #+END_SRC
 
+** Visual line mode
+
+   Visual-line-mode is useful for editing HTML files (among other things), but
+   plays a little funny with evil. Fix that here. This has to do a little more
+   work because I want to unset the modified bindings when visual line mode
+   turns off.
+
+#+BEGIN_SRC emacs-lisp
+(defun mjm-visual-line-mode-keybindings ()
+  "Set up visual line mode bindings"
+  (when visual-line-mode
+    (define-key evil-normal-state-local-map "j" 'evil-next-visual-line)
+    (define-key evil-normal-state-local-map "k" 'evil-previous-visual-line)
+    (define-key evil-normal-state-local-map "0" 'evil-beginning-of-visual-line)
+    (define-key evil-normal-state-local-map "gj" 'evil-next-line)
+    (define-key evil-normal-state-local-map "gk" 'evil-previous-line)
+    (define-key evil-normal-state-local-map "g0" 'evil-beginning-of-line))
+  (unless visual-line-mode
+    (define-key evil-normal-state-local-map "j" nil)
+    (define-key evil-normal-state-local-map "k" nil)
+    (define-key evil-normal-state-local-map "0" nil)
+    (define-key evil-normal-state-local-map "gj" nil)
+    (define-key evil-normal-state-local-map "gk" nil)
+    (define-key evil-normal-state-local-map "g0" nil)))
+
+(add-hook 'visual-line-mode 'mjm-visual-line--mode-keybindings)
+#+END_SRC
+
+
 *** Evil-rsi
 
     This takes the non-insane bits from evil-rsi, so that readline bindings
