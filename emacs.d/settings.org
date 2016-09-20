@@ -33,9 +33,7 @@
 
 (defvar required-packages
   '(fill-column-indicator
-    base16-theme
     sublime-themes
-    twilight-bright-theme
     neotree
     paredit
     avy
@@ -124,6 +122,8 @@ annoying default behavior.
     later the customized bits hang around, which is really annoying.)
 
 #+BEGIN_SRC emacs-lisp
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+
   (defun load-base16-default ()
     (interactive)
     (mapcar #'disable-theme custom-enabled-themes)    ; clear old theme out
@@ -132,7 +132,6 @@ annoying default behavior.
      'base16-default
 
      ;; font-lock faces
-     '(font-lock-comment-face ((t (:foreground "#707070"))))
      '(font-lock-comment-face ((t (:foreground "#b0b0b0"))))
      '(font-lock-constant-face ((t (:foreground "#90a959"))))
      '(font-lock-function-name-face ((t (:foreground "#6a9fb5"))))
