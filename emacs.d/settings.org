@@ -79,11 +79,14 @@
 
 ** Packages
 
-   Load up the packages we're gonna need
+   Load up the packages we're gonna need.
 
 #+BEGIN_SRC emacs-lisp
 
-  (require 'fill-column-indicator)
+(require 'fill-column-indicator)
+(add-to-list 'load-path "~/.emacs.d/lisp")
+(autoload 'mto-mode "mto-mode" "Minor mode for MTO typesetting" t)
+
 
 #+END_SRC
 

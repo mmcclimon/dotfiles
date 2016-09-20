@@ -201,6 +201,7 @@ to lowercase"
 
 
 ;;; mto-mode
+
 ;;;###autoload
 (define-minor-mode mto-mode
   "Minor mode for typesetting MTO files"
