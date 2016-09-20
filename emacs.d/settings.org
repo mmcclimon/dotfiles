@@ -40,6 +40,8 @@
     evil
     evil-leader
     evil-surround
+    ledger-mode
+    magit
     auctex
     yasnippet
     web-mode))

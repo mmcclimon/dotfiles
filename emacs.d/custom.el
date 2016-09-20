@@ -55,7 +55,8 @@
     ("bibliography" "nobibliography" "setupbibtex\\[.*?database=" "addbibresource")))
  '(reftex-label-alist (quote (("example" 120 nil nil nil ("Example")))))
  '(reftex-ref-macro-prompt nil)
- '(tree-widget-image-enable nil))
+ '(tree-widget-image-enable nil)
+ '(when (not (facep (aref ansi-term-color-vector 0)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
