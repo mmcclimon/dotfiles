@@ -97,24 +97,30 @@ annoying default behavior.
 
 #+BEGIN_SRC emacs-lisp
 
-(progn
-  (column-number-mode t)                ; show column in mode line
-  (line-number-mode t)                  ; show line numbers too
-  (menu-bar-mode 1)                     ; show menus
-  (tool-bar-mode -1)                    ; don't show toolbar
-  (scroll-bar-mode -1)                  ; don't use scrollbars
-  (show-paren-mode 1)                   ; flash parens
-  (fci-mode 1)                          ; column ruler
-  (ido-mode))                           ; better buffer switching
+  (progn
+    (column-number-mode t)                ; show column in mode line
+    (line-number-mode t)                  ; show line numbers too
+    (menu-bar-mode 1)                     ; show menus
+    (tool-bar-mode -1)                    ; don't show toolbar
+    (scroll-bar-mode -1)                  ; don't use scrollbars
+    (show-paren-mode 1)                   ; flash parens
+    (fci-mode 1)                          ; column ruler
+    (ido-mode))                           ; better buffer switching
 
-(setq inhibit-startup-message t         ; no splash screen
-      vc-follow-symlinks t              ; don't ask about symlinks
-      echo-keystrokes 0.1               ; show in-progress keystrokes
-      ido-enable-flex-matching t        ; better fuzzy matchin
-      ns-pop-up-frames nil              ; open new files in existing frame
-      frame-title-format "%b")          ; buffer name in title bar
+  (setq inhibit-startup-message t         ; no splash screen
+        vc-follow-symlinks t              ; don't ask about symlinks
+        echo-keystrokes 0.1               ; show in-progress keystrokes
+        ido-enable-flex-matching t        ; better fuzzy matchin
+        ns-pop-up-frames nil              ; open new files in existing frame
+        frame-title-format "%b")          ; buffer name in title bar
 
-(defalias 'yes-or-no-p 'y-or-n-p)       ; don't make me type "yes"
+  ; mode line
+  (setq display-time-format "  %d-%b"
+        display-time-mail-string ""
+        display-time-default-load-average nil)
+  (display-time-mode 1)
+
+  (defalias 'yes-or-no-p 'y-or-n-p)       ; don't make me type "yes"
 #+END_SRC
 
 ** Colors

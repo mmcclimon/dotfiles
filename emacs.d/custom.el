@@ -56,12 +56,15 @@
  '(org-babel-load-languages (quote ((emacs-lisp . t))))
  '(package-selected-packages
    (quote
-    (simplenote2 markdown-mode web-mode yasnippet auctex magit ledger-mode evil-surround evil-leader evil avy paredit neotree sublime-themes fill-column-indicator)))
+    (pandoc-mode simplenote2 markdown-mode web-mode yasnippet auctex magit ledger-mode evil-surround evil-leader evil avy paredit neotree sublime-themes fill-column-indicator)))
  '(reftex-bibliography-commands
    (quote
     ("bibliography" "nobibliography" "setupbibtex\\[.*?database=" "addbibresource")))
  '(reftex-label-alist (quote (("example" 120 nil nil nil ("Example")))))
  '(reftex-ref-macro-prompt nil)
+ '(simplenote2-markdown-notes-mode (quote markdown-mode))
+ '(simplenote2-notes-mode (quote markdown-mode))
+ '(simplenote2-show-note-file-name nil)
  '(tree-widget-image-enable nil)
  '(when (not (facep (aref ansi-term-color-vector 0)))))
 (custom-set-faces
