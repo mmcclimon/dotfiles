@@ -50,7 +50,11 @@
 ;; Citation utilities --------------------------------------------------------
 
 (defvar mto--open nil "String that opens a PHP tag")
+(make-variable-buffer-local 'mto--open)
+
 (defvar mto--close nil "String that closes a PHP tag")
+(make-variable-buffer-local 'mto--close)
+
 
 (defun mto-ask-about-footnotes ()
   "Ask the user whether this is a footnotes file or not, which affects how

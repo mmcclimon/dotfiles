@@ -481,7 +481,7 @@ command-key bindings.
     (define-key evil-normal-state-local-map "gk" nil)
     (define-key evil-normal-state-local-map "g0" nil)))
 
-(add-hook 'visual-line-mode 'mjm-visual-line--mode-keybindings)
+(add-hook 'visual-line-mode-hook 'mjm-visual-line-mode-keybindings)
 #+END_SRC
 
 
