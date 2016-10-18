@@ -11,6 +11,8 @@ emacs.d/settings.el
 emacs.d/tramp
 emacs.d/url
 
+auto/
+
 # Vundle will handle this, so I stop dealing with stupid subprojects
 vim/bundle
 nvim/bundle

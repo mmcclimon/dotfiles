@@ -7,6 +7,10 @@ function take() {
   cd $1
 }
 
+function mkd() {
+    pandoc -t markdown $1 | less
+}
+
 #
 # Get the value of an alias.
 #
