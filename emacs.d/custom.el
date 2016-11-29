@@ -3,6 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(TeX-auto-local ".auto")
  '(TeX-fold-macro-spec-list
    (quote
     (("{1}"
@@ -39,7 +40,7 @@
       ("\\star")))))
  '(ansi-term-color-vector
    [unspecified "#FFFFFF" "#d15120" "#5f9411" "#d2ad00" "#6b82a7" "#a66bab" "#6b82a7" "#505050"])
- '(cperl-invalid-face (quote default))
+ '(cperl-invalid-face (quote default) t)
  '(custom-safe-themes
    (quote
     ("c1390663960169cd92f58aad44ba3253227d8f715c026438303c09b9fb66cdfb" "7e376fb329a0e46a04e8285b0e45199a083f98c69b0e1039ec1cb1d366e66e9c" "107d4fc77b12ffd38c276d8ab38901d96a2e8c9bb2a780170a919a3e80c97074" "e77a81353dad06d0db1a9351a9475e1177585fd4a0eff4d3c8aa71a18d11a2e2" "ad458d62c0648199289b15bd1d4ad81130361a92f8615e5367e1dff91150095d" "fe1682ca8f7a255cf295e76b0361438a21bb657d8846a05d9904872aa2fb86f2" "3cd28471e80be3bd2657ca3f03fbb2884ab669662271794360866ab60b6cb6e6" "8022cea21aa4daca569aee5c1b875fbb3f3248a5debc6fc8cf5833f2936fbb22" "e9776d12e4ccb722a2a732c6e80423331bcb93f02e089ba2a4b02e85de1cf00e" default)))
@@ -56,7 +57,7 @@
  '(org-babel-load-languages (quote ((emacs-lisp . t))))
  '(package-selected-packages
    (quote
-    (pandoc-mode simplenote2 markdown-mode web-mode yasnippet auctex magit ledger-mode evil-surround evil-leader evil avy paredit neotree sublime-themes fill-column-indicator)))
+    (markdown-mode wc-mode pandoc-mode simplenote2 web-mode yasnippet auctex magit ledger-mode evil-surround evil-leader evil avy paredit neotree sublime-themes fill-column-indicator)))
  '(reftex-bibliography-commands
    (quote
     ("bibliography" "nobibliography" "setupbibtex\\[.*?database=" "addbibresource")))

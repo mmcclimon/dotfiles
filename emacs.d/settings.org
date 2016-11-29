@@ -582,6 +582,7 @@ the beginning of the next line. This is slightly better.
 (add-hook 'markdown-mode-hook
           (lambda ()
             (local-set-key (kbd "RET") 'electric-newline-and-maybe-indent)))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 #+END_SRC
 
 ** Org
