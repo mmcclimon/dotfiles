@@ -11,19 +11,20 @@
 (defun mto-surround-line-with-p-tags ()
   "Surround a (logical) line with <p> tags."
   (interactive)
-  (save-excursion
-    (evil-beginning-of-line)
-    (insert "<p>")
-    (evil-end-of-line)
-    (forward-char)
-    (insert "</p>")))
+  (evil-save-goal-column
+    (save-excursion
+      (evil-beginning-of-line)
+      (insert "<p>")
+      (evil-end-of-line)
+      (forward-char)
+      (insert "</p>"))))
 
 (defun mto-subhead ()
   "Surround a line with centered <p> tags."
   (interactive)
   (save-excursion
     (evil-beginning-of-line)
-    (insert "<p style=\"text-align:center\"")
+    (insert "<p style=\"text-align:center\">")
     (evil-end-of-line)
     (forward-char)
     (insert "</p>")))
