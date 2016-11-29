@@ -40,6 +40,7 @@ $if(euro)$
 $endif$
 $if(mainfont)$
     \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
+    \setmathfont(Digits){$mainfont$}
 $endif$
 $if(sansfont)$
     \setsansfont[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]{$sansfont$}
