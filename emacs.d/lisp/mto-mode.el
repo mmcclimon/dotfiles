@@ -144,6 +144,29 @@ footnotes are handled."
   (interactive)
   (mto--cite-two "cite_year_pages"))
 
+; TODO refactor this into other text
+(defun mto-cite-pages-only ()
+  "Citation with arbitrary text. Prompts for variable name, then text for link.
+   If linked text is empty, it uses the current visual selection."
+  (interactive)
+  (let* ((selected
+          (buffer-substring-no-properties evil-visual-beginning evil-visual-end))
+         (var1 (read-from-minibuffer
+                    (concat "Variable name (" selected "): ")))
+         (var2 (read-from-minibuffer
+                (concat "Linked text (" selected "): ")))
+         (linked-text (if (equal var2 "") selected var2)))
+    (delete-region evil-visual-beginning evil-visual-end)
+    (insert mto--open
+            "cite_pages_only($"
+            var1
+            ", \""
+            linked-text
+            "\")"
+            mto--close)
+    (evil-exit-visual-state)
+    (forward-char)))
+
 (defun mto-sharp ()
   "Insert a sharp"
   (interactive)
@@ -199,10 +222,11 @@ to lowercase"
     (mto--map-visual (kbd "C-c C-c") 'mto-cite)
     (mto--map-visual (kbd "C-c C-y") 'mto-cite-year)
     (mto--map-visual (kbd "C-c C-p") 'mto-cite-pages)
-    (mto--map-visual (kbd "C-c C-o") 'mto-cite-year-pages))   ; "Without" author
+    (mto--map-visual (kbd "C-c C-o") 'mto-cite-year-pages)  ; "Without" author
+    (mto--map-visual (kbd "C-c C-t") 'mto-cite-pages-only))
   (unless mto-mode
     (mto--unmap-normal '(",p" ",s" ",i" ",b"))
-    (mto--unmap-visual '(",i" ",b" "C-c C-c" "C-c C-y" "C-c C-p" "C-c C-o"))))
+    (mto--unmap-visual '(",i" ",b" "C-c C-c" "C-c C-y" "C-c C-p" "C-c C-o" "C-c C-t"))))
 
 
 ;;; mto-mode
