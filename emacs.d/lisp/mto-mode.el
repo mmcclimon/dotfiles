@@ -22,12 +22,13 @@
 (defun mto-subhead ()
   "Surround a line with centered <p> tags."
   (interactive)
-  (save-excursion
-    (evil-beginning-of-line)
-    (insert "<p style=\"text-align:center\">")
-    (evil-end-of-line)
-    (forward-char)
-    (insert "</p>")))
+  (evil-save-goal-column
+    (save-excursion
+      (evil-beginning-of-line)
+      (insert "<p style=\"text-align:center\">")
+      (evil-end-of-line)
+      (forward-char)
+      (insert "</p>"))))
 
 (defun mto--surround-visual-selection (tag-name)
   "Surround a visual selection with a tag name"
