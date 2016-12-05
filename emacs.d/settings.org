@@ -150,6 +150,9 @@ annoying default behavior.
      '(font-lock-warning-face ((t (:foreground "#ac4142"))))
 
      ;; everything else
+     '(cperl-hash-face ((t (:inherit font-lock-variable-name-face))))
+     '(cperl-array-face ((t (:inherit font-lock-variable-name-face))))
+     '(cperl-nonoverridable-face ((t (:inherit font-lock-keyword-face))))
      '(flyspell-duplicate ((t (:underline (:color "chartreuse4" :style wave)))))
      '(flyspell-incorrect ((t (:underline (:color "red" :style wave)))))
      '(font-latex-italic-face ((t (:inherit italic))))
@@ -607,12 +610,20 @@ First, use comma-bindings to navigate.
 ** Perl
 
 Cperl mode is better than perl-mode, for reasons I don't really understand.
+However, it tries to automatically expand keywords and control structures,
+which is really annoying. Because I always have abbrev-mode turned on (for
+typo fixes), it does this even when all of the ~cperl-electric~ variables are
+turned off.
 
 #+BEGIN_SRC emacs-lisp
-(defalias 'perl-mode 'cperl-mode)
-(setq-default cperl-invalid-face 'default
-              cperl-indent-parens-as-block t
-              cperl-indent-level tab-width)
+  (defalias 'perl-mode 'cperl-mode)
+  (setq-default cperl-invalid-face 'default
+                cperl-indent-parens-as-block t
+                cperl-indent-level tab-width)
+
+  (defun mjm/perl-mode-hook ()
+    (abbrev-mode -1))
+  (add-hook 'cperl-mode-hook 'mjm/perl-mode-hook)
 #+END_SRC
 ** TeX
 
@@ -747,7 +758,7 @@ And get rid of the stupid messages in the minibuffer.
 
 * Custom-set variables
 
-  Add in stuff from =M-x customize=, but only at the very end that at the end.
+  Add in stuff from =M-x customize=, but only at the very end.
 
 
 #+BEGIN_SRC emacs-lisp
