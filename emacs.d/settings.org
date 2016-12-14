@@ -176,14 +176,12 @@ annoying default behavior.
      '(link ((t (:inherit font-lock-function-name-face :underline t))))
      '(link-visited ((t (:inherit font-lock-keyword-face :underline t))))
      '(link-visited ((t (:inherit font-lock-keyword-face :underline t))))
-     '(linum ((t (:background "#202020" :foreground "#707070" :height 0.9))))
-     '(linum ((t (:background "#505050" :foreground "#e0e0e0"))))
+     ; '(linum ((t (:background "#202020" :foreground "#707070" :height 0.9))))
+     '(linum ((t (:background "#202020" :foreground "#505050" :height 0.9))))
      '(markdown-italic-face ((t (:slant italic))))
      '(minibuffer-prompt ((t (:foreground "#6a9fb5"))))
-     '(mode-line ((t (:background "#505050" :foreground "#e0e0e0"))))
-     '(mode-line ((t (:background "#505050" :foreground "#e0e0e0"))))
-     '(mode-line-inactive ((t (:inherit mode-line :background "gray20" :foreground "gray50" :weight light))))
-     '(mode-line-inactive ((t (:inherit mode-line :background "gray20" :foreground "gray50" :weight light))))
+     '(mode-line ((t (:background "#303030" :foreground "#b0b0b0"))))
+     '(mode-line-inactive ((t (:inherit mode-line :background "#202020" :foreground "#505050" :weight light))))
      '(neo-button-face ((t (:inherit link :underline nil))))
      '(org-date ((t (:foreground "#aa759f"))))
      '(org-done ((t (:foreground "#90a959"))))
@@ -383,9 +381,17 @@ and call this every time.
 (add-hook 'text-mode-hook 'turn-on-auto-fill)       ; wrap text
 
 (put 'downcase-region 'disabled nil)            ; why is this turned off?
-
 #+END_SRC
 
+  I want text-wrapping all the time, but only for comments in prog-modes.
+
+#+BEGIN_SRC emacs-lisp
+  (defun mjm/auto-fill-comments ()
+    (setq-local comment-auto-fill-only-comments t)
+    (auto-fill-mode 1))
+
+  (add-hook 'prog-mode-hook 'mjm/auto-fill-comments)
+#+END_SRC
 ** Abbrevs
 
   Abbrev-mode is really useful since I often screw up typing simple things.

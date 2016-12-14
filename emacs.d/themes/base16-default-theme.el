@@ -7,10 +7,10 @@
 
 (deftheme base16-default)
 
-(let ((background "#202020")
+(let ((background "#151515")
       (current-line "#505050")
       (selection "#b0b0b0")
-      (foreground "#e0e0e0")
+      (foreground "#d0d0d0")
       (comment "#b0b0b0")
       (cursor "#e0e0e0")
       (red "#ac4142")
