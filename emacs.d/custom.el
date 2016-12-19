@@ -57,7 +57,7 @@
  '(org-babel-load-languages (quote ((emacs-lisp . t))))
  '(package-selected-packages
    (quote
-    (markdown-mode wc-mode pandoc-mode simplenote2 web-mode yasnippet auctex magit ledger-mode evil-surround evil-leader evil avy paredit neotree sublime-themes fill-column-indicator)))
+    (delight markdown-mode wc-mode pandoc-mode simplenote2 web-mode yasnippet auctex magit ledger-mode evil-surround evil-leader evil avy paredit neotree sublime-themes fill-column-indicator)))
  '(reftex-bibliography-commands
    (quote
     ("bibliography" "nobibliography" "setupbibtex\\[.*?database=" "addbibresource")))

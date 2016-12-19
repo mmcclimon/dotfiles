@@ -44,6 +44,7 @@
     magit
     auctex
     yasnippet
+    delight
     web-mode))
 
 #+END_SRC
@@ -97,30 +98,36 @@ annoying default behavior.
 
 #+BEGIN_SRC emacs-lisp
 
-  (progn
-    (column-number-mode t)                ; show column in mode line
-    (line-number-mode t)                  ; show line numbers too
-    (menu-bar-mode 1)                     ; show menus
-    (tool-bar-mode -1)                    ; don't show toolbar
-    (scroll-bar-mode -1)                  ; don't use scrollbars
-    (show-paren-mode 1)                   ; flash parens
-    (fci-mode 1)                          ; column ruler
-    (ido-mode))                           ; better buffer switching
+    (progn
+      (column-number-mode t)                ; show column in mode line
+      (line-number-mode t)                  ; show line numbers too
+      (menu-bar-mode 1)                     ; show menus
+      (tool-bar-mode -1)                    ; don't show toolbar
+      (scroll-bar-mode -1)                  ; don't use scrollbars
+      (show-paren-mode 1)                   ; flash parens
+      (fci-mode 1)                          ; column ruler
+      (ido-mode))                           ; better buffer switching
 
-  (setq inhibit-startup-message t         ; no splash screen
-        vc-follow-symlinks t              ; don't ask about symlinks
-        echo-keystrokes 0.1               ; show in-progress keystrokes
-        ido-enable-flex-matching t        ; better fuzzy matchin
-        ns-pop-up-frames nil              ; open new files in existing frame
-        frame-title-format "%b")          ; buffer name in title bar
+    (setq inhibit-startup-message t         ; no splash screen
+          vc-follow-symlinks t              ; don't ask about symlinks
+          echo-keystrokes 0.1               ; show in-progress keystrokes
+          ido-enable-flex-matching t        ; better fuzzy matchin
+          ns-pop-up-frames nil              ; open new files in existing frame
+          frame-title-format "%b")          ; buffer name in title bar
 
-  ; mode line
-  (setq display-time-format "  %d-%b"
-        display-time-mail-string ""
-        display-time-default-load-average nil)
-  (display-time-mode 1)
+    ; mode line
+    (setq display-time-format "  %d-%b"
+          display-time-mail-string ""
+          display-time-default-load-average nil)
+    (display-time-mode 1)
 
-  (defalias 'yes-or-no-p 'y-or-n-p)       ; don't make me type "yes"
+    ; clean up lighters of modes that are always on.
+    (require 'delight)
+    (delight '((undo-tree-mode)
+               (auto-fill-function " ↩" )
+               (abbrev-mode " ." )))
+
+    (defalias 'yes-or-no-p 'y-or-n-p)       ; don't make me type "yes"
 #+END_SRC
 
 ** Colors
@@ -459,6 +466,18 @@ command-key bindings.
 #+BEGIN_SRC emacs-lisp
 (define-key evil-normal-state-map ";" 'evil-ex)
 (define-key evil-normal-state-map ":" 'evil-repeat-find-char)
+#+END_SRC
+
+   Make the evil-mode indicators in the mode line a little nicer.
+
+#+BEGIN_SRC emacs-lisp
+  (setq evil-mode-line-format '(before . mode-line-frame-identification))
+  (setq evil-normal-state-tag "<N>"   ; no fancy color for normal mode
+        evil-emacs-state-tag (concat "<" (propertize "E" 'face '((:foreground "LightSlateBlue"))) ">")
+        evil-insert-state-tag (concat "<" (propertize "I" 'face '((:foreground "chartreuse4"))) ">")
+        evil-motion-state-tag (concat "<" (propertize "M" 'face '((:foreground "OrangeRed3"))) ">")
+        evil-visual-state-tag (concat "<" (propertize "V" 'face '((:foreground "CadetBlue"))) ">")
+        evil-operator-state-tag (concat "<" (propertize "O" 'face '((:foreground "sienna"))) ">"))
 #+END_SRC
 
    There are some mode which have reasonable keybings already, so don't use
