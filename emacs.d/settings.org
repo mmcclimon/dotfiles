@@ -111,7 +111,8 @@ annoying default behavior.
     (setq inhibit-startup-message t         ; no splash screen
           vc-follow-symlinks t              ; don't ask about symlinks
           echo-keystrokes 0.1               ; show in-progress keystrokes
-          ido-enable-flex-matching t        ; better fuzzy matchin
+          confirm-kill-emacs 'y-or-n-p      ; don't quit accidentally
+          ido-enable-flex-matching t        ; better fuzzy matching
           ns-pop-up-frames nil              ; open new files in existing frame
           frame-title-format "%b")          ; buffer name in title bar
 
@@ -123,9 +124,9 @@ annoying default behavior.
 
     ; clean up lighters of modes that are always on.
     (require 'delight)
-    (delight '((undo-tree-mode)
-               (auto-fill-function " ↩" )
-               (abbrev-mode " ." )))
+    (delight 'undo-tree-mode nil 'undo-tree)
+    (delight 'auto-fill-function " ↩" t)
+    (delight 'abbrev-mode " ." t)
 
     (defalias 'yes-or-no-p 'y-or-n-p)       ; don't make me type "yes"
 #+END_SRC
