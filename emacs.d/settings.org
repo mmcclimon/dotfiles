@@ -97,7 +97,6 @@ A bunch of random settings for what the window looks like, get rid of some
 annoying default behavior.
 
 #+BEGIN_SRC emacs-lisp
-
     (progn
       (column-number-mode t)                ; show column in mode line
       (line-number-mode t)                  ; show line numbers too
@@ -645,7 +644,8 @@ turned off.
   (defalias 'perl-mode 'cperl-mode)
   (setq-default cperl-invalid-face 'default
                 cperl-indent-parens-as-block t
-                cperl-indent-level tab-width)
+                cperl-indent-level tab-width
+                cperl-indent-subs-specially nil)
 
   (defun mjm/perl-mode-hook ()
     (abbrev-mode -1))
