@@ -648,6 +648,8 @@ turned off.
                 cperl-indent-subs-specially nil)
 
   (defun mjm/perl-mode-hook ()
+    (turn-on-auto-fill)
+    (setq fill-column 72)
     (abbrev-mode -1))
   (add-hook 'cperl-mode-hook 'mjm/perl-mode-hook)
 #+END_SRC
