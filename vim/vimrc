@@ -84,7 +84,7 @@ set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
 set splitright
 
 set background=dark
-colorscheme base16-default
+colorscheme base16-default-dark
 
 if has('mouse')
   set mouse=a
@@ -126,6 +126,7 @@ nnoremap : ;
 " Uppercase last word in insert mode (stolen from Steve Losh).
 " Overwrites z mark
 inoremap <C-u> <esc>mzgUiw`za
+
 
 function! ExecCurrentLine()
     let l:curline = getline('.')
@@ -266,6 +267,29 @@ augroup ft_tex
     au Filetype tex :inoremap <buffer> '' ”
     au Filetype tex set omnifunc=CompleteBibKeys
 augroup END
+" }}}
+" Perl --------------------------------------------------------{{{
+augroup ft_perl
+    au!
+    " au Filetype perl setlocal tabstop=2 shiftwidth=2
+augroup END
+
+" patch color scheme for better perl colors
+if g:colors_name ==? "base16-default-dark"
+    hi perlPOD guifg=#686868
+    hi podCommand guifg=#586878
+    hi podCmdText guifg=#587858
+    hi podFormat guifg=#785868
+    hi podVerbatimLine guifg=#787358
+
+    hi link perlStatementStorage Conditional
+    hi link perlStatementFiles Conditional
+    hi link perlStatementControl Conditional
+    hi link perlStatementFiledesc Conditional
+
+    hi perlVarPlain guifg=#ab4642
+    hi perlMethod guifg=#ffb8b8
+endif
 " }}}
 " Ruby --------------------------------------------------------{{{
 augroup ft_ruby
