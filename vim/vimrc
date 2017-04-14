@@ -14,6 +14,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'bufkill.vim'
 Plugin 'kien/ctrlp.vim'
+Plugin 'ledger/vim-ledger'
 " Plugin 'scrooloose/nerdtree'
 " Plugin 'Keithbsmiley/rspec.vim'
 " Plugin 'wting/rust.vim'
@@ -77,7 +78,7 @@ set laststatus=2
 set number
 set hidden
 set wildmenu
-set wildmode=list:longest
+set wildmode=longest:full,longest
 set wildignore+=.git,.svn,local,build,vendor,.sass-cache
 set list
 set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
@@ -287,8 +288,11 @@ if g:colors_name ==? "base16-default-dark"
     hi link perlStatementControl Conditional
     hi link perlStatementFiledesc Conditional
 
+    hi link perlNumber Normal
+    hi link perlFloat Normal
+
     hi perlVarPlain guifg=#ab4642
-    hi perlMethod guifg=#ffb8b8
+    hi perlMethod guifg=#cb8682
 endif
 " }}}
 " Ruby --------------------------------------------------------{{{
