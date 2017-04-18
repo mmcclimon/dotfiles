@@ -42,21 +42,6 @@ set textwidth=78
 set expandtab
 
 " }}}
-" Abbrevs -----------------------------------------------------{{{
-iabbrev teh the
-iabbrev functino function
-iabbrev Micahel Michael
-iabbrev becuase because
-iabbrev taht that
-iabbrev wiht with
-iabbrev juts just
-iabbrev acutal actual
-iabbrev si is
-iabbrev nto not
-iabbrev substitutino substitution
-iabbrev transformatino transformation
-iabbrev transformatinos transformations
-" }}}
 " Backups -----------------------------------------------------{{{
 set backup        " keep a backup file
 set backupdir=~/.vim/backup
@@ -123,52 +108,10 @@ nnoremap : ;
 " Overwrites z mark
 inoremap <C-u> <esc>mzgUiw`za
 
-
-function! ExecCurrentLine()
-    let l:curline = getline('.')
-    echo ":" . l:curline
-    execute l:curline
-    sleep 1
-    redraw
-endfunction
-
-nnoremap <C-x><C-e> :call ExecCurrentLine()<CR>
 inoremap <c-c> <esc>
 " }}}
-" Plugins -----------------------------------------------------{{{
-" netrw -------------------------------------------------------{{{
-nnoremap <F5> :e .<CR>
-let g:netrw_liststyle=3     " tree style
 
-" }}}
-" EasyMotion --------------------------------------------------{{{
-nmap <leader>f <plug>(easymotion-s)
-let g:EasyMotion_smartcase = 1
-" }}}
-" CtrlP -------------------------------------------------------{{{
-" use ack to find known files
-" let g:ctrlp_user_command = 'ack -f'
-let g:ctrlp_show_hidden = 0
-let g:ctrlp_custom_ignore = "*.swp,*.zip,.git/*,build/*,.sass-cache.*,vendor,local,doc,db"
-nnoremap <leader>b :CtrlPBuffer<cr>
-" }}}
-" vim-pandoc---------------------------------------------------{{{
-let g:pandoc_use_hard_wraps = 1
-let g:pandoc_auto_format = 0
-let g:pandoc_no_empty_implicits = 0
-let g:pandoc_no_folding = 1
-let g:pandoc_no_spans = 1
-augroup ft_pandoc
-    au!
-    au Filetype pandoc setlocal tabstop=2 shiftwidth=2 textwidth=78
-augroup END
-" }}}
 " FixWhitespace------------------------------------------------{{{
-function! FixWhitespace()
-    let l:save_cursor = getpos(".")
-    silent! execute ':%s/\s\+$//'
-    call setpos('.', l:save_cursor)
-endfunction
 
 augroup trailing
     au!
@@ -178,31 +121,11 @@ augroup END
 
 augroup prewrite
     au!
-    au BufWritePre * call FixWhitespace()
+    " au BufWritePre * call FixWhitespace()
 augroup END
-" }}}
-" Bufkill -----------------------------------------------------{{{
-" Make c-x c-c write and close a buffer (useful for git commit
-" edit messages, etc.)
-nnoremap <C-x><C-c> :w<bar>BD<cr>
-nnoremap <C-x><C-k> :w<bar>BW<cr>
-" }}}
-" Tagbar ------------------------------------------------------{{{
-let g:tagbar_iconchars = ['▸', '▾']
-let g:tagbar_phpctags_bin='~/bin/ctags'
-let g:tagbar_phpctags_bin='~/bin/phpctags'
-hi TagbarVisibilityPublic guifg=#04b404
-hi TagbarVisibilityProtected guifg=#0489b1
-hi TagbarVisibilityPrivate guifg=#b40404
-" }}}
 " }}}
 " Misc. Filetypes ---------------------------------------------{{{
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
-" }}}
-" UltiSnips ---------------------------------------------------{{{
-let g:UltiSnipsSnippetDirectories = ['UltiSnips']
-let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/UltiSnips'
-let g:UltiSnipsEditSplit = 'horizontal'
 " }}}
 " LaTeX -------------------------------------------------------{{{
 
@@ -218,22 +141,25 @@ augroup local_ftdetect
     au BufNewFile,BufRead *.thtml set filetype=php          " php templates
 augroup END
 
-" Scratch buffers ---------------------------------------------{{{
-function! CreateOrSwitchToScratchBuffer()
-    if buflisted("_scratch") == 0
-        badd _scratch
-        buffer _scratch
-        set buftype=nofile
-        set filetype=markdown
-        call append(0, '<!-- This is a scratch buffer, set up with ft=markdown -->')
-        call append(1, '<!-- You cannot save this file unless you write it somewhere else first -->')
-    else
-        buffer _scratch
-    endif
-endfunction
-
-nnoremap <C-x><C-b> :call CreateOrSwitchToScratchBuffer()<CR>
+" Abbrevs -----------------------------------------------------{{{
+iabbrev teh the
+iabbrev functino function
+iabbrev Micahel Michael
+iabbrev becuase because
+iabbrev taht that
+iabbrev wiht with
+iabbrev juts just
+iabbrev acutal actual
+iabbrev si is
+iabbrev nto not
+iabbrev substitutino substitution
+iabbrev transformatino transformation
+iabbrev transformatinos transformations
 " }}}
+
+
+so ~/.vim/functions.vim   " load custom functions
+so ~/.vim/plugins.vim     " load plugin settings
 
 " vim:fdm=marker
 " vim:set filetype=vim
