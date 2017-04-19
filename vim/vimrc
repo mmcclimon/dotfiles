@@ -1,26 +1,20 @@
-" General -----------------------------------------------------{{{
+" new and improved .vimrc
+
 set nocompatible
-" }}}
-" Vundle ------------------------------------------------------{{{
+
+" Plugins {{{
+" -----------
 filetype off                        " required!
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" Vundle must manage itself!
-Plugin 'gmarik/Vundle.vim'
-
+Plugin 'gmarik/Vundle.vim'          " vundle must manage itself
 Plugin 'chriskempson/base16-vim'
 Plugin 'bufkill.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ledger/vim-ledger'
-" Plugin 'scrooloose/nerdtree'
-" Plugin 'majutsushi/tagbar'
-" Plugin 'vim-php/tagbar-phpctags.vim'
-" Plugin 'SirVer/ultisnips'
 Plugin 'Lokaltog/vim-easymotion'
-" Plugin 'jratner/vim-flavored-markdown'
-" Plugin 'tpope/vim-fugitive'
 Plugin 'pangloss/vim-javascript'
 Plugin 'vim-perl/vim-perl'
 Plugin 'tpope/vim-repeat'
@@ -28,110 +22,100 @@ Plugin 'tpope/vim-rsi'
 Plugin 'tpope/vim-surround'
 
 call vundle#end()
-
 filetype plugin indent on           " required!
-
 " }}}
-" Text Editing ------------------------------------------------{{{
-set backspace=indent,eol,start
-set autoindent
-set smartindent
-set tabstop=4
+
+" Text Editing {{{
+" ----------------
+set backspace=indent,eol,start  " backspace works over everything
+set autoindent                  " use previous line's indent
+set smartindent                 " indent braces automatically
+set expandtab                   " what am i, an animal? use spaces
+set tabstop=4                   " four spaces
 set shiftwidth=4
-set textwidth=78
-set expandtab
+set textwidth=78                " 78 works nicely for wrapping
+" }}}
 
-" }}}
-" Backups -----------------------------------------------------{{{
-set backup        " keep a backup file
-set backupdir=~/.vim/backup
-set autowrite
-" }}}
-" UI ----------------------------------------------------------{{{
-set history=50      " keep 50 lines of command line history
-set ruler           " show the cursor position all the time
-set showcmd         " display incomplete commands
-set incsearch       " do incremental searching
-set ignorecase
-set smartcase
-set laststatus=2
-set number
-set hidden
-set wildmenu
+" UI {{{
+" ------
+set history=50                  " keep 50 lines of command line history
+set ruler                       " show the cursor position all the time
+set showcmd                     " display incomplete commands
+set incsearch                   " do incremental searching
+set ignorecase                  " ignore case, but...
+set smartcase                   " only if pattern is all lowercase
+set laststatus=2                " always show status line
+set number                      " always show line nums
+set hidden                      " allow hidden buffers
+set wildmenu                    " better tab completion
+set splitright                  " vertical splits open to right
+set mouse=a                     " turn on mouse
 set wildmode=longest:full,longest
 set wildignore+=.git,.svn,local,build,vendor,.sass-cache
-set list
 set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
-set splitright
-
-set background=dark
-colorscheme base16-default-dark
-
-if has('mouse')
-  set mouse=a
-endif
-
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
 
 function! SyntaxItem()
     return synIDattr(synID(line("."),col("."),1),"name")
 endfunction
 
 set statusline=%<%f\ %h%m%r\ %{SyntaxItem()}%=%-14.(%l,%c%V%)\ %P
-" }}}
-" Folding -----------------------------------------------------{{{
-set nofoldenable
-set foldlevel=10
+
+" Folding
+set foldlevelstart=99           " all folds start open
 augroup folding
     au!
     au BufReadPre * setlocal foldmethod=indent
     au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
 augroup END
+
+" Colors
+set background=dark
+colorscheme base16-default-dark
+
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+
+" be annoying about trailining whitespace
+autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
+autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
+highlight EOLWS ctermbg=red guibg=red
+
 " }}}
-" Global mappings ---------------------------------------------{{{
+
+" Mappings ----------------------------------------------------{{{
 let mapleader=","
 let maplocalleader = '\\'
 nnoremap <silent> <leader>s :nohls<CR>
 nnoremap q: <Nop>
+
+" better window motion
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" switch colon and semicolon
 nnoremap ; :
 nnoremap : ;
-
-" Uppercase last word in insert mode (stolen from Steve Losh).
-" Overwrites z mark
-inoremap <C-u> <esc>mzgUiw`za
-
 inoremap <c-c> <esc>
+" Uppercase last word in insert mode (stolen from Steve Losh).
+inoremap <C-u> <esc>mzgUiw`za
 " }}}
 
-" FixWhitespace------------------------------------------------{{{
+" Misc. settings {{{
+" ------------------
 
-augroup trailing
-    au!
-    au InsertEnter * :set listchars-=trail:·
-    au InsertLeave * :set listchars+=trail:·
-augroup END
+" backups
+set backup                      " keep a backup file
+set backupdir=~/.vim/backup     " might as well keep them here
+set autowrite                   " save things automatically
 
-augroup prewrite
-    au!
-    " au BufWritePre * call FixWhitespace()
-augroup END
-" }}}
-" Misc. Filetypes ---------------------------------------------{{{
+let g:tex_flavor = "latex"      " plaintex is no good
+
+" fix crontab bug
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
-" }}}
-" LaTeX -------------------------------------------------------{{{
-
-let g:tex_flavor = "latex"
-
-" }}}
 
 
 " associate unknown files
@@ -141,25 +125,14 @@ augroup local_ftdetect
     au BufNewFile,BufRead *.thtml set filetype=php          " php templates
 augroup END
 
-" Abbrevs -----------------------------------------------------{{{
-iabbrev teh the
-iabbrev functino function
-iabbrev Micahel Michael
-iabbrev becuase because
-iabbrev taht that
-iabbrev wiht with
-iabbrev juts just
-iabbrev acutal actual
-iabbrev si is
-iabbrev nto not
-iabbrev substitutino substitution
-iabbrev transformatino transformation
-iabbrev transformatinos transformations
 " }}}
 
-
+" Imports {{{
+" -----------
 so ~/.vim/functions.vim   " load custom functions
 so ~/.vim/plugins.vim     " load plugin settings
+so ~/.vim/abbrevs.vim     " I can't type
+" }}}
 
 " vim:fdm=marker
 " vim:set filetype=vim
