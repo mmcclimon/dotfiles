@@ -52,7 +52,9 @@ set splitright                  " vertical splits open to right
 set mouse=a                     " turn on mouse
 set wildmode=longest:full,longest
 set wildignore+=.git,.svn,local,build,vendor,.sass-cache
-set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
+set list listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
+
+
 
 function! SyntaxItem()
     return synIDattr(synID(line("."),col("."),1),"name")
@@ -77,10 +79,13 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
-" be annoying about trailining whitespace
-autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
-autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
-highlight EOLWS ctermbg=red guibg=red
+" be annoying about extra whitespace
+augroup trailing
+    au!
+    au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    au InsertLeave * match ExtraWhitespace /\s\+$/
+augroup END
+highlight ExtraWhitespace ctermbg=red guibg=red
 
 " }}}
 
