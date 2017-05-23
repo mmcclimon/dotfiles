@@ -34,6 +34,7 @@ set expandtab                   " what am i, an animal? use spaces
 set tabstop=4                   " four spaces
 set shiftwidth=4
 set textwidth=78                " 78 works nicely for wrapping
+set encoding=utf-8              " unicode
 " }}}
 
 " UI {{{
@@ -137,6 +138,7 @@ augroup END
 so ~/.vim/functions.vim   " load custom functions
 so ~/.vim/plugins.vim     " load plugin settings
 so ~/.vim/abbrevs.vim     " I can't type
+so ~/.vim/termcolors.vim  " no gvim at work
 " }}}
 
 " vim:fdm=marker
