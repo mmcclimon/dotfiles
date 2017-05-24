@@ -7,3 +7,4 @@ hi CursorLine term=reverse ctermbg=236
 hi CursorLineNr term=reverse ctermbg=235 ctermfg=112
 hi CursorColumn term=reverse ctermbg=236
 hi Folded ctermbg=235 ctermfg=31
+hi Todo ctermbg=88 ctermfg=250
