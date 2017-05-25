@@ -16,7 +16,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'ledger/vim-ledger'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'pangloss/vim-javascript'
-Plugin 'vim-perl/vim-perl'
+" Plugin 'vim-perl/vim-perl'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-rsi'
 Plugin 'tpope/vim-surround'
@@ -84,7 +84,9 @@ endif
 augroup trailing
     au!
     au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    au InsertEnter * set listchars-=trail:·
     au InsertLeave * match ExtraWhitespace /\s\+$/
+    au InsertLeave * set listchars+=trail:·
 augroup END
 highlight ExtraWhitespace ctermbg=red guibg=red
 

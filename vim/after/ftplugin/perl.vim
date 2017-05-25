@@ -18,6 +18,9 @@ if g:colors_name ==? "base16-default-dark"
     hi link perlNumber Normal
     hi link perlFloat Normal
 
-    hi perlVarPlain guifg=#ab4642
-    hi perlMethod guifg=#cb8682
+    hi perlVarPlain ctermfg=1 guifg=#ab4642
+    hi perlMethod ctermfg=167 guifg=#cb8682
 endif
+
+setl tabstop=2 softtabstop=2
+setl shiftwidth=2

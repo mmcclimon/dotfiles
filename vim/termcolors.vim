@@ -8,3 +8,4 @@ hi CursorLineNr term=reverse ctermbg=235 ctermfg=112
 hi CursorColumn term=reverse ctermbg=236
 hi Folded ctermbg=235 ctermfg=31
 hi Todo ctermbg=88 ctermfg=250
+hi Search term=reverse ctermbg=23 ctermfg=253
