@@ -38,6 +38,8 @@ bindkey '^E' end-of-line
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 
+bindkey '^b' backward-char
+
 # ctrl-w removed word backwards
 bindkey '^w' backward-kill-word
 

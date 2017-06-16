@@ -8,6 +8,8 @@ bindkey "^[m" copy-prev-shell-word
 ## jobs
 setopt long_list_jobs
 
+setopt correct
+
 ## pager
 export PAGER="less"
 export LESS="-R"
