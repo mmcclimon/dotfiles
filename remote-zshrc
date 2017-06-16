@@ -36,7 +36,11 @@ export PAGER='less'
 export LESS='-R'
 
 function tmat () {
-    tmux attach -t "$@"
+    if [[ -z "$@" ]]; then
+        tmux attach
+    else
+        tmux attach -t "$@"
+    fi
 }
 
 # fix stupid ssh/tmux problem

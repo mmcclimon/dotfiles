@@ -53,25 +53,19 @@ alias .='source'
 # git
 alias gc='git commit'
 alias ga='git add'
+alias gd='git diff'
+alias gs='git status'
 
-# use gs for '$VCS status' all the time
-function gs() {
-    local svndir="$(svn info 2>/dev/null)"
-    if [ -n "$svndir" ]; then
-        svn status --ignore-externals | grep -v '^X'
+# tmux
+alias tls='tmux ls'
+function tmat () {
+    if [[ -z "$@" ]]; then
+        tmux attach
     else
-        git status -sb
+        tmux attach -t "$@"
     fi
 }
 
-function gd() {
-    local svndir="$(svn info 2>/dev/null)"
-    if [ -n "$svndir" ]; then
-        svn diff "$@" | view -
-    else
-        git diff "$@"
-    fi
-}
 
 # misc.
 alias latexwatch='latexmk -xelatex -pvc'
