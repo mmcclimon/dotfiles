@@ -13,6 +13,10 @@ source $LIB_PATH/misc.zsh
 source $LIB_PATH/prompt.zsh
 source $LIB_PATH/termsupport.zsh
 
+if [ -e "$LIB_PATH/work.zsh" ]; then
+    source $LIB_PATH/work.zsh
+fi
+
 autoload -U compinit
 compinit -C
 
