@@ -51,6 +51,7 @@ set hidden                      " allow hidden buffers
 set wildmenu                    " better tab completion
 set splitright                  " vertical splits open to right
 set mouse=a                     " turn on mouse
+set modelines=2
 set wildmode=longest:full,longest
 set wildignore+=.git,.svn,local,build,vendor,.sass-cache
 set list listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮

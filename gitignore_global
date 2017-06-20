@@ -1,8 +1,10 @@
 *~
 .DS_Store
 .*.swp
+.*.swo
 tags
 \#*\#
 *.pyc
 .ackrc
 .sass-cache
+.build

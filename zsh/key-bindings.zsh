@@ -32,6 +32,8 @@ bindkey '^N' down-history
 
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
+bindkey '^B' backward-char
+bindkey '^F' forward-char
 
 # backspace and ^h working even after
 # returning from command mode

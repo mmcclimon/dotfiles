@@ -1,9 +1,15 @@
 typeset -U path     # uniques
 
 # make sure right perl/ruby are here
-export PERLBREW_ROOT=~/.perl5/perlbrew
-source ~/.perl5/perlbrew/etc/bashrc
-source ~/.rvm/scripts/rvm
+# use historical settings on other macs
+if [ `hostname -s` = 'trane' ]
+then
+    source ~/perl5/perlbrew/etc/bashrc
+else
+    export PERLBREW_ROOT=~/.perl5/perlbrew
+    source ~/.perl5/perlbrew/etc/bashrc
+    source ~/.rvm/scripts/rvm
+fi
 
 function prepend_to_path    { path=("$1" $path); }
 function append_to_path     { path+=("$1"); }
