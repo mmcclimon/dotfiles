@@ -54,7 +54,7 @@ alias .='source'
 alias gc='git commit'
 alias ga='git add'
 alias gd='git diff'
-alias gs='git status'
+alias gs='git status -sb'
 
 # tmux
 alias tls='tmux ls'

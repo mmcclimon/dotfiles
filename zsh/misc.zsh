@@ -16,6 +16,11 @@ export LESS="-R"
 export EDITOR=vim
 export MANLESS=''
 export MANWIDTH=80
+export MANPAGER='col -b | view -c "set ft=man" -'
+
+function perldoc() {
+    cpandoc -opod $@ | view -c "set ft=pod" -
+}
 
 ## misc environment vars
 export TEXMFHOME="$HOME/.texmf"

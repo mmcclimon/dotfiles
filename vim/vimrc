@@ -13,6 +13,7 @@ Plugin 'gmarik/Vundle.vim'          " vundle must manage itself
 Plugin 'chriskempson/base16-vim'
 Plugin 'bufkill.vim'
 Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
 Plugin 'ledger/vim-ledger'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'pangloss/vim-javascript'
@@ -20,6 +21,9 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-rsi'
 Plugin 'tpope/vim-surround'
+
+Plugin 'lifepillar/vim-solarized8'
+Plugin 'morhetz/gruvbox'
 
 call vundle#end()
 filetype plugin indent on           " required!
@@ -56,8 +60,6 @@ set wildmode=longest:full,longest
 set wildignore+=.git,.svn,local,build,vendor,.sass-cache
 set list listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
 
-
-
 function! SyntaxItem()
     return synIDattr(synID(line("."),col("."),1),"name")
 endfunction
@@ -74,20 +76,28 @@ augroup END
 
 " Colors
 set background=dark
-colorscheme base16-default-dark
+" colorscheme base16-default-dark
+colorscheme solarized
 
 if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
 endif
 
+if has("termguicolors")
+    set termguicolors
+    " colorscheme solarized8_dark
+    " let g:gruvbox_italic=1
+    colorscheme gruvbox
+endif
+
 " be annoying about extra whitespace
 augroup trailing
     au!
     au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-    au InsertEnter * set listchars-=trail:·
+    au InsertEnter * set listchars-=trail:~
     au InsertLeave * match ExtraWhitespace /\s\+$/
-    au InsertLeave * set listchars+=trail:·
+    au InsertLeave * set listchars+=trail:~
 augroup END
 highlight ExtraWhitespace ctermbg=red guibg=red
 
@@ -98,6 +108,14 @@ let mapleader=","
 let maplocalleader = '\\'
 nnoremap <silent> <leader>s :nohls<CR>
 nnoremap q: <Nop>
+
+if (v:progname == "view")
+    nnoremap d <PageDown>
+    nnoremap u <PageUp>
+    nnoremap q :q<CR>
+    nunmap q:
+    set nonumber nolist
+endif
 
 " better window motion
 nnoremap <C-h> <C-w>h
