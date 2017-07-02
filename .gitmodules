@@ -32,7 +32,7 @@
 
 [submodule "vim/bundle/vim-perl"]
     path  = vim/bundle/vim-perl
-    url = https://github.com/vim-perl/vim-perl
+    url = https://github.com/mmcclimon/vim-perl
 
 [submodule "vim/bundle/vim-repeat"]
     path  = vim/bundle/vim-repeat
