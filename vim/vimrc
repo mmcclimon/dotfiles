@@ -34,7 +34,7 @@ set mouse=a                     " turn on mouse
 set modelines=2
 set wildmode=longest:full,longest
 set wildignore+=.git,.svn,local,build,vendor,.sass-cache
-set list listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
+set list listchars=tab:>-,trail:~,extends:>,precedes:<
 
 function! SyntaxItem()
     return synIDattr(synID(line("."),col("."),1),"name")
@@ -52,8 +52,7 @@ augroup END
 
 " Colors
 set background=dark
-" colorscheme base16-default-dark
-colorscheme solarized
+colorscheme gruvbox
 
 if &t_Co > 2 || has("gui_running")
   syntax on
@@ -87,6 +86,7 @@ nnoremap q: <Nop>
 
 if (v:progname == "view")
     nnoremap d <PageDown>
+    nunmap ds
     nnoremap u <PageUp>
     nnoremap q :q<CR>
     nunmap q:
@@ -117,16 +117,10 @@ set autowrite                   " save things automatically
 
 let g:tex_flavor = "latex"      " plaintex is no good
 
+let perl_sub_signatures = 1     " new perls!
+
 " fix crontab bug
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
-
-
-" associate unknown files
-augroup local_ftdetect
-    au!
-    au BufNewFile,BufRead *.adoc set filetype=asciidoc      " asciidoc
-    au BufNewFile,BufRead *.thtml set filetype=php          " php templates
-augroup END
 
 " }}}
 
