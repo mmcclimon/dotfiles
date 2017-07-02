@@ -2,32 +2,8 @@
 
 set nocompatible
 
-" Plugins {{{
-" -----------
-filetype off                        " required!
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'gmarik/Vundle.vim'          " vundle must manage itself
-Plugin 'chriskempson/base16-vim'
-Plugin 'bufkill.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'ledger/vim-ledger'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'pangloss/vim-javascript'
-" Plugin 'vim-perl/vim-perl'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-rsi'
-Plugin 'tpope/vim-surround'
-
-Plugin 'lifepillar/vim-solarized8'
-Plugin 'morhetz/gruvbox'
-
-call vundle#end()
-filetype plugin indent on           " required!
-" }}}
+" load plugins
+execute pathogen#infect()
 
 " Text Editing {{{
 " ----------------
