@@ -116,6 +116,7 @@ set backupdir=~/.vim/backup     " might as well keep them here
 set autowrite                   " save things automatically
 
 let g:tex_flavor = "latex"      " plaintex is no good
+let perl_sub_signatures = 1     " newish perl!
 
 let perl_sub_signatures = 1     " new perls!
 
