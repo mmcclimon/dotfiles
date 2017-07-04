@@ -28,7 +28,7 @@
 
 [submodule "vim/bundle/vim-ledger"]
     path  = vim/bundle/vim-ledger
-    url = https://github.com/ledger/vim-ledger
+    url = https://github.com/mmcclimon/vim-ledger
 
 [submodule "vim/bundle/vim-perl"]
     path  = vim/bundle/vim-perl

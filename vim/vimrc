@@ -88,7 +88,6 @@ nnoremap q: <Nop>
 
 if (v:progname == "view")
     nnoremap d <PageDown>
-    nunmap ds
     nnoremap u <PageUp>
     nnoremap q :q<CR>
     nunmap q:
