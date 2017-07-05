@@ -13,3 +13,4 @@ iabbrev nto not
 iabbrev substitutino substitution
 iabbrev transformatino transformation
 iabbrev transformatinos transformations
+iabbr --m -- michael, <C-R>=strftime("%Y-%m-%d")<CR>

@@ -35,6 +35,7 @@ set splitright                  " vertical splits open to right
 set mouse=a                     " turn on mouse
 set scrolloff=3
 set modelines=2
+set scrolloff=3
 set wildmode=longest:full,longest
 set wildignore+=.git,.svn,local,build,vendor,.sass-cache
 set list listchars=tab:>-,trail:~,extends:>,precedes:<
@@ -145,6 +146,5 @@ so ~/.vim/plugins.vim     " load plugin settings
 so ~/.vim/abbrevs.vim     " I can't type
 so ~/.vim/colors.vim      " for patching
 " }}}
-
 " vim:fdm=marker
 " vim:set filetype=vim
