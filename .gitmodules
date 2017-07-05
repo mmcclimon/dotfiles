@@ -4,7 +4,7 @@
 
 [submodule "vim/bundle/bufkill.vim"]
     path  = vim/bundle/bufkill.vim
-    url = https://github.com/qpkorr/vim-bufkill
+    url = https://github.com/vim-scripts/bufkill.vim
 
 [submodule "vim/bundle/ctrlp.vim"]
     path  = vim/bundle/ctrlp.vim
