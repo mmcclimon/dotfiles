@@ -22,5 +22,13 @@ if g:colors_name ==? "base16-default-dark"
     hi perlMethod ctermfg=167 guifg=#cb8682
 endif
 
+if g:colors_name ==? "gruvbox"
+    hi link perlPOD Comment
+    hi podCommand guifg=#586878
+    hi podCmdText guifg=#587858
+    hi podFormat guifg=#785868
+    hi podVerbatimLine guifg=#787358
+endif
+
 setl tabstop=2 softtabstop=2
 setl shiftwidth=2

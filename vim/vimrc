@@ -28,11 +28,12 @@ set incsearch                   " do incremental searching
 set ignorecase                  " ignore case, but...
 set smartcase                   " only if pattern is all lowercase
 set laststatus=2                " always show status line
-set number                      " always show line nums
+" set number                      " always show line nums
 set hidden                      " allow hidden buffers
 set wildmenu                    " better tab completion
 set splitright                  " vertical splits open to right
 set mouse=a                     " turn on mouse
+set scrolloff=3
 set modelines=2
 set wildmode=longest:full,longest
 set wildignore+=.git,.svn,local,build,vendor,.sass-cache
@@ -42,7 +43,15 @@ function! SyntaxItem()
     return synIDattr(synID(line("."),col("."),1),"name")
 endfunction
 
-set statusline=%<%f\ %h%m%r\ %{SyntaxItem()}%=%-14.(%l,%c%V%)\ %P
+function! GitStatusLine(...) abort
+  if !exists('b:git_dir')
+    return ''
+  endif
+  let status = fugitive#head(7)
+  return '(git:'.status.')'
+endfunction
+
+set statusline=%<%f\ %h%m%r\ %{GitStatusLine()}\ %{SyntaxItem()}%=%-14.(%l,%c%V%)\ %P
 
 " Folding
 set foldlevelstart=99           " all folds start open
@@ -123,6 +132,8 @@ let perl_sub_signatures = 1     " new perls!
 
 " fix crontab bug
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
+au FileType gitcommit setl tw=72
+
 
 " }}}
 
