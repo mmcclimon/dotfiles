@@ -18,6 +18,11 @@ let g:ctrlp_custom_ignore = "*.swp,*.zip,.git/*,build/*,.sass-cache.*,vendor,loc
 nnoremap <leader>b :CtrlPBuffer<cr>
 " }}}
 
+" tabularize --------------------------------------------------{{{
+nnoremap <silent> <Leader>= :Tabularize /=><CR>
+vnoremap <silent> <Leader>= :Tabularize /=><CR>
+" }}}
+
 " vim-pandoc---------------------------------------------------{{{
 let g:pandoc_use_hard_wraps = 1
 let g:pandoc_auto_format = 0
