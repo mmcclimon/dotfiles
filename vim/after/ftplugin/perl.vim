@@ -24,10 +24,10 @@ endif
 
 if g:colors_name ==? "gruvbox"
     hi link perlPOD Comment
-    hi podCommand guifg=#586878
-    hi podCmdText guifg=#587858
-    hi podFormat guifg=#785868
-    hi podVerbatimLine guifg=#787358
+    hi podCommand guifg=#586878 term=bold ctermfg=245
+    hi podCmdText guifg=#587858 term=bold ctermfg=245
+    hi podFormat guifg=#785868 term=bold ctermfg=245
+    hi podVerbatimLine guifg=#787358 term=bold ctermfg=245
 endif
 
 setl tabstop=2 softtabstop=2

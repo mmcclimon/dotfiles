@@ -19,6 +19,8 @@ alias ga='git add'
 alias gc='git commit'
 alias ls='ls --color'
 alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 alias tls='tmux ls'
 
 # prompt colors
@@ -34,6 +36,7 @@ export RPROMPT="$pdate%D{%Y%m%d-%H:%M:%S}$reset "
 export TERM='xterm-256color'
 export PAGER='less'
 export LESS='-R'
+export EDITOR='vim'
 
 function tmat () {
     if [[ -z "$@" ]]; then

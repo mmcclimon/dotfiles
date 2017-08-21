@@ -137,6 +137,8 @@ au BufEnter /private/tmp/crontab.* setl backupcopy=yes
 au FileType gitcommit setl tw=72
 
 
+au FileType gitcommit setl tw=72
+
 " }}}
 
 " Imports {{{

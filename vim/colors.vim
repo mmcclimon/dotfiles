@@ -14,6 +14,6 @@ if g:colors_name ==? "base16-default-dark"
 endif
 
 if g:colors_name ==? "gruvbox"
+    hi Normal ctermfg=white
     hi Search term=reverse ctermbg=51 ctermfg=240 guifg=#444444 guibg=#00f0f0
 endif
-
