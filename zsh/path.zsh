@@ -4,7 +4,8 @@ typeset -U path     # uniques
 # use historical settings on other macs
 if [ `hostname -s` = 'trane' ]
 then
-    source ~/perl5/perlbrew/etc/bashrc
+    # source ~/perl5/perlbrew/etc/bashrc
+    eval "$(plenv init - zsh)"
 else
     export PERLBREW_ROOT=~/.perl5/perlbrew
     source ~/.perl5/perlbrew/etc/bashrc

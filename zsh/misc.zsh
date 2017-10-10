@@ -19,7 +19,7 @@ export MANWIDTH=80
 export MANPAGER='col -b | view -c "set ft=man" -'
 
 function perldoc() {
-    cpandoc -opod $@ | view -c "set ft=pod" -
+    cpandoc -otext $@ | view -c "set ft=man" -
 }
 
 ## misc environment vars
