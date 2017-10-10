@@ -16,4 +16,6 @@ endif
 if g:colors_name ==? "gruvbox"
     hi Normal ctermfg=white
     hi Search term=reverse ctermbg=51 ctermfg=240 guifg=#444444 guibg=#00f0f0
+    hi Cursor guifg=#ebdbb2
+    hi Visual term=reverse cterm=reverse gui=none ctermbg=241 guibg=#3e3e5e
 endif

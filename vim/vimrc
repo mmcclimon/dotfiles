@@ -65,6 +65,8 @@ augroup END
 
 " Colors
 set background=dark
+let g:gruvbox_italic=0
+let g:gruvbox_bold=0
 colorscheme gruvbox
 
 if &t_Co > 2 || has("gui_running")
@@ -117,6 +119,10 @@ nnoremap : ;
 inoremap <c-c> <esc>
 " Uppercase last word in insert mode (stolen from Steve Losh).
 inoremap <C-u> <esc>mzgUiw`za
+
+" buffer switching
+nnoremap <BS> <C-^>
+
 " }}}
 
 " Misc. settings {{{
@@ -128,15 +134,10 @@ set backupdir=~/.vim/backup     " might as well keep them here
 set autowrite                   " save things automatically
 
 let g:tex_flavor = "latex"      " plaintex is no good
-let perl_sub_signatures = 1     " newish perl!
-
 let perl_sub_signatures = 1     " new perls!
 
 " fix crontab bug
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
-au FileType gitcommit setl tw=72
-
-
 au FileType gitcommit setl tw=72
 
 " }}}
