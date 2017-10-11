@@ -40,19 +40,37 @@ set wildmode=longest:full,longest
 set wildignore+=.git,.svn,local,build,vendor,.sass-cache
 set list listchars=tab:>-,trail:~,extends:>,precedes:<
 
-function! SyntaxItem()
-    return synIDattr(synID(line("."),col("."),1),"name")
-endfunction
+" function! SyntaxItem()
+"     return synIDattr(synID(line("."),col("."),1),"name")
+" endfunction
+"
+" function! GitStatusLine(...) abort
+"   if !exists('b:git_dir')
+"     return ''
+"   endif
+"   let status = fugitive#head(7)
+"   return '(git:'.status.')'
+" endfunction
+"
+" set statusline=%<%f\ %h%m%r\ %{GitStatusLine()}\ %{SyntaxItem()}%=%-14.(%l,%c%V%)\ %P
 
-function! GitStatusLine(...) abort
-  if !exists('b:git_dir')
-    return ''
-  endif
-  let status = fugitive#head(7)
-  return '(git:'.status.')'
-endfunction
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
 
-set statusline=%<%f\ %h%m%r\ %{GitStatusLine()}\ %{SyntaxItem()}%=%-14.(%l,%c%V%)\ %P
+  let g:airline_left_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_symbols.branch = '⎇'
+  let g:airline_symbols.whitespace = 'Ξ'
+  let g:airline_symbols.maxlinenr = ''
+  let g:airline_powerline_fonts=0
+  " let g:airline_section_z = '%3p%% (%v,%l)'
+  call airline#parts#define('linenr', {
+              \ 'raw': '%-9((%l,%v)%)',
+              \ 'accent': 'bold'})
+  let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%3p%% ', 'linenr'])
+
+  set noshowmode
+endif
 
 " Folding
 set foldlevelstart=99           " all folds start open
