@@ -109,6 +109,13 @@ augroup trailing
 augroup END
 highlight ExtraWhitespace ctermbg=red guibg=red
 
+" BUT sometimes EOL whitespace is necessary...be less annoying then
+augroup whitespace
+    au!
+    au FileType mail hi ExtraWhitespace ctermbg=NONE guibg=NONE
+    au FileType markdown hi ExtraWhitespace ctermbg=NONE guibg=NONE
+augroup END
+
 " }}}
 
 " Mappings ----------------------------------------------------{{{

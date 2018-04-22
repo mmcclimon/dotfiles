@@ -11,8 +11,8 @@ let g:EasyMotion_smartcase = 1
 " }}}
 
 " CtrlP -------------------------------------------------------{{{
-" use ack to find known files
-" let g:ctrlp_user_command = 'ack -f'
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" let g:ctrlp_use_caching = 0
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_custom_ignore = "*.swp,*.zip,.git/*,build/*,.sass-cache.*,vendor,local,doc,db"
 nnoremap <leader>b :CtrlPBuffer<cr>
@@ -22,6 +22,14 @@ nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <silent> <Leader>= :Tabularize /=><CR>
 vnoremap <silent> <Leader>= :Tabularize /=><CR>
 " }}}
+
+" Jenkinsfile -------------------------------------------------{{{
+augroup jenkins
+    au!
+    au BufRead,BufNewFile Jenkinsfile setl filetype=groovy
+augroup END
+" }}}
+
 
 " vim-pandoc---------------------------------------------------{{{
 let g:pandoc_use_hard_wraps = 1
@@ -57,5 +65,10 @@ let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/UltiSnips'
 let g:UltiSnipsEditSplit = 'horizontal'
 " }}}
 
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
+let g:ale_linters = {
+\   'perl': ['perl'],
+\}
 
 " vim:fdm=marker
