@@ -1,21 +1,41 @@
-set main-view = id:yes date:default author:abbreviated commit-title:yes,refs:yes
+set main-view = id:yes date author:email-user commit-title:graph:v2,refs:yes
 set line-graphics = utf-8
+
+# be vimmy
+bind generic g  none
+bind generic gg move-first-line
+bind generic gj next
+bind generic gk previous
+bind generic gp parent
+bind generic gP back
+bind generic gn view-next
+
+bind main    G move-last-line
+bind generic G move-last-line
+
+bind generic <C-f> move-page-down
+bind generic <C-b> move-page-up
 
 # capital R rebases interactively on that commit
 bind main R !<git rebase -i %(commit)
 
+set main-view-date = custom
+set main-view-date-format = "%Y-%m-%d"
+set line-graphics = ascii
+
 # colors
-color id color25 default
-color date color23 default
-color cursor color250 color24
-color title-focus default color23
+color id color66 default
+color date color65 default
+color author color7 default
+color cursor color221 color237
+# color title-focus default color23
 
 # graph colors
-color graph-commit color52 default
-color palette-0 color58 default
-color palette-1 color64 default
-color palette-2 color72 default
-color palette-3 color34 default
-color palette-4 color39 default
-color palette-5 color117 default
-color palette-6 color94 default
+# color graph-commit color52 default
+# color palette-0 color58 default
+# color palette-1 color64 default
+# color palette-2 color72 default
+# color palette-3 color34 default
+# color palette-4 color39 default
+# color palette-5 color117 default
+# color palette-6 color94 default

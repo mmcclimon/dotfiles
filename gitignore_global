@@ -8,3 +8,4 @@ tags
 .ackrc
 .sass-cache
 .build
+.ruby-version
