@@ -52,7 +52,6 @@
  '(inhibit-startup-echo-area-message "michael")
  '(ledger-clear-whole-transactions t)
  '(ledger-highlight-xact-under-point nil)
- '(mac-font-panel-mode t)
  '(neo-theme (quote arrow))
  '(org-agenda-files nil)
  '(org-babel-load-languages (quote ((emacs-lisp . t))))

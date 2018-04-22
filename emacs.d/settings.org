@@ -256,15 +256,14 @@ annoying default behavior.
        ; '(fringe ((t (:background "#202020"))))
        '(ido-subdir ((t (:foreground "DarkSeaGreen4"))))
        '(ido-subdir ((t (:foreground "DarkSeaGreen4"))))
-       '(ledger-font-auto-xact-face ((t (:inherit font-lock-type-face :weight normal))))
-       '(ledger-font-payee-cleared-face ((t (:inherit ledger-font-posting-date-face))))
-       '(ledger-font-payee-uncleared-face ((t (:inherit font-lock-warning-face :weight bold))))
-       '(ledger-font-pending-face ((t (:inherit ledger-font-payee-uncleared-face :weight bold))))
-       '(ledger-font-posting-account-face ((t (:inherit font-lock-function-name-face))))
-       '(ledger-font-posting-amount-face ((t (:inherit font-lock-keyword-face))))
-       '(ledger-font-posting-date-face ((t (:inherit font-lock-constant-face))))
-       '(ledger-occur-xact-face ((t nil)))
-       '(ledger-occur-xact-face ((t nil)))
+       ; '(ledger-font-auto-xact-face ((t (:inherit font-lock-type-face :weight normal))))
+       ; '(ledger-font-payee-cleared-face ((t (:inherit ledger-font-posting-date-face))))
+       ; '(ledger-font-payee-uncleared-face ((t (:inherit font-lock-warning-face :weight bold))))
+       ; '(ledger-font-pending-face ((t (:inherit ledger-font-payee-uncleared-face :weight bold))))
+       ; '(ledger-font-posting-account-face ((t (:inherit font-lock-function-name-face))))
+       ; '(ledger-font-posting-amount-face ((t (:inherit font-lock-keyword-face))))
+       ; '(ledger-font-posting-date-face ((t (:inherit font-lock-constant-face))))
+       ; '(ledger-occur-xact-face ((t nil)))
        '(link ((t (:inherit font-lock-function-name-face :underline t))))
        '(link ((t (:inherit font-lock-function-name-face :underline t))))
        '(link-visited ((t (:inherit font-lock-keyword-face :underline t))))
@@ -295,7 +294,7 @@ annoying default behavior.
        '(whitespace-tab ((t (:foreground "dim gray"))))
        '(whitespace-tab ((t (:foreground "dim gray"))))))
 
-  (load-gruvbox)
+  (load-base16-default)
 #+END_SRC
 
 But occasionally I like to use a light theme (especially if writing text).
@@ -427,7 +426,7 @@ along with linum-mode (which shows line numbers)
        (derived-mode-p 'prog-mode))
       (progn
         (fci-mode 1)
-        (linum-mode 1))
+        (linum-mode -1))
     (progn
       (fci-mode -1)
       (linum-mode -1))))
