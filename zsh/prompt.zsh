@@ -3,7 +3,7 @@
 reset="%{$reset_color%}"
 
 # assumes 'colors' has been sourced before this
-eval pblue='$FG[031]'
+eval pblue='$FG[004]'
 eval pgray='$FG[242]'
 #eval branch_c='%{$fg[green]%}'
 eval branch_c='$FG[023]'
@@ -73,8 +73,8 @@ function _svn_prompt() {
 
 function precmd() {
     _gprompt
-    _svn_prompt
-    _venv_prompt
+    # _svn_prompt
+    # _venv_prompt
 }
 
 

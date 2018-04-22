@@ -66,6 +66,10 @@ function tmat () {
     fi
 }
 
+function gcd() {
+  local TOP="`git rev-parse --show-cdup 2> /dev/null`" || return 1
+  [ "$TOP" ] && cd "$TOP"
+}
 
 # misc.
 alias latexwatch='latexmk -xelatex -pvc'
@@ -74,3 +78,10 @@ alias bedtime='pmset displaysleepnow'
 alias ecw='emacsclient'
 alias ec='emacsclient -n'
 alias class='caffeinate -d -t 3000' # don't sleep display for 50 minutes
+alias michael='echo "good job, dummy"'
+
+# directory shortcuts
+hash -d txbe=~/code/fm/Topicbox-Backend
+hash -d txfe=~/code/fm/Topicbox-Frontend
+hash -d hm=~/code/fm/hm
+hash -d ix=~/code/fm/Ix
