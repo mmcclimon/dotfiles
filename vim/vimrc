@@ -85,6 +85,7 @@ augroup END
 set background=dark
 let g:gruvbox_italic=0
 let g:gruvbox_bold=0
+let g:gruvbox_contrast_light = "soft"
 colorscheme gruvbox
 
 if &t_Co > 2 || has("gui_running")

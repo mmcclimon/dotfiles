@@ -18,3 +18,4 @@ iabbr wmsmt Webmaster, Society for Music Theory
 iabbr identifer identifier
 iabbr replacment replacement
 iabbr sefl self
+iabbr useddc use Data::Dumper::Concise;

@@ -28,6 +28,11 @@ augroup jenkins
     au!
     au BufRead,BufNewFile Jenkinsfile setl filetype=groovy
 augroup END
+
+augroup vagrant
+    au!
+    au BufRead,BufNewFile Vagrantfile setl filetype=ruby
+augroup END
 " }}}
 
 
