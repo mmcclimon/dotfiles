@@ -85,3 +85,4 @@ hash -d txbe=~/code/fm/Topicbox-Backend
 hash -d txfe=~/code/fm/Topicbox-Frontend
 hash -d hm=~/code/fm/hm
 hash -d ix=~/code/fm/Ix
+hash -d dropbox="/Users/michael/derpboxen/Dropbox (Personal)"

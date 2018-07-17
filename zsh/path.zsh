@@ -19,6 +19,7 @@ if [ `hostname -s` = 'trane' ]
 then
     eval "$(rbenv init -)"
     eval "$(plenv init - zsh)"
+    eval "$(pyenv init -)"
 fi
 
 export PATH
