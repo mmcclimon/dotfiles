@@ -109,6 +109,8 @@ bindkey -M vicmd '\e' noop
 
 # now we can actually set the prompt
 setopt prompt_subst
+setopt transient_rprompt
+
 PROMPT="
 \${venv_prompt}${pgray}[%18<...<%~%<<\${git_prompt}${pgray}\${svn_prompt}]${reset} \${vim_prompt} "
 
