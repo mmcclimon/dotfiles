@@ -2,7 +2,7 @@
         name = Michael McClimon
         email = michael@mcclimon.org
 [core]
-        excludesfile = /Users/michael/.gitignore_global
+        excludesfile = /Users/michael/.gitignore
         editor = vim
 [credential]
         helper = osxkeychain
@@ -12,5 +12,6 @@
         co = checkout
         l = log --oneline
         wd = diff --word-diff=color
+        b = branch
 [push]
         default = matching
