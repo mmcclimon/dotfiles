@@ -80,7 +80,7 @@ Set default font for frames.
 #+BEGIN_SRC emacs-lisp
 (add-to-list
  'default-frame-alist
- '(font . "Monaco-10"))
+ '(font . "Source Code Pro-10"))
 #+END_SRC
 
 
@@ -543,6 +543,7 @@ command-key bindings.
 (define-key evil-normal-state-map ";" 'evil-ex)
 (define-key evil-normal-state-map ":" 'evil-repeat-find-char)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+(define-key evil-normal-state-map (kbd "<backspace>") 'mode-line-other-buffer)
 #+END_SRC
 
    Make the evil-mode indicators in the mode line a little nicer.
