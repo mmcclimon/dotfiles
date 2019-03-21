@@ -28,6 +28,11 @@ if g:colors_name ==? "gruvbox"
     hi podCmdText guifg=#587858 term=bold ctermfg=245
     hi podFormat guifg=#785868 term=bold ctermfg=245
     hi podVerbatimLine guifg=#787358 term=bold ctermfg=245
+
+    hi String guifg=#b8ba54
+    hi link Statement GruvboxPurple
+    hi link Repeat GruvboxPurple
+    hi Identifier guifg=#889c94
 endif
 
 setl tabstop=2 softtabstop=2

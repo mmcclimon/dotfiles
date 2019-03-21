@@ -18,4 +18,12 @@ if g:colors_name ==? "gruvbox"
     hi Search term=reverse ctermbg=51 ctermfg=240 guifg=#444444 guibg=#00f0f0
     hi Cursor guifg=#ebdbb2
     hi Visual term=reverse cterm=reverse gui=none ctermbg=241 guibg=#3e3e5e
+
+    " temporary? I'm trying a lower contrast thing and wanna play with this
+    " for a while. -- michael, 2018-11-14
+    hi String guifg=#b8ba54
+    hi! link Statement GruvboxPurple
+    hi! link Repeat GruvboxPurple
+    hi! link Conditional GruvboxPurple
+    hi! Identifier guifg=#889c94
 endif
