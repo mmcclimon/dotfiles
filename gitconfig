@@ -1,17 +1,38 @@
 [user]
-        name = Michael McClimon
-        email = michael@mcclimon.org
+    name = Michael McClimon
+    email = michael@mcclimon.org
 [core]
-        excludesfile = /Users/michael/.gitignore
-        editor = vim
-[credential]
-        helper = osxkeychain
-[color]
-        ui = true
+    excludesfile = /Users/michael/.gitignore
+    abbrev = 8
 [alias]
-        co = checkout
-        l = log --oneline
-        wd = diff --word-diff=color
-        b = branch
+    co = checkout
+    lg = log --pretty=oneline --abbrev-commit
+    hist = log --graph --oneline --decorate --all
+    fall = fetch --all --prune
+    ff = merge --ff-only
+    weld = merge --no-ff
+    pick = cherry-pick
+    b = branch
+    mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
+    upll = pull
+    shove = push --force-with-lease
+
+
+[difftool "sourcetree"]
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+    path = 
+[mergetool "sourcetree"]
+    cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    trustExitCode = true
+[commit]
+    template = /Users/michael/.stCommitMsg
+
 [push]
-        default = matching
+    default = current
+
+[log]
+    mailmap = true
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+    insteadOf = git://github.com/
