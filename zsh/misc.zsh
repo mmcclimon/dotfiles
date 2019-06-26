@@ -33,5 +33,6 @@ fi
 
 export LC_CTYPE=$LANG
 export VIRTUAL_ENV_DISABLE_PROMPT=true
+export NOPASTE_SERVICES=GitLab
 
 hr() { printf '-%.0s' $(seq $COLUMNS) }
