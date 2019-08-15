@@ -1,5 +1,4 @@
 set main-view = id:yes date author:email-user commit-title:graph:v2,refs:yes
-set line-graphics = utf-8
 
 # be vimmy
 bind generic g  none
@@ -21,7 +20,7 @@ bind main R !<git rebase -i %(commit)
 
 set main-view-date = custom
 set main-view-date-format = "%Y-%m-%d"
-set line-graphics = ascii
+set line-graphics = default
 
 # colors
 color id color66 default
