@@ -66,14 +66,6 @@ function tmat () {
     fi
 }
 
-function tig () {
-    if [[ -n "$TMUX" ]]; then
-        TERM=screen-256color /usr/local/bin/tig "$@"
-    else
-        /usr/local/bin/tig "$@"
-    fi
-}
-
 function gcd() {
   local TOP="`git rev-parse --show-cdup 2> /dev/null`" || return 1
   [ "$TOP" ] && cd "$TOP"
