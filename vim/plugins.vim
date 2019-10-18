@@ -11,7 +11,7 @@ let g:EasyMotion_smartcase = 1
 " }}}
 
 " CtrlP -------------------------------------------------------{{{
-" let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:ctrlp_user_command = 'rg --files %s'
 " let g:ctrlp_use_caching = 0
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_custom_ignore = "*.swp,*.zip,.git/*,build/*,.sass-cache.*,vendor,local,doc,db"
@@ -55,19 +55,11 @@ nnoremap <C-x><C-c> :w<bar>BD<cr>
 nnoremap <C-x><C-k> :w<bar>BW<cr>
 " }}}
 
-" Tagbar ------------------------------------------------------{{{
-let g:tagbar_iconchars = ['▸', '▾']
-let g:tagbar_phpctags_bin='~/bin/ctags'
-let g:tagbar_phpctags_bin='~/bin/phpctags'
-hi TagbarVisibilityPublic guifg=#04b404
-hi TagbarVisibilityProtected guifg=#0489b1
-hi TagbarVisibilityPrivate guifg=#b40404
-" }}}
-
-" UltiSnips ---------------------------------------------------{{{
-let g:UltiSnipsSnippetDirectories = ['UltiSnips']
-let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/UltiSnips'
-let g:UltiSnipsEditSplit = 'horizontal'
+" Black -------------------------------------------------------{{{
+augroup black
+    au!
+    autocmd BufWritePre *.py execute ':Black'
+augroup END
 " }}}
 
 let g:ale_lint_on_text_changed = 'never'

@@ -4,3 +4,4 @@
 backup/*
 highlights.txt
 *.pyc
+black/

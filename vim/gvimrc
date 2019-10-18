@@ -4,7 +4,8 @@ set guioptions-=r
 set guioptions-=m
 
 if has("macunix")
-    set guifont=Source\ Code\ Pro:h10
+    " set guifont=Source\ Code\ Pro:h10
+    set guifont=Input:h10
     " set linespace=3
 elseif has("unix")
     set guifont=Consolas\ 8
@@ -16,10 +17,6 @@ let &colorcolumn=join(range(81,999),",")
 
 " Don't do funny business with the cursor
 set guicursor+=n:blinkon0
-
-"nerdtree
-nnoremap <F8> :TagbarToggle<CR>
-nnoremap <F5> :NERDTreeToggle<CR>
 
 function! EmbiggenFont()
     set guifont=Ubuntu\ Mono:h16
