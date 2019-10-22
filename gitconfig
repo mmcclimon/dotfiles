@@ -6,6 +6,8 @@
 [core]
     excludesfile = /Users/michael/.gitignore
     abbrev = 8
+[diff]
+    noprefix = true
 [alias]
     co = checkout
     lg = log --pretty=oneline --abbrev-commit
@@ -34,7 +36,7 @@
     template = /Users/michael/.stCommitMsg
 
 [push]
-    default = current
+	default = current
 
 [log]
     mailmap = true
