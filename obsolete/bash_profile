@@ -1,3 +1,4 @@
+#!/bin/bash
 export PATH=$PATH:/usr/local/mysql/bin
 export PATH=$PATH:~/bin
 export PATH=$PATH:/usr/texbin
@@ -37,7 +38,6 @@ alias ec='emacsclient -n'
 alias ecc='emacsclient -c -n'
 alias mvc='mvim --servername mvim --remote-silent'
 alias mvcc='mvim --servername mvim'
-alias stallman="curl -s 'http://en.wikiquote.org/wiki/Richard_Stallman' |grep '<li>' | grep -v -E '(Chapter|href|Source:)' | perl -MList::Util -e 'print List::Util::shuffle <>' | head -n1 | sed -E -e 's#</?(li|i|b)>##g'"
 alias latexwatch='latexmk -xelatex -pvc'
 
 # put this in a function, since I don't use RVM a lot
