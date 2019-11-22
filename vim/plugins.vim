@@ -55,13 +55,6 @@ nnoremap <C-x><C-c> :w<bar>BD<cr>
 nnoremap <C-x><C-k> :w<bar>BW<cr>
 " }}}
 
-" Black -------------------------------------------------------{{{
-augroup black
-    au!
-    autocmd BufWritePre *.py execute ':Black'
-augroup END
-" }}}
-
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
 let g:ale_linters = {
