@@ -75,8 +75,6 @@ function gcd() {
 alias latexwatch='latexmk -xelatex -pvc'
 alias info='info --vi-keys'
 alias bedtime='pmset displaysleepnow'
-alias ecw='emacsclient'
-alias ec='emacsclient -n'
 alias class='caffeinate -d -t 3000' # don't sleep display for 50 minutes
 alias michael='echo "good job, dummy"'
 
