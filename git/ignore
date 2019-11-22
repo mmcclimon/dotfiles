@@ -10,3 +10,4 @@ tags
 .build
 .ruby-version
 .ignore
+.envrc
