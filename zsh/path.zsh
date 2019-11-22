@@ -20,6 +20,7 @@ then
     eval "$(rbenv init -)"
     eval "$(plenv init - zsh)"
     eval "$(pyenv init -)"
+    eval "$(direnv hook zsh)"
 fi
 
 export PATH
