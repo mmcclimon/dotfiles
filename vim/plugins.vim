@@ -55,10 +55,17 @@ nnoremap <C-x><C-c> :w<bar>BD<cr>
 nnoremap <C-x><C-k> :w<bar>BW<cr>
 " }}}
 
+" ale
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 'never'
 let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
 let g:ale_linters = {
 \   'perl': ['perl'],
+\   'javascript': ['eslint'],
 \}
+let g:ale_fixers = {
+\   'javascript': ['prettier'],
+\}
+nnoremap <Leader>q <silent> :ALEFix<Enter>
 
 " vim:fdm=marker

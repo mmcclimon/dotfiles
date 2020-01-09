@@ -33,6 +33,9 @@ if g:colors_name ==? "gruvbox"
     hi link Statement GruvboxPurple
     hi link Repeat GruvboxPurple
     hi Identifier guifg=#889c94
+
+    hi link perlSpecial GruvboxAqua
+    " hi link perlMatch GruvboxAqua
 endif
 
 setl tabstop=2 softtabstop=2
