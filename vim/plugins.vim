@@ -35,6 +35,19 @@ augroup vagrant
 augroup END
 " }}}
 
+" fugitive
+augroup fugitive
+    au!
+    au FileType fugitiveblame silent! nunmap <buffer> q:
+augroup END
+
+" ledger
+augroup ledger
+    au!
+    au FileType ledger let @m = 'yypR(mjm)     ,c}jj'
+    au FileType ledger let @y = 'yypR(ynab)    ,c}jj'
+augroup END
+
 
 " vim-pandoc---------------------------------------------------{{{
 let g:pandoc_use_hard_wraps = 1

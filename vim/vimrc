@@ -35,14 +35,13 @@ set splitright                  " vertical splits open to right
 set mouse=a                     " turn on mouse
 set scrolloff=3
 set modelines=2
-set scrolloff=3
 set wildmode=longest:full,longest
 set wildignore+=.git,.svn,local,build,vendor,.sass-cache
 set list listchars=tab:>-,trail:~,extends:>,precedes:<
 
-" function! SyntaxItem()
-"     return synIDattr(synID(line("."),col("."),1),"name")
-" endfunction
+function! SyntaxItem()
+    return synIDattr(synID(line("."),col("."),0),"name")
+endfunction
 "
 " function! GitStatusLine(...) abort
 "   if !exists('b:git_dir')
@@ -94,6 +93,7 @@ if &t_Co > 2 || has("gui_running")
 endif
 
 if has("termguicolors")
+    " mke true colors work under tmux by setting some terminal overrides
     if ($TERM ==# "screen-256color")
         let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
         let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -127,13 +127,12 @@ augroup END
 let mapleader=","
 let maplocalleader = '\\'
 nnoremap <silent> <leader>s :nohls<CR>
-nnoremap q: <Nop>
+" nnoremap q: <Nop>
 
 if (v:progname == "view")
     nnoremap d <PageDown>
     nnoremap u <PageUp>
     nnoremap q :q<CR>
-    nunmap q:
     set nonumber nolist
 endif
 
