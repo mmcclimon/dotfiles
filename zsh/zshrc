@@ -17,6 +17,11 @@ if [ -e "$LIB_PATH/work.zsh" ]; then
     source $LIB_PATH/work.zsh
 fi
 
+local host=$(hostname)
+if [ -e "$LIB_PATH/hosts/$host.zsh" ]; then
+    source $LIB_PATH/hosts/$host.zsh
+fi
+
 autoload -U compinit
 compinit -C
 
