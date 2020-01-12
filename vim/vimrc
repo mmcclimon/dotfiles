@@ -81,12 +81,6 @@ augroup folding
 augroup END
 
 " Colors
-set background=dark
-let g:gruvbox_italic=0
-let g:gruvbox_bold=0
-let g:gruvbox_contrast_light = "soft"
-colorscheme gruvbox
-
 if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
@@ -94,15 +88,19 @@ endif
 
 if has("termguicolors")
     " mke true colors work under tmux by setting some terminal overrides
-    if ($TERM ==# "screen-256color")
+    if ($TERM ==# "screen-256color" || $TERM==# "xterm-256color")
         let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
         let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     endif
     set termguicolors
-    " colorscheme solarized8_dark
-    " let g:gruvbox_italic=1
-    colorscheme gruvbox
 endif
+
+set background=dark
+let g:gruvbox_italic=0
+let g:gruvbox_bold=0
+let g:gruvbox_contrast_light = "soft"
+colorscheme gruvbox
+
 
 " be annoying about extra whitespace
 augroup trailing
