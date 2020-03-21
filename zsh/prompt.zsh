@@ -8,7 +8,7 @@ eval pgray='$FG[242]'
 #eval branch_c='%{$fg[green]%}'
 eval branch_c='$FG[023]'
 eval status_c='$FG[001]'
-eval venv_c='$FG[022]'
+eval pred='$FG[124]'
 
 # Git prompt info
 ############################
@@ -42,39 +42,20 @@ function _gprompt() {
     git_prompt=$gprompt
 }
 
-venv_prompt=''
+dollar_hook=''
+function _dollar_hook () {
+    local exit_status=$?
 
-function _venv_prompt() {
-    local vprompt=''
-    local venv_name="${VIRTUAL_ENV##*/}"
-
-    if [ -n "$venv_name" ]; then
-        vprompt="${venv_c}(${venv_name})$reset"
+    if [[ $exit_status -ne 0 ]]; then
+        dollar_hook="${pred}${exit_status}${reset}"
+    else
+        dollar_hook=$exit_status
     fi
-
-    venv_prompt=$vprompt
-}
-
-svn_prompt=''
-
-function _svn_prompt() {
-    local sprompt=''
-    local sdir="$(svn info 2>/dev/null)"
-
-    if [ -n "$sdir" ]; then
-        local rev=$(svn info 2>/dev/null | grep '^Revision' | sed -e 's/Revision: //')
-        local dirty=''
-        [ "$(svn status --ignore-externals | grep -v '^X')" ] && dirty="$status_c*$reset"
-        sprompt=" at ${branch_c}r${rev}${reset}${dirty}"
-    fi
-
-    svn_prompt="${sprompt}"
 }
 
 function precmd() {
+    _dollar_hook  # must go first, so that we don't get git's $?
     _gprompt
-    # _svn_prompt
-    # _venv_prompt
 }
 
 
@@ -112,6 +93,6 @@ setopt prompt_subst
 setopt transient_rprompt
 
 PROMPT="
-\${venv_prompt}${pgray}[%18<...<%~%<<\${git_prompt}${pgray}\${svn_prompt}]${reset} \${vim_prompt} "
+${pgray}[%18<...<%~%<<\${git_prompt}${pgray}]${reset} \${vim_prompt} "
 
-RPS1="${pgray}%*${reset}"
+RPS1="${pgray}%* [\${dollar_hook}${pgray}]${reset}"
