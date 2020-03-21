@@ -23,29 +23,10 @@ nnoremap <silent> <Leader>= :Tabularize /=><CR>
 vnoremap <silent> <Leader>= :Tabularize /=><CR>
 " }}}
 
-" Jenkinsfile -------------------------------------------------{{{
-augroup jenkins
-    au!
-    au BufRead,BufNewFile Jenkinsfile setl filetype=groovy
-augroup END
-
-augroup vagrant
-    au!
-    au BufRead,BufNewFile Vagrantfile setl filetype=ruby
-augroup END
-" }}}
-
 " fugitive
 augroup fugitive
     au!
     au FileType fugitiveblame silent! nunmap <buffer> q:
-augroup END
-
-" ledger
-augroup ledger
-    au!
-    au FileType ledger let @m = 'yypR(mjm)     ,c}jj'
-    au FileType ledger let @y = 'yypR(ynab)    ,c}jj'
 augroup END
 
 
