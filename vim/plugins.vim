@@ -53,13 +53,20 @@ nnoremap <C-x><C-k> :w<bar>BW<cr>
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 'never'
 let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
+let g:ale_linters_explicit = 0
 let g:ale_linters = {
 \   'perl': ['perl'],
-\   'javascript': ['eslint'],
+\   'javascript': ['eslint', 'prettier'],
+\   'typescript': ['eslint', 'prettier', 'tsserver'],
+\   'rust': ['cargo', 'rustc'],
 \}
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
+\   'typescript': ['prettier'],
+\   'json': ['prettier'],
 \}
+
 nnoremap <Leader>q <silent> :ALEFix<Enter>
+nmap <Leader>e <Plug>(ale_detail)
 
 " vim:fdm=marker
