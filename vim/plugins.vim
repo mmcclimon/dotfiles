@@ -1,5 +1,16 @@
 " Misc. vim settings for random plugins
 
+" airline
+function! AirlineInit()
+  " this used to work without being in a function, but no longer does.
+  call airline#parts#define('linenr', {
+              \ 'raw': '%-9((%l,%v)%)',
+              \ 'accent': 'bold'})
+  let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%3p%% ', 'linenr'])
+endfunction
+
+au VimEnter * call AirlineInit()
+
 " netrw -------------------------------------------------------{{{
 let g:netrw_liststyle=1
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
