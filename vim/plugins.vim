@@ -58,12 +58,15 @@ let g:ale_linters = {
 \   'perl': ['perl'],
 \   'javascript': ['eslint', 'prettier'],
 \   'typescript': ['eslint', 'prettier', 'tsserver'],
-\   'rust': ['cargo', 'rustc'],
+\   'rust': ['cargo', 'rls'],
+\   'go': ['gofmt', 'gobuild', 'golint'],
 \}
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \   'typescript': ['prettier'],
 \   'json': ['prettier'],
+\   'rust': ['rustfmt'],
+\   'go': ['gofmt', 'goimports'],
 \}
 
 nnoremap <Leader>q <silent> :ALEFix<Enter>

@@ -123,7 +123,7 @@ augroup END
 
 " Mappings ----------------------------------------------------{{{
 let mapleader=","
-let maplocalleader = '\\'
+let maplocalleader = '\'
 nnoremap <silent> <leader>s :nohls<CR>
 " nnoremap q: <Nop>
 

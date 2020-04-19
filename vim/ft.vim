@@ -3,17 +3,11 @@ augroup ft_jenkins
     au BufRead,BufNewFile Jenkinsfile setl filetype=groovy
 augroup END
 
-augroup ft_vagrant
-    au!
-    au BufRead,BufNewFile Vagrantfile setl filetype=ruby
-augroup END
-
 augroup ft_ledger
     au!
     au FileType ledger let @m = 'yypR(mjm)     ,c}jj'
     au FileType ledger let @y = 'yypR(ynab)    ,c}jj'
 augroup END
-
 
 augroup ft_typescript
     au!
@@ -26,3 +20,20 @@ augroup ft_json
     au Filetype json let b:ale_fix_on_save = 1
 augroup END
 
+augroup ft_go
+    au!
+    hi link goSpaceError None
+    au Filetype go let b:ale_fix_on_save = 1
+    au Filetype go setlocal noexpandtab listchars+=tab:\ \  tabstop=2 shiftwidth=2
+augroup END
+
+augroup ft_rust
+    au!
+    au Filetype rust let b:ale_fix_on_save = 1
+    au Filetype rust setlocal textwidth=80
+augroup END
+
+augroup ft_markdown
+    au!
+    au Filetype markdown setlocal nosmartindent
+augroup END
