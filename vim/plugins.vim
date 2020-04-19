@@ -1,8 +1,8 @@
 " Misc. vim settings for random plugins
 
 " netrw -------------------------------------------------------{{{
-nnoremap <F5> :e .<CR>
-let g:netrw_liststyle=3     " tree style
+let g:netrw_liststyle=1
+let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 " }}}
 
 " EasyMotion --------------------------------------------------{{{
