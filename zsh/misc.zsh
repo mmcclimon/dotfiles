@@ -36,4 +36,6 @@ export VIRTUAL_ENV_DISABLE_PROMPT=true
 export NOPASTE_SERVICES=GitLab
 export DIRENV_LOG_FORMAT=
 
+export GOPATH="$HOME/.go"
+
 hr() { printf '-%.0s' $(seq $COLUMNS) }

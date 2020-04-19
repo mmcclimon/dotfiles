@@ -17,6 +17,7 @@ then
     prepend_to_path /usr/local/sbin
     prepend_to_path $(brew --prefix)/opt/coreutils/libexec/gnubin
     prepend_to_manpath $(brew --prefix)/opt/coreutils/libexec/gnuman
+    append_to_path "$HOME/.go/bin"
     eval "$(rbenv init -)"
     eval "$(plenv init - zsh)"
     eval "$(pyenv init -)"
