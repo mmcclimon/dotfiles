@@ -47,5 +47,8 @@
 [include]
     path = ~/.gitlab.conf
 
+[includeIf "gitdir:~/code/fm/"]
+    path = ~/.work.gitconfig
+
 [rerere]
     enabled = true
