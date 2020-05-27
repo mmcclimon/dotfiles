@@ -5,7 +5,12 @@ if g:colors_name ==? "gruvbox"
 
     hi link rustFuncCall GruvboxBlue
     hi link rustKeyword GruvboxPurple
-    hi link rustSelf GruvboxFg3
+    hi link rustSelf GruvboxFg2
+    hi link rustSigil GruvboxFg3
+    hi link rustQuestionMark rustSigil
+    hi link rustStorage rustSigil
+    hi link rustLifetime rustSigil
+    hi rustType guifg=#cc9b27
 
     " tone down the aqua for attributes
     hi rustAttribute guifg=#688868

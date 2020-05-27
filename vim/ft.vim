@@ -31,6 +31,7 @@ augroup ft_rust
     au!
     au Filetype rust let b:ale_fix_on_save = 1
     au Filetype rust setlocal textwidth=80
+    au Filetype rust setlocal tabstop=2 shiftwidth=2 softtabstop=2
 augroup END
 
 augroup ft_markdown
