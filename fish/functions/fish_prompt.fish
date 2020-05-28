@@ -53,7 +53,6 @@ function vi_mode_char
   end
 end
 
-
 function fish_prompt --description 'Write out the prompt'
     set -l last_status $status
     set -l blue "blue"
@@ -72,6 +71,6 @@ function fish_prompt --description 'Write out the prompt'
 
     echo -n (vi_mode_char)
 
-    echo -n '><> '
+    echo -n ' ➤ '
     set_color normal
 end
