@@ -1,30 +1,21 @@
 function git_prompt -d 'print the git prompt'
-    set -l gitdir (git rev-parse --git-dir 2> /dev/null)
+    # is_gitdir at_or_on branch_or_sha is_dirty
+    set -l gitinfo (string split ' ' (git prompt-info 2>/dev/null))
+    set -l branch_color "005f5f"
 
-    if test -n "$gitdir"
-        set -l branch (git rev-parse --abbrev-ref HEAD)
-        set -l gstatus (string trim (git status --porcelain 2> /dev/null))
-        set -l branch_color "005f5f"
+    if test $gitinfo[1] -eq 0
+        return
+    end
 
-        if test $branch = 'HEAD'
-            set -l sha (git rev-parse --short HEAD 2>/dev/null)
-            echo -n ' at '
-            set_color $branch_color
-            echo -n $sha
-            set_color normal
-        else
-            echo -n ' on '
-            set_color $branch_color
-            echo -n $branch
-            set_color normal
-        end
+    echo -n " $gitinfo[2] "
+    set_color $branch_color
+    echo -n $gitinfo[3]
+    set_color normal
 
-        if test -n "$gstatus"
-            set_color red
-            echo -n '*'
-            set_color normal
-        else
-        end
+    if test $gitinfo[4] -eq 1
+        set_color red
+        echo -n '*'
+        set_color normal
     end
 end
 
@@ -58,7 +49,7 @@ function fish_prompt --description 'Write out the prompt'
     set -l blue "blue"
     set -l grey 6c6c6c
 
-    echo    # newline
+    echo ''   # newline
 
     set_color $grey
     echo -n '['
