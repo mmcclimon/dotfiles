@@ -11,11 +11,11 @@ source $LIB_PATH/history.zsh
 source $LIB_PATH/key-bindings.zsh
 source $LIB_PATH/misc.zsh
 source $LIB_PATH/prompt.zsh
-source $LIB_PATH/termsupport.zsh
+# source $LIB_PATH/termsupport.zsh
 
-if [ -e "$LIB_PATH/work.zsh" ]; then
-    source $LIB_PATH/work.zsh
-fi
+# if [ -e "$LIB_PATH/work.zsh" ]; then
+#     source $LIB_PATH/work.zsh
+# fi
 
 local host=$(hostname)
 if [ -e "$LIB_PATH/hosts/$host.zsh" ]; then

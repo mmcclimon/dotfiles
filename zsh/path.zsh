@@ -7,11 +7,12 @@ function append_to_manpath  { manpath+=("$1"); }
 
 prepend_to_path ~/bin
 
-append_to_path /usr/local/texbin
+# append_to_path /usr/local/texbin
 
 # make sure right perl/ruby are here
 # use historical settings on other macs
-if [ `hostname -s` = 'trane' ]
+hostname=$(hostname -s)
+if [[ $hostname = 'trane' || $hostname = 'newk' ]]
 then
     prepend_to_path /usr/local/bin
     prepend_to_path /usr/local/sbin

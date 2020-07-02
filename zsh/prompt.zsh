@@ -14,48 +14,21 @@ eval pred='$FG[124]'
 ############################
 git_prompt=''
 
-function _gprompt() {
-    local gprompt=''
-    local gitdir="$(git rev-parse --git-dir 2> /dev/null)"
-
-    if [ -n "$gitdir" ]; then
-        # show the branch if we're on one, the sha if we don't
-        local pbranch=''
-        local branch=${$(git symbolic-ref HEAD 2>/dev/null)#refs/heads/}
-        if [ -n "$branch" ]; then
-            pbranch=" on $branch_c$branch$reset"
-        else
-            local sha="$(git rev-parse --short HEAD 2>/dev/null)"
-            pbranch=" at $branch_c$sha$reset"
-        fi
-
-        local gstatus="$(git status --porcelain 2> /dev/null)"
-        local p_star=''
-        if [ -n "$gstatus" ]; then
-            p_star="*"
-        fi
-        local pstatus="$status_c$p_star$reset"
-
-        gprompt="${pbranch}${pstatus}"
-    fi
-
-    git_prompt=$gprompt
-}
-
-dollar_hook=''
-function _dollar_hook () {
-    local exit_status=$?
-
-    if [[ $exit_status -ne 0 ]]; then
-        dollar_hook="${pred}${exit_status}${reset}"
-    else
-        dollar_hook=$exit_status
-    fi
-}
-
 function precmd() {
-    _dollar_hook  # must go first, so that we don't get git's $?
-    _gprompt
+    # is_gitdir at_or_on branch_or_sha is_dirty
+    local gitinfo=(`git prompt-info`)
+
+    if [[ ${gitinfo[1]} -eq 0 ]]; then
+        git_prompt=""
+        return
+    fi
+
+    local pstatus=''
+    if [[ $gitinfo[4] -eq 1 ]]; then
+        pstatus="$status_c*$reset"
+    fi
+
+    git_prompt=" ${gitinfo[2]} $branch_c${gitinfo[3]}$reset${pstatus}"
 }
 
 
@@ -92,7 +65,7 @@ bindkey -M vicmd '\e' noop
 setopt prompt_subst
 setopt transient_rprompt
 
-PROMPT="
-${pgray}[%18<...<%~%<<\${git_prompt}${pgray}]${reset} \${vim_prompt} "
+NEWLINE=$'\n'
+PROMPT="$NEWLINE${pgray}[%18<...<%~%<<\${git_prompt}${pgray}]${reset} \${vim_prompt} "
 
-RPS1="${pgray}%* [\${dollar_hook}${pgray}]${reset}"
+RPS1="${pgray}%* [%(?..${pred})%?${pgray}]${reset}"
