@@ -24,4 +24,3 @@ fi
 
 autoload -U compinit
 compinit -C
-

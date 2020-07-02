@@ -1,6 +1,8 @@
 autoload colors
 colors
 
+[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
+
 typeset -Ag FG
 
 FX=(

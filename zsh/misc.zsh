@@ -39,3 +39,19 @@ export DIRENV_LOG_FORMAT=
 export GOPATH="$HOME/.go"
 
 hr() { printf '-%.0s' $(seq $COLUMNS) }
+
+function print_bear() {
+    local bears=(
+        'ʕ•ᴥ•ʔ'
+        'ʕᵔᴥᵔʔ'
+        'ʅʕ•ᴥ•ʔʃ'
+        'ʕ•̀o•́ʔ'
+        'ʕ·ᴥ·ʔ'
+        'ᶘ ᵒᴥᵒᶅ'
+    )
+
+    print -r ${bears[$RANDOM % $#bears + 1]}
+}
+
+# yes, print a bear on new shells.
+print_bear

@@ -1,11 +1,10 @@
-# assumes 'colors' has been sourced before this
-typeset -A C
-C[reset]="%{$reset_color%}"
-C[gray]="${FG[242]}"
-C[blue]="${FG[004]}"
-C[brick]="${FG[124]}"
-C[teal]="${FG[023]}"
-C[red]="${FG[001]}"
+# gruvbox colors
+gray='#928374'
+blue="#458588"
+teal="#427b58"
+brick="#d79921"
+red="#cc241d"
+
 
 # Git prompt info
 function gprompt() {
@@ -16,10 +15,10 @@ function gprompt() {
         return
     }
 
-    print -n " ${gitinfo[2]} ${C[teal]}${gitinfo[3]}"
+    print -n " ${gitinfo[2]} %F{$teal}${gitinfo[3]}"
 
     if [[ $gitinfo[4] -eq 1 ]] {
-        print -n "${C[red]}*"
+        print -n "%F{$red}*"
     }
 }
 
@@ -28,8 +27,8 @@ function gprompt() {
 ############################
 
 export KEYTIMEOUT=1
-vim_ins_mode="${C[blue]}\$"
-vim_cmd_mode="${C[gray]}\$"
+vim_ins_mode="%F{$blue}\$"
+vim_cmd_mode="%F{$gray}\$"
 vim_prompt=$vim_ins_mode
 
 function zle-keymap-select {
@@ -57,7 +56,8 @@ bindkey -M vicmd '\e' noop
 setopt prompt_subst
 setopt transient_rprompt
 
-NEWLINE=$'\n'
-PROMPT="$NEWLINE${C[gray]}[%18<...<%~%<<\$(gprompt)${C[gray]}] \${vim_prompt}${C[reset]} "
+newline=$'\n'
+cwd="%18<..<%~%<<"
+PROMPT="$newline%F{$gray}[$cwd\$(gprompt)%F{$gray}] \${vim_prompt}%f "
 
-RPS1="${C[gray]}%* [%(?..${C[brick]})%?${C[gray]}]${C[reset]}"
+RPS1="%F{$gray}%* [%(?..%F{$brick})%?%F{$gray}]%f"
