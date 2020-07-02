@@ -18,20 +18,20 @@ ZSH_THEME_TERM_TAB_TITLE_IDLE="%15<..<%~%<<" #15 char left truncated PWD
 ZSH_THEME_TERM_TITLE_IDLE="%n@%m: %~"
 
 #Appears when you have the prompt
-function omz_termsupport_precmd {
+function title_idle {
   title $ZSH_THEME_TERM_TAB_TITLE_IDLE $ZSH_THEME_TERM_TITLE_IDLE
 }
 
 #Appears at the beginning of (and during) of command execution
-function omz_termsupport_preexec {
+function title_active {
   emulate -L zsh
   setopt extended_glob
-  local CMD=${1[(wr)^(*=*|sudo|ssh|rake|-*)]} #cmd name only, or if this is sudo or ssh, the next cmd
+  local CMD=${1[(wr)^(*=*|sudo|ssh|-*)]} #cmd name only, or if this is sudo or ssh, the next cmd
   local LINE="${2:gs/$/\\$}"
   LINE="${LINE:gs/%/%%}"
   title "$CMD" "%100>...>$LINE%<<"
 }
 
 autoload -U add-zsh-hook
-# add-zsh-hook precmd  omz_termsupport_precmd
-# add-zsh-hook preexec omz_termsupport_preexec
+add-zsh-hook precmd  title_idle
+add-zsh-hook preexec title_active

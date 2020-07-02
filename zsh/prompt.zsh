@@ -1,34 +1,26 @@
-# Colors
-############################
-reset="%{$reset_color%}"
-
 # assumes 'colors' has been sourced before this
-eval pblue='$FG[004]'
-eval pgray='$FG[242]'
-#eval branch_c='%{$fg[green]%}'
-eval branch_c='$FG[023]'
-eval status_c='$FG[001]'
-eval pred='$FG[124]'
+typeset -A C
+C[reset]="%{$reset_color%}"
+C[gray]="${FG[242]}"
+C[blue]="${FG[004]}"
+C[brick]="${FG[124]}"
+C[teal]="${FG[023]}"
+C[red]="${FG[001]}"
 
 # Git prompt info
-############################
-git_prompt=''
-
-function precmd() {
+function gprompt() {
     # is_gitdir at_or_on branch_or_sha is_dirty
     local gitinfo=(`git prompt-info`)
 
-    if [[ ${gitinfo[1]} -eq 0 ]]; then
-        git_prompt=""
+    if [[ ${gitinfo[1]} -eq 0 ]] {
         return
-    fi
+    }
 
-    local pstatus=''
-    if [[ $gitinfo[4] -eq 1 ]]; then
-        pstatus="$status_c*$reset"
-    fi
+    print -n " ${gitinfo[2]} ${C[teal]}${gitinfo[3]}"
 
-    git_prompt=" ${gitinfo[2]} $branch_c${gitinfo[3]}$reset${pstatus}"
+    if [[ $gitinfo[4] -eq 1 ]] {
+        print -n "${C[red]}*"
+    }
 }
 
 
@@ -36,8 +28,8 @@ function precmd() {
 ############################
 
 export KEYTIMEOUT=1
-vim_ins_mode="$pblue\$$reset"
-vim_cmd_mode="$pgray\$$reset"
+vim_ins_mode="${C[blue]}\$"
+vim_cmd_mode="${C[gray]}\$"
 vim_prompt=$vim_ins_mode
 
 function zle-keymap-select {
@@ -66,6 +58,6 @@ setopt prompt_subst
 setopt transient_rprompt
 
 NEWLINE=$'\n'
-PROMPT="$NEWLINE${pgray}[%18<...<%~%<<\${git_prompt}${pgray}]${reset} \${vim_prompt} "
+PROMPT="$NEWLINE${C[gray]}[%18<...<%~%<<\$(gprompt)${C[gray]}] \${vim_prompt}${C[reset]} "
 
-RPS1="${pgray}%* [%(?..${pred})%?${pgray}]${reset}"
+RPS1="${C[gray]}%* [%(?..${C[brick]})%?${C[gray]}]${C[reset]}"
