@@ -12,7 +12,7 @@ prepend_to_path ~/bin
 # make sure right perl/ruby are here
 # use historical settings on other macs
 hostname=$(hostname -s)
-if [[ $hostname = 'trane' || $hostname = 'newk' ]]
+if [[ $hostname == 'trane' || $hostname == 'newk' ]]
 then
     prepend_to_path /usr/local/bin
     prepend_to_path /usr/local/sbin
@@ -24,5 +24,7 @@ then
     eval "$(pyenv init -)"
     eval "$(direnv hook zsh)"
 fi
+
+unset hostname
 
 export PATH

@@ -49,7 +49,7 @@ function tmat () {
 
 function gcd() {
     local TOP=$(git rev-parse --show-toplevel 2> /dev/null) || return 1
-    [ "$TOP" ] && cd "$TOP"
+    [[ "$TOP" ]] && cd "$TOP"
 }
 
 # directory shortcuts
