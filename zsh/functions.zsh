@@ -1,3 +1,8 @@
-function zsh_stats() {
-  history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
+# autoloaded function path
+typeset -U fpath
+fpath=("$LIB_PATH/functions" $fpath)
+
+# I am a bit surprised there doesn't seem to be a way to do this automatically
+for f in $LIB_PATH/functions/*; {
+    autoload -Uz $(basename $f)
 }

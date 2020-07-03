@@ -1,0 +1,6 @@
+# vim: set ft=zsh
+if [[ -z "$@" ]] {
+    tmux attach
+} else {
+    tmux attach -t "$@"
+}

@@ -1,0 +1,3 @@
+# vim: set ft=zsh
+local TOP=$(git rev-parse --show-toplevel 2> /dev/null) || return 1
+[[ "$TOP" ]] && cd "$TOP"

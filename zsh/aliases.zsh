@@ -10,19 +10,7 @@ alias ....='cd ../../..'
 # directory madness
 alias d='dirs -v | head -10'
 
-# Show history
-if [ "$HIST_STAMPS" = "mm/dd/yyyy" ]
-then
-    alias history='fc -fl 1'
-elif [ "$HIST_STAMPS" = "dd.mm.yyyy" ]
-then
-    alias history='fc -El 1'
-elif [ "$HIST_STAMPS" = "yyyy-mm-dd" ]
-then
-    alias history='fc -il 1'
-else
-    alias history='fc -l 1'
-fi
+alias history='fc -il 1'
 
 # ls
 alias l='ls -la'
@@ -39,18 +27,6 @@ alias gs='git status -sb'
 
 # tmux
 alias tls='tmux ls'
-function tmat () {
-    if [[ -z "$@" ]]; then
-        tmux attach
-    else
-        tmux attach -t "$@"
-    fi
-}
-
-function gcd() {
-    local TOP=$(git rev-parse --show-toplevel 2> /dev/null) || return 1
-    [[ "$TOP" ]] && cd "$TOP"
-}
 
 # directory shortcuts
 hash -d txbe=~/code/fm/Topicbox-Backend

@@ -2,9 +2,6 @@
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
 
-## file rename magick
-bindkey "^[m" copy-prev-shell-word
-
 ## jobs
 setopt long_list_jobs
 
@@ -16,15 +13,12 @@ export LESS="-R"
 export EDITOR=vim
 export MANLESS=''
 export MANWIDTH=80
-export MANPAGER='col -b | view -c "set ft=man" -'
+export MANPAGER=manpager
 
-function perldoc() {
-    cpandoc -otext $@ | view -c "set ft=man" -
-}
+function perldoc() { cpandoc -otext $@ }
 
 ## misc environment vars
-export TEXMFHOME="$HOME/.texmf"
-export GCAL="-s 1"
+# export TEXMFHOME="$HOME/.texmf"
 
 # play nice with tmux
 if [[ -n "$TMUX" ]]; then
@@ -41,15 +35,7 @@ export GOPATH="$HOME/.go"
 hr() { printf '-%.0s' $(seq $COLUMNS) }
 
 function print_bear() {
-    local bears=(
-        'ʕ•ᴥ•ʔ'
-        'ʕᵔᴥᵔʔ'
-        'ʅʕ•ᴥ•ʔʃ'
-        'ʕ•̀o•́ʔ'
-        'ʕ·ᴥ·ʔ'
-        'ᶘ ᵒᴥᵒᶅ'
-    )
-
+    local bears=( 'ʕ•ᴥ•ʔ' 'ʕᵔᴥᵔʔ' 'ʅʕ•ᴥ•ʔʃ' 'ʕ•̀o•́ʔ' 'ʕ·ᴥ·ʔ' 'ᶘ ᵒᴥᵒᶅ')
     print -r ${bears[$RANDOM % $#bears + 1]}
 }
 
