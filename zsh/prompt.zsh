@@ -1,15 +1,14 @@
 # gruvbox colors
-gray='#928374'
-blue="#458588"
-teal="#427b58"
-brick="#d79921"
-red="#cc241d"
-
+local gray='#928374'
+local blue="#458588"
+local teal="#427b58"
+local warn="#d79921"
+local red="#cc241d"
 
 # Git prompt info
 function gprompt() {
     # is_gitdir at_or_on branch_or_sha is_dirty
-    local gitinfo=(`git prompt-info`)
+    local gitinfo=( $(git prompt-info) )
 
     if [[ ${gitinfo[1]} -eq 0 ]] {
         return
@@ -27,13 +26,21 @@ function gprompt() {
 ############################
 
 export KEYTIMEOUT=1
-vim_ins_mode="%F{$blue}\$"
-vim_cmd_mode="%F{$gray}\$"
-vim_prompt=$vim_ins_mode
+local vim_ins_mode="%F{$blue}$"
+local vim_cmd_mode="%F{$gray}$"
+local vim_replace_mode="%F{$warn}$"
+local vim_prompt=$vim_ins_mode
 
 function zle-keymap-select {
-  vim_prompt="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
-  zle reset-prompt
+    if [[ $KEYMAP == 'vicmd' || $KEYMAP == 'viopp' ]] {
+        vim_prompt=$vim_cmd_mode
+    } elif [[ $ZLE_STATE =~ 'overwrite' ]] {
+        vim_prompt=$vim_replace_mode
+    } else {
+        vim_prompt=$vim_ins_mode
+    }
+
+    zle reset-prompt
 }
 zle -N zle-keymap-select
 
@@ -42,13 +49,8 @@ function zle-line-finish {
 }
 zle -N zle-line-finish
 
-# function TRAPINT() {
-#   vim_prompt=$vim_ins_mode
-#   return $(( 128 + $1 ))
-# }
-
 # remove ESC maps in vi mode
-function noop { }
+function noop {}
 zle -N noop
 bindkey -M vicmd '\e' noop
 
@@ -56,8 +58,8 @@ bindkey -M vicmd '\e' noop
 setopt prompt_subst
 setopt transient_rprompt
 
-newline=$'\n'
-cwd="%18<..<%~%<<"
+local newline=$'\n'
+local cwd="%18<..<%~%<<"
 PROMPT="$newline%F{$gray}[$cwd\$(gprompt)%F{$gray}] \${vim_prompt}%f "
 
-RPS1="%F{$gray}%* [%(?..%F{$brick})%?%F{$gray}]%f"
+RPS1="%F{$gray}%* [%(?..%F{$warn})%?%F{$gray}]%f"
