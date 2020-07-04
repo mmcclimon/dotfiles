@@ -5,8 +5,6 @@ function append_to_path     { path+=("$1"); }
 function prepend_to_manpath { manpath=("$1" $manpath); }
 function append_to_manpath  { manpath+=("$1"); }
 
-prepend_to_path ~/bin
-
 # append_to_path /usr/local/texbin
 
 # make sure right perl/ruby are here
@@ -18,6 +16,7 @@ then
     prepend_to_path /usr/local/sbin
     prepend_to_path $(brew --prefix)/opt/coreutils/libexec/gnubin
     prepend_to_manpath $(brew --prefix)/opt/coreutils/libexec/gnuman
+    append_to_path "$HOME/.cargo/bin"
     append_to_path "$HOME/.go/bin"
     eval "$(rbenv init -)"
     eval "$(plenv init - zsh)"
@@ -25,6 +24,9 @@ then
     eval "$(direnv hook zsh)"
 fi
 
+prepend_to_path ~/bin
+
 unset hostname
 
+export GOPATH="$HOME/.go"
 export PATH
