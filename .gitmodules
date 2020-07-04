@@ -83,3 +83,6 @@
 [submodule "vim/bundle/vim-vinegar/"]
 	path = vim/pack/mmcclimon/start/vim-vinegar/
 	url = git@github.com:tpope/vim-vinegar.git
+[submodule "vim/pack/mmcclimon/start/delimitMate"]
+	path = vim/pack/mmcclimon/start/delimitMate
+	url = git@github.com:Raimondi/delimitMate.git
