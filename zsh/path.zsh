@@ -18,11 +18,13 @@ then
     prepend_to_manpath $(brew --prefix)/opt/coreutils/libexec/gnuman
     append_to_path "$HOME/.cargo/bin"
     append_to_path "$HOME/.go/bin"
+    append_to_path /Applications/Postgres.app/Contents/Versions/latest/bin
     eval "$(rbenv init -)"
     eval "$(plenv init - zsh)"
     eval "$(pyenv init -)"
     eval "$(direnv hook zsh)"
 fi
+unset hostname
 
 prepend_to_path ~/bin
 
