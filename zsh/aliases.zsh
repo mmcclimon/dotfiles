@@ -7,9 +7,6 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-# directory madness
-alias d='dirs -v | head -10'
-
 alias history='fc -il 1'
 
 # ls

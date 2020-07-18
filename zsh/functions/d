@@ -1,0 +1,6 @@
+# vim: set ft=zsh
+if [[ -n "$1" ]] {
+    cd ~$1
+} else {
+    dirs -v | head -n 15
+}
