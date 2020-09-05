@@ -26,7 +26,7 @@ zstyle ':completion:*:-command-:*:(commands|builtins|reserved-words|aliases)' gr
 
 # disable named-directories autocompletion
 zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
-cdpath=(.)
+# cdpath=(.)
 
 # use /etc/hosts and known_hosts for hostname completion
 [ -r ~/.ssh/known_hosts ] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()

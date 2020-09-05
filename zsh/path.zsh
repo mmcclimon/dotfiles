@@ -28,7 +28,9 @@ unset hostname
 
 prepend_to_path ~/bin
 
-unset hostname
+# Dunno about this, but let's try it!
+typeset -U cdpath
+cdpath=("$HOME/code/fm" $cdpath)
 
 export GOPATH="$HOME/.go"
 export PATH
