@@ -36,11 +36,14 @@
 [push]
 	default = current
 
+[pull]
+	rebase = true
+
 [log]
     mailmap = true
     date = iso-local
 
-[url "git@github.com:"]
+[url "ssh://git@github.com"]
     insteadOf = https://github.com/
     insteadOf = git://github.com/
 
@@ -52,3 +55,6 @@
 
 [rerere]
     enabled = true
+
+[init]
+    defaultBranch = main
