@@ -51,8 +51,8 @@ zle -N zle-line-finish
 
 # remove ESC maps in vi mode
 function noop {}
-zle -N noop
 bindkey -M vicmd '\e' noop
+zle -N noop
 
 # now we can actually set the prompt
 setopt prompt_subst

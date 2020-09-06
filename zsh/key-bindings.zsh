@@ -8,6 +8,7 @@ bindkey '^e' end-of-line
 bindkey '^b' backward-char
 bindkey '^f' forward-char
 bindkey '^z' undo
+bindkey '^k' kill-line
 
 # backspace and ^h working even after
 # returning from command mode
