@@ -110,12 +110,15 @@ annoying default behavior.
       (column-number-mode t)                ; show column in mode line
       (line-number-mode t)                  ; show line numbers too
       (menu-bar-mode 1)                     ; show menus
-      (tool-bar-mode -1)                    ; don't show toolbar
-      (scroll-bar-mode -1)                  ; don't use scrollbars
       (show-paren-mode 1)                   ; flash parens
       (fci-mode 1)                          ; column ruler
       (ido-mode)                            ; better buffer switching
       (ido-vertical-mode))                  ; prettier
+
+    (if (display-graphic-p)
+        (progn
+            (tool-bar-mode -1)              ; don't show toolbar
+            (scroll-bar-mode -1)))          ; don't use scrollbars
 
     (setq inhibit-startup-message t         ; no splash screen
           vc-follow-symlinks t              ; don't ask about symlinks
