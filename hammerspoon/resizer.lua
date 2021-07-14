@@ -2,6 +2,7 @@
 local screen_lookup = {
   ["Color LCD"]   = "int",  -- really, macos?
   ["DELL P2715Q"] = "ext",
+  ["DELL U2719DX"] = "ext",
 }
 
 local screen_config = {
