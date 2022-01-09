@@ -20,4 +20,32 @@ menu:setMenu({
 })
 -- resizeMenu:setTitle("⌧")
 
+notifier = hs.httpserver.new()
+notifier:setPort(8686)
+notifier:setCallback(function (method, path, headers, body)
+  if (method == 'POST') and (path == '/notify') then
+    data = hs.json.decode(body)
+    hs.logger.new('foo', 'debug').d(hs.inspect.inspect(data))
+    title = data.title
+    subtitle = data.subtitle or ""
+    msg = data.body
+
+    if title and msg then
+      notif = hs.notify.new(nil, {
+        withdrawAfter   = 0,
+        title           = title,
+        subtitle        = subtitle,
+        informativeText = msg,
+      })
+      notif:send()
+      return "lol done\n", 200, {}
+    end
+
+    return "nah mate\n", 400, {}
+  else
+    return "Nothing here, mate\n", 404, {}
+  end
+end)
+notifier:start()
+
 hs.notify.new({title="Hammerspoon", informativeText="Config reloaded"}):send()
