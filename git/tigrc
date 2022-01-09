@@ -22,6 +22,7 @@ bind main R !<git rebase -i %(commit)
 set main-view-date = custom
 set main-view-date-format = "%Y-%m-%d"
 set line-graphics = default
+set mailmap = yes
 
 # colors
 color id color66 default
