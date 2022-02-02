@@ -74,6 +74,39 @@ function! AutoRestoreWinView()
     endif
 endfunction
 
+function! Colemak()
+    " modal swapping
+    noremap u i
+    noremap U I
+
+    " hjkl = hnei
+    noremap h h
+    noremap n j
+    noremap e k
+    noremap i l
+    noremap H H
+    noremap N J
+    noremap E K
+    noremap I L
+
+    " stuff stolen by the above
+    noremap k n
+    noremap K N
+    noremap l u
+    noremap j e
+    nnoremap <Space> :
+
+    " vim-repeat blats the u mapping, so make sure it's loaded, then do that
+    " mapping here.
+    nmap l <Plug>(RepeatUndo)
+
+    nnoremap <C-t> <C-f>
+    nnoremap <C-f> <C-e>
+endfunction
+
+command! Colemak call Colemak()
+Colemak
+
 " When switching buffers, preserve window view.
 if v:version >= 700
     autocmd BufLeave * call AutoSaveWinView()
