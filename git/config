@@ -35,6 +35,9 @@
 [commit]
     verbose = true
 
+[rebase]
+    autosquash = true
+
 [push]
 	default = current
 
