@@ -3,60 +3,89 @@
 [user]
     name = Michael McClimon
     email = michael@mcclimon.org
+
 [core]
-    excludesfile = /Users/michael/.gitignore
+    excludesfile = ~/.gitignore
     abbrev = 8
-[alias]
-    co = checkout --recurse-submodules
-    lg = log --pretty=oneline --abbrev-commit
-    hist = log --graph --oneline --decorate --all
-    fall = fetch --all --prune
-    ff = merge --ff-only
-    weld = merge --no-ff
-    pick = cherry-pick
-    b = branch --verbose
-    mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
-    upll = pull
-    shove = push --force-with-lease
-    recon = rebase --continue
-    showfiles = show --pretty='format:' --name-only
 
-    # stolen from https://stackoverflow.com/a/30998048
-    find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
-    show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
-    wonk = "!sh -c 'whoami'"
-
-[difftool "sourcetree"]
-    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-    path =
-[mergetool "sourcetree"]
-    cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-    trustExitCode = true
-[commit]
-    verbose = true
-
-[rebase]
-    autosquash = true
-
-[push]
-	default = current
-
-[log]
-    mailmap = true
-    date = iso-local
-
-[url "ssh://git@github.com/"]
-    insteadOf = https://github.com/
-    insteadOf = git://github.com/
-
+# includes
 [include]
     path = ~/.gitlab.conf
 
 [includeIf "gitdir:~/code/fm/"]
     path = ~/.work.gitconfig
 
-[rerere]
-    enabled = true
+# everything else, alphabetically
+[advice]
+    addEmptyPathspec = false
+    detachedHead = false
+    pushUpdateRejected = false
+    statusHints = false
+
+[alias]
+    b = branch --verbose
+    co = checkout --recurse-submodules
+    fall = fetch --all --prune
+    ff = merge --ff-only
+    hist = log --graph --oneline --decorate --all
+    lg = log --pretty=oneline --abbrev-commit
+    mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
+    pick = cherry-pick
+    recon = rebase --continue
+    shove = push --force-with-lease
+    showfiles = show --pretty='format:' --name-only
+    upll = pull
+    weld = merge --no-ff
+    wonk = "!sh -c 'whoami'"
+
+    # stolen from https://stackoverflow.com/a/30998048
+    find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+    show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+
+[blame]
+    coloring = repeatedLines
+
+[clone]
+    defaultRemoteName = gitbox
+
+[color "blame"]
+    repeatedLines = 242
+
+[color "branch"]
+    remote = white
+
+[color "interactive"]
+    help = brightmagenta
+
+[commit]
+    verbose = true
+
+[fetch]
+    prune = true
+    output = compact
 
 [init]
     defaultBranch = main
+
+[log]
+    mailmap = true
+    date = iso-local
+
+[push]
+    default = current
+
+[rebase]
+    autosquash = true
+
+[rerere]
+    enabled = true
+
+[stash]
+    showStat = true
+
+[submodule]
+    recurse = true
+
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
+    insteadOf = git://github.com/
