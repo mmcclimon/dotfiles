@@ -1,0 +1,20 @@
+#!/bin/bash
+set -euo pipefail
+
+# this is shamelessly stolen from https://stackoverflow.com/a/30998048
+
+commit=$1
+
+merge=$( (git rev-list $1.. --ancestry-path | cat -n &&
+ git rev-list $1.. --first-parent | cat -n) |
+  sort -k 2 -s |
+  uniq -f 1 -d |
+  sort -n |
+  tail -1 |
+  cut -f 2 )
+
+if [ -z $merge ]; then
+  exit 1
+fi
+
+git show --stat "$merge"

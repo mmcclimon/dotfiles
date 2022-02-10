@@ -1,0 +1,10 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+# This program exists so that when I type `gi tpull` it does the right thing.
+
+my @args = @ARGV;
+$args[0] =~ s/^t//;
+
+exec 'git', @args;
