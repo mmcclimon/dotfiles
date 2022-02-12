@@ -21,6 +21,7 @@ then
     append_to_path /Applications/Postgres.app/Contents/Versions/latest/bin
     eval "$(rbenv init -)"
     eval "$(plenv init - zsh)"
+    eval "$(pyenv init --path)"
     eval "$(pyenv init -)"
     eval "$(direnv hook zsh)"
 fi
