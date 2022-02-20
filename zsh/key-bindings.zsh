@@ -3,6 +3,9 @@ bindkey -v
 bindkey '^p' up-history
 bindkey '^n' down-history
 
+bindkey -a 'e' up-line-or-history
+bindkey -a 'n' down-line-or-history
+
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 bindkey '^b' backward-char

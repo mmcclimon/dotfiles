@@ -4,11 +4,19 @@ set main-view-date-local = yes
 # be vimmy
 bind generic g  none
 bind generic gg move-first-line
-bind generic gj next
-bind generic gk previous
+# bind generic gj next
+# bind generic gk previous
+# bind generic gp parent
+# bind generic gP back
+# bind generic gn view-next
+
+bind generic n next
+bind generic e previous
 bind generic gp parent
 bind generic gP back
-bind generic gn view-next
+bind generic k find-next
+bind generic K find-prev
+bind generic gs refresh
 
 bind main    G move-last-line
 bind generic G move-last-line
@@ -29,6 +37,7 @@ color id color66 default
 color date color65 default
 color author color7 default
 color cursor color221 color237
+set git-colors = no
 # color title-focus default color23
 
 # graph colors

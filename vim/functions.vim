@@ -94,6 +94,7 @@ function! Colemak()
     noremap K N
     noremap l u
     noremap j e
+    noremap J E
     nnoremap <Space> :
 
     " vim-repeat blats the u mapping, so make sure it's loaded, then do that
