@@ -20,6 +20,7 @@
     addEmptyPathspec = false
     detachedHead = false
     pushUpdateRejected = false
+    skippedCherryPicks = false
     statusHints = false
 
 [alias]
@@ -28,7 +29,7 @@
     fall = fetch --all --prune
     ff = merge --ff-only
     hist = log --graph --oneline --decorate --all
-    lg = log --pretty=oneline --abbrev-commit
+    lg = log --pretty=line
     mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
     pick = cherry-pick
     recon = rebase --continue
@@ -70,6 +71,9 @@
 [log]
     mailmap = true
     date = iso-local
+
+[pretty]
+    line = %C(auto)%h %<(9,trunc)%aL %cs  %s %d
 
 [push]
     default = current
