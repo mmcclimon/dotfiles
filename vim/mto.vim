@@ -84,9 +84,9 @@ function! s:activate()
   xmap <buffer> <LocalLeader>n <Plug>MTONatural
 
   " random shit
-  nnoremap <buffer> j gj
-  nnoremap <buffer> k gk
-  nnoremap <buffer> 0 g0
+  noremap <buffer> n gj
+  noremap <buffer> e gk
+  noremap <buffer> 0 g0
   vmap ,i S<i>
   vmap ,b S<b>
   vmap ,s S<sub>
