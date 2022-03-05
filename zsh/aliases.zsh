@@ -21,6 +21,7 @@ alias gc='git commit'
 alias ga='git add'
 alias gd='git diff'
 alias gs='git status -sb'
+alias gitn='git --no-pager'
 
 # tmux
 alias tls='tmux ls'
