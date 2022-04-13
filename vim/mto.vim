@@ -98,8 +98,8 @@ function! s:activate()
   setl textwidth=0
 
   " macros
-  let @p = 'I<p>A</p>0{j'
-  let @s = 'I<p style="text-align:center"><b>A</b></p>0'
+  let @p = 'U<p>A</p>0{j'
+  let @s = 'U<p style="text-align:center"><b>A</b></p>0'
   let @q = 'yt.jj"_dt.P0'
 
   let b:mto_activated = 1
