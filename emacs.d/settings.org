@@ -80,7 +80,7 @@ Set default font for frames.
 #+BEGIN_SRC emacs-lisp
 (add-to-list
  'default-frame-alist
- '(font . "Source Code Pro-10"))
+ '(font . "Input-10"))
 #+END_SRC
 
 
@@ -297,7 +297,7 @@ annoying default behavior.
        '(whitespace-tab ((t (:foreground "dim gray"))))
        '(whitespace-tab ((t (:foreground "dim gray"))))))
 
-  (load-base16-default)
+  (load-gruvbox)
 #+END_SRC
 
 But occasionally I like to use a light theme (especially if writing text).
