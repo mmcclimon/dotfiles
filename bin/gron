@@ -1,0 +1,49 @@
+#!/usr/bin/env perl
+use v5.24;
+use warnings;
+use utf8;
+use experimental qw(signatures);
+use JSON::MaybeXS qw(decode_json encode_json is_bool);
+use JSON::Typist;
+use Devel::Confess;
+
+binmode(STDIN, ':encoding(UTF-8)');
+binmode(STDOUT, ':encoding(UTF-8)');
+
+my $JSON = JSON::MaybeXS->new->canonical;
+
+my $input = do { local $/ = undef; <<>> };
+my $data = $JSON->decode($input);
+my $typed = JSON::Typist->new->apply_types($data);
+dispatch($typed, 'json');
+
+sub dispatch ($data, $path) {
+  return do_array($data, $path) if ref $data eq 'ARRAY';
+  return do_hash($data, $path)  if ref $data eq 'HASH';
+  return do_value($data, $path);
+}
+
+sub do_array ($arr, $path) {
+  say "$path: []";
+  dispatch($arr->[$_], "${path}[$_]") for keys @$arr;
+}
+
+sub do_hash ($hash, $path) {
+  say "$path: {}";
+  for my $k (sort keys %$hash) {
+    my $suffix = $k =~ /\A[_a-z$][a-z0-9]*\z/i ? qq{.$k} : qq{["$k"]};
+    dispatch($hash->{$k}, "$path$suffix");
+  }
+}
+
+sub do_value ($val, $path) {
+  state $JSON = JSON::MaybeXS->new->allow_nonref->convert_blessed;
+
+  my $s = is_bool($val)                     ? ($val ? 'true' : 'false')
+        : ! defined $val                    ? 'null'
+        : $val->isa('JSON::Typist::Number') ? $val
+        : $val->isa('JSON::Typist::String') ? $JSON->encode($val)
+        :                                     die "weird val: " . Dumper($val);
+
+  say "$path: $s";
+}

@@ -1,0 +1,9 @@
+#!/usr/bin/env perl -000ns
+
+  print if ($v ? !/$x/ : /$x/);
+} BEGIN {
+  if ($f) {
+    @ARGV = join "|", split /\n/, `cat $ARGV[0]`;
+  }
+  $x = qr/@{[shift(@ARGV)]}/ims;
+  $|++;

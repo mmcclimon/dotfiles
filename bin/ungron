@@ -1,0 +1,90 @@
+#!/usr/bin/env perl
+use v5.24;
+use warnings;
+use utf8;
+use experimental qw(signatures);
+use JSON::MaybeXS qw(decode_json encode_json is_bool);
+use JSON::Typist;
+use Data::Dumper::Concise;
+
+binmode(STDIN, ':utf8');
+binmode(STDOUT, ':utf8');
+
+my $ROOT = 'json';
+my $data;
+
+my $JSON = JSON::MaybeXS->new->allow_nonref->convert_blessed;
+
+while (my $line = <<>>) {
+  chomp $line;
+  my ($path, $val) = split /: /, $line, 2;
+  $val = $JSON->decode($val);   # handles escaping and stuff
+
+  # it's shitty parsing time.
+  my @bits;
+  my @hunks = split /\[("[^"]+")\]/, $path; # munge out bracket-keys
+  for my $hunk (@hunks) {
+    # Each hunk is a single double-quoted key, or a dot-separated string that
+    # needs to be split.
+    my @words = ($hunk =~ s/^"|"$//g ? $hunk : split /\./, $hunk);
+
+    for my $word (@words) {
+      next unless defined $word && length $word;
+      push @bits, split /(\[\d+\])/, $word;   # explode [0] types, not dot-separated
+    }
+  }
+
+  # Now, @bits is an array like ('json', '[0]', 'foo', 'bar', '[2]', ...)
+  shift @bits;        # always $ROOT
+  next unless @bits;  # we'll pick it up next time
+
+  # The very first time through the loop, we need to define $data as either an
+  # array or a hash. Otherwise we we try to step through the path and set
+  # $this_elem to data it gets set to undef, which is no good.
+  unless (defined $data) {
+    my ($which) = $path =~ /$ROOT([.{[])/;
+    $data = $which eq '[' ? [] : {};
+  }
+
+  # Walk the bits, generating the necessary data structure as we go; for each
+  # bit we'll set $this_elem to the one we're considering at this moment.
+  my $this_elem = $data;
+  for my $i (0..$#bits) {
+    my $bit      = $bits[$i];
+    my $next_bit = $bits[$i+1];
+
+    my $idx = maybe_index($bit);    # an index into a json array
+    my $bit_is_arr = defined $idx;  # because 'defined $idx' is hard to read
+
+    if (defined $next_bit) {
+      # We have a next bit. We need to make sure _this_ bit is defined
+      # appropriately.
+      my $to_insert = defined maybe_index($next_bit) ? [] : {};
+
+      # Vivify this element in the tree if we need to, then set $this_elem to
+      # continue walking next time around.
+      if ($bit_is_arr) {
+        $this_elem->[$idx] //= $to_insert;
+        $this_elem = $this_elem->[$idx];
+      } else {
+        $this_elem->{$bit} //= $to_insert;
+        $this_elem = $this_elem->{$bit};
+      }
+    } else {
+      # hey it's the last one!
+      if ($bit_is_arr) {
+        $this_elem->[$idx] = $val;
+      } else {
+        $this_elem->{$bit} = $val;
+      }
+    }
+  }
+}
+
+say encode_json($data);
+
+sub maybe_index ($s) {
+  my ($i) = $s =~ /^\[(\d+)\]$/;
+  return $i if defined $i;
+  return;
+}

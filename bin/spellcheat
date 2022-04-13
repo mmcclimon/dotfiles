@@ -1,0 +1,25 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use v5.10;
+
+my $letters = shift @ARGV or die "usage: $0 letters center\n";
+my $req = shift @ARGV or die "usage: $0 letters center\n";
+
+open my $dict, '<', '/usr/share/dict/words' or die "no dict: $!";
+
+# build a regex
+my %all = map {; $_ => 1 } split //, $letters;
+my $want = join q{}, map {; "$_+" } sort keys %all;
+my $pangram_re = qr{^$want$};
+
+my $all = join q{}, map {; "$_*" } sort keys %all;
+my $all_re = qr{^$all$};
+
+for (<$dict>) {
+  chomp;
+  next unless length > 3 && /$req/;
+  my $s = join q{}, sort split //, lc $_;
+  say("* $_"), next if $s =~ $pangram_re;
+  say "  $_" if $s =~ $all_re;
+}

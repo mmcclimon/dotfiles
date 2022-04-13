@@ -1,0 +1,118 @@
+#!/usr/bin/env perl
+use v5.26;
+use warnings;
+
+Michael::Procrastinates::DownloadCleaner->import->run;
+
+
+package Michael::Procrastinates::DownloadCleaner;
+use base 'App::Cmd::Simple';
+
+use experimental 'signatures';
+use List::Util qw(all);
+use Path::Tiny qw(path);
+use DateTime;
+
+sub opt_spec {
+  [ 'desktop',  'run on desktop, not downloads' ],
+  [ 'leave-folders|f!', 'do not move folders (default with --desktop)' ],
+  [ 'really|r', 'actually move stuff' ],
+}
+
+sub validate_args ($self, $opt, $args) {
+  $self->usage_error("No args allowed") if @$args;
+}
+
+sub execute ($self, $opt, $args) {
+  my $which = $opt->desktop ? $self->desktop_dir : $self->download_dir;
+  $self->clean_dir($opt, $which);
+  $self->clean_bydate($opt, $which);
+}
+
+sub download_dir ($self) { state $dir = path('/Users/michael/Downloads') }
+sub desktop_dir  ($self) { state $dir = path('/Users/michael/Desktop')   }
+sub bydate_dir   ($self) { return $self->download_dir->child('bydate')   }
+
+sub clean_dir ($self, $opt, $dir) {
+  my $leave_folders = $opt->leave_folders // $opt->desktop;
+
+  for my $path ($dir->children) {
+    next if $path->basename eq '.DS_Store';
+    next if $path->basename eq 'bydate' && $path->is_dir;
+    next if $leave_folders && $path->is_dir;
+
+    my $ctime = -C $path;
+    my $then = time - ($ctime * 86400);     # epoch ctime
+
+    next if $ctime < 2;
+
+    my $ctime_dt = DateTime->from_epoch(epoch => $then, time_zone => 'America/New_York');
+    my $ymd = $ctime_dt->ymd;
+    my $datedir = $self->bydate_dir->child("$ymd");
+
+    if ($opt->really) {
+      $datedir->mkpath;
+      my $bn = $path->basename;
+      $path->move("$datedir/$bn");
+    } else {
+      my $clean = $datedir =~ s!^/Users/michael/(?:Downloads|Desktop)/!!r;
+      say "would move " . $path->basename . " to $clean/";
+    }
+  }
+}
+
+# Move everything from more than 30d ago to month-based
+sub clean_bydate ($self, $opt, $dir) {
+  my $then = DateTime->now->subtract(days => 30)->ymd;
+
+  for my $child (sort $self->bydate_dir->children) {
+    $self->maybe_remove_empty_dir($opt, $child);
+
+    if ($child->is_dir && ! $child->children) {
+      say "would remove empty dir $child" unless $opt->really;
+      rmdir "$child" if $opt->really;
+    }
+
+    my ($y, $m, $d) = split '-', $child->basename;
+    next unless $d;  # this is already a filed month
+
+    my $month_path = $self->bydate_dir->child("$y-$m");
+
+    if ($child->basename lt $then) {
+      $self->_move_files($opt, $child, $month_path);
+    }
+  }
+}
+
+sub maybe_remove_empty_dir ($self, $opt, $maybe_dir) {
+  return unless $maybe_dir->is_dir;
+
+  # Remove a directory if it has no children, or if it only has hidden files.
+  my @children = $maybe_dir->children;
+  my $should_remove = (! @children) || (all { $_->basename =~ /^\./ } @children);
+
+  if ($should_remove) {
+    warn "would remove empty dir $maybe_dir (@children)\n" unless $opt->really;
+    $maybe_dir->remove_tree if $opt->really;
+  }
+}
+
+sub _move_files ($self, $opt, $day_path, $month_path) {
+  for my $child ($day_path->children) {
+    if ($opt->really) {
+      $month_path->mkpath;
+      my $bn = $child->basename;
+      $child->move("$month_path/$bn");
+    } else {
+      my $clean = $child =~ s!/Users/michael/(?:Downloads|Desktop)/bydate/!!r;
+      warn "would move $clean to $month_path\n";
+    }
+  }
+
+  return unless $opt->really;
+
+  die "$day_path still has children after moving!\n"
+    if $day_path->children;
+
+  rmdir "$day_path";
+}

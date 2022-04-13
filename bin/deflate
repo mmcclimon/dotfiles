@@ -1,0 +1,3 @@
+#!/usr/bin/env perl -00
+use Compress::Zlib;
+print uncompress(<>);

@@ -1,0 +1,19 @@
+#!/usr/bin/env perl
+use v5.24;
+use warnings;
+
+# Given a file (or lines on stdin), ensure that there is exactly one blank
+# line between every line.
+
+my $prev_was_empty = 1;  # never start with blank
+
+while (my $line = <<>>) {
+  my $is_empty = $line =~ /^\s*$/;
+
+  next if $is_empty && $prev_was_empty;           # no double blanks
+
+  print "\n" if ! $is_empty && ! $prev_was_empty; # ensure blank
+
+  print $line;
+  $prev_was_empty = $is_empty;
+}

@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+"""
+what time is/was it?
+
+With no arguments, print the current time.
+
+You can also pass a bunch of epoch stamps as arguments and get the localtime
+for those.
+"""
+
+import sys
+import time
+
+def print_time (when):
+    """Pretty-print a localtime"""
+    ts = time.localtime(float(when))
+    print(time.strftime("%b %d, %Y %H:%M:%S %Z", ts))
+
+if __name__ == "__main__":
+    times = sys.argv[1:]
+    if not times:
+        times = [ time.time() ]
+
+    for t in times:
+        print_time(t)
+
