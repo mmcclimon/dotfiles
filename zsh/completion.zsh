@@ -47,4 +47,4 @@ zstyle ':completion::complete:*' cache-path $ZSH/cache/
 # ... unless we really want to.
 zstyle '*' single-ignored show
 
-fpath=(/usr/local/share/zsh/site-functions $fpath)
+fpath=(/opt/local/share/zsh/site-functions $fpath)
