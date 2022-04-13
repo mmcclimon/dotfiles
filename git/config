@@ -33,6 +33,7 @@
     mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
     pick = cherry-pick
     recon = rebase --continue
+    refshow = !git --no-pager show -s --pretty=ref
     rewhy = rebase --show-current-patch
     shove = push --force-with-lease
     showfiles = show --pretty='format:' --name-only
