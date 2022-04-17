@@ -1,0 +1,215 @@
+#!/usr/bin/env perl
+use v5.30;
+use warnings;
+use experimental 'signatures';
+use Capture::Tiny qw(capture);
+use Process::Status;
+use String::ShellQuote;
+use Term::ANSIColor qw(colored);
+
+my $note   = colored('NOTE    ', 'clear');
+my $merged = colored('MERGED  ', 'green');
+my $update = colored('UPDATE  ', 'bright_cyan');
+my $warn   = colored('WARN    ', 'bright_yellow');
+my $ok     = colored('OK      ', 'green');
+
+my %to_update;
+my @to_delete;
+my @to_push;
+
+my %is_eternal = map {; $_ => 1 } qw(main qa beta dogfood);
+
+say "$note fetching gitbox";
+capture { system("git fetch gitbox") };
+Process::Status->assert_ok;
+
+say "$note fetching michael";
+capture { system("git fetch michael") };
+Process::Status->assert_ok;
+
+my $format = q{%(objectname) %(objecttype) %(refname) %(upstream)};
+open my $refs, '-|', "git for-each-ref --format='$format' refs/heads refs/remotes/michael";
+
+my %local;
+my %remote;
+my %other;
+
+while (my $line = <$refs>) {
+  my ($sha, $type, $ref, $upstream) = split /\s+/, $line;
+  next unless $type eq 'commit';
+
+  if ($ref =~ m{refs/heads/(.*)}) {
+    my $branch = $1;
+
+    next if $is_eternal{$branch};
+
+    if ($upstream && $upstream !~ m{refs/remotes/michael}) {
+      $upstream =~ s|^refs/remotes/||;
+      $other{$branch} = $upstream;
+    }
+
+    $local{$branch} = $sha;
+  }
+
+  if ($ref =~ m{refs/remotes/michael/(.*)}) {
+    my $branch = $1;
+    $remote{$branch} = $sha;
+  }
+}
+
+# for every local branch:
+#   - get its corresponding remote
+#   - if commit date of remote is later than commit date of local, update local
+#   - if commit date of local is earlier, push
+for my $branch (sort keys %local) {
+  my $local_sha  = $local{$branch};
+  my $remote_sha = $remote{$branch};
+
+  my $method = $other{$branch}           ? \&process_external
+             : ! $remote_sha             ? \&process_missing
+             : $remote_sha eq $local_sha ? \&process_matched
+             : $remote_sha ne $local_sha ? \&process_mismatched
+             : die 'unreachable';
+
+
+  $method->($branch);
+}
+
+my $answer;
+if (@to_delete || @to_push || %to_update) {
+  print "Make changes? [y/n] ";
+  chomp ($answer = <STDIN>);
+} else {
+  say "All good!";
+  exit 0;
+}
+
+
+if ((lc $answer // '') eq 'y') {
+  if (@to_delete) {
+    capture(sub {
+      system 'git', 'branch', '-D', @to_delete;
+      Process::Status->assert_ok;
+    });
+
+    say "$ok deleted $_" for @to_delete;
+  }
+
+  for my $branch (@to_push) {
+    capture(sub {
+      system 'git', 'push', '--force-with-lease', 'michael', "$branch:$branch";
+      Process::Status->assert_ok;
+    });
+
+    say "$ok pushed $branch";
+  }
+
+  for my $branch (sort keys %to_update) {
+    my $new = $to_update{$branch};
+
+    capture(sub {
+      system 'git', 'update-ref', "refs/heads/$branch", $new;
+      Process::Status->assert_ok;
+    });
+
+    say "$ok updated $branch";
+  }
+}
+
+sub process_external ($branch) {
+  state %fetched;
+
+  my $local = $local{$branch};
+  my $tracking = $other{$branch};
+
+  my ($who) = split m{/}, $tracking;
+
+  unless ($fetched{$who}++) {
+    say "$note fetching $who";
+    capture { system 'git', 'fetch', $who };
+  }
+
+  my $upstream_sha = `git show --no-patch --format='%H' refs/remotes/$tracking`;
+  chomp $upstream_sha;
+
+  if ($upstream_sha eq $local) {
+    say "$ok $branch matches $tracking";
+    return;
+  }
+
+  say "$update $branch; $tracking has changed; will update local";
+  $to_update{$branch} = $upstream_sha;
+}
+
+sub process_missing ($branch) {
+  my ($sha, $sha_count) = check_merged($branch);
+
+  if ($sha) {
+    say "$merged $branch appears in main as $sha";
+    push @to_delete, $branch;
+  } elsif ($sha_count > 1) {
+    say "$warn $branch has mutiple shas and we couldn't find the right one";
+  } else {
+    say "$warn $branch has no matching remote and is not merged";
+  }
+}
+
+sub process_matched ($branch) {
+  my ($sha, $count) = check_merged($branch);
+
+  if ($sha) {
+    say "$merged $branch appears in main as $sha";
+    push @to_delete, $branch;
+  } elsif ($count > 1) {
+    say "$warn $branch has mutiple shas in main and we couldn't find the right one";
+  } else {
+    say "$ok $branch already up to date";
+  }
+}
+
+
+sub process_mismatch ($branch) {
+  my $local = $local{$branch};
+  my $remote = $remote{$branch};
+
+  my $local_time = `git show --no-patch --format='%ct' $local`;
+  my $remote_time = `git show --no-patch --format='%ct' $remote`;
+
+  chomp for ($local_time, $remote_time);
+
+  if ($local_time > $remote_time) {
+    say "$update $branch is newer locally; will push";
+    push @to_push, $branch;
+  } else {
+    say "$update $branch is newer on remote; will update local";
+    $to_update{$branch} = $remote;
+  }
+}
+
+# returns sha or error
+sub check_merged ($branch) {
+  my $local = $local{$branch};
+  my $subject = `git show --no-patch --format='%s' $local`;
+  chomp $subject;
+
+  my $s = shell_quote($subject);
+
+  my @sha = `git log --no-merges --format='%h' --grep $s`;
+  chomp @sha;
+
+  if (@sha > 1) {
+    # multiple shas, look for the best one
+    for my $sha (@sha) {
+      my $check = `git show --no-patch --format='%s' $sha`;
+      chomp $check;
+
+      if ($check eq $subject) {
+        @sha = ($sha);
+        last;
+      }
+    }
+  }
+
+  return $sha[0] if @sha == 1;
+  return (undef, scalar @sha);
+}
