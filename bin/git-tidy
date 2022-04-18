@@ -1,0 +1,6 @@
+#!/usr/bin/env perl
+use v5.30;
+use warnings;
+use Git::BranchCleaner;
+
+Git::BranchCleaner->new->run;
