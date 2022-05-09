@@ -11,6 +11,7 @@
 # includes
 [include]
     path = ~/.gitlab.conf
+    path = ~/.git-safedirs
 
 [includeIf "gitdir:~/code/fm/"]
     path = ~/.work.gitconfig
@@ -34,6 +35,7 @@
     pick = cherry-pick
     recon = rebase --continue
     refshow = !git --no-pager show -s --pretty=ref
+    remain = rebase -i --fork-point main
     rewhy = rebase --show-current-patch
     shove = push --force-with-lease
     showfiles = show --pretty='format:' --name-only
@@ -62,6 +64,7 @@
 [fetch]
     prune = true
     output = compact
+    recurseSubmodules = on-demand
 
 [format]
     pretty = fuller
@@ -87,9 +90,6 @@
 
 [stash]
     showStat = true
-
-[submodule]
-    recurse = true
 
 [url "ssh://git@github.com/"]
     insteadOf = https://github.com/
