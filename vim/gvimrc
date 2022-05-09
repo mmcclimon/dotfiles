@@ -5,7 +5,7 @@ set guioptions-=m
 
 if has("macunix")
     " set guifont=Source\ Code\ Pro:h10
-    set guifont=Input:h10
+    set guifont=InputMono:h10
     " set linespace=3
 elseif has("unix")
     set guifont=Consolas\ 8

@@ -1,3 +1,9 @@
+set background=dark
+let g:gruvbox_italic=1
+let g:gruvbox_bold=0
+let g:gruvbox_contrast_light = "soft"
+colorscheme gruvbox
+
 " always do these
 hi Todo ctermbg=88 ctermfg=250 guibg=#582829 guifg=#a08374
 

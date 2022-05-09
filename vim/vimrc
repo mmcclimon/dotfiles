@@ -9,6 +9,7 @@ filetype plugin indent on
 set backspace=indent,eol,start  " backspace works over everything
 set autoindent                  " use previous line's indent
 set smartindent                 " indent braces automatically
+set cinwords=                   " turn off weird magic indent
 set expandtab                   " what am i, an animal? use spaces
 set tabstop=4                   " four spaces
 set shiftwidth=4
@@ -25,7 +26,6 @@ set incsearch                   " do incremental searching
 set ignorecase                  " ignore case, but...
 set smartcase                   " only if pattern is all lowercase
 set laststatus=2                " always show status line
-" set number                      " always show line nums
 set hidden                      " allow hidden buffers
 set wildmenu                    " better tab completion
 set splitright                  " vertical splits open to right
@@ -39,32 +39,6 @@ set list listchars=tab:>-,trail:~,extends:>,precedes:<
 function! SyntaxItem()
     return synIDattr(synID(line("."),col("."),0),"name")
 endfunction
-"
-" function! GitStatusLine(...) abort
-"   if !exists('b:git_dir')
-"     return ''
-"   endif
-"   let status = fugitive#head(7)
-"   return '(git:'.status.')'
-" endfunction
-"
-" set statusline=%<%f\ %h%m%r\ %{GitStatusLine()}\ %{SyntaxItem()}%=%-14.(%l,%c%V%)\ %P
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-
-    let g:airline_left_sep = ''
-    let g:airline_right_sep = ''
-    let g:airline_symbols.branch = '⎇'
-    let g:airline_symbols.whitespace = 'Ξ'
-    let g:airline_symbols.maxlinenr = ''
-    let g:airline_powerline_fonts=0
-    let g:airline_section_z = '%3p%% (%v,%l)'
-
-    set noshowmode
-endif
-
-
 
 " Folding
 set foldlevelstart=99           " all folds start open
@@ -90,13 +64,6 @@ if has("termguicolors")
     set termguicolors
 endif
 
-set background=dark
-let g:gruvbox_italic=0
-let g:gruvbox_bold=0
-let g:gruvbox_contrast_light = "soft"
-colorscheme gruvbox
-
-
 " be annoying about extra whitespace
 augroup trailing
     au!
@@ -120,7 +87,6 @@ augroup END
 let mapleader=","
 let maplocalleader = '\'
 nnoremap <silent> <leader>s :nohls<CR>
-" nnoremap q: <Nop>
 
 if (v:progname == "view")
     nnoremap d <PageDown>

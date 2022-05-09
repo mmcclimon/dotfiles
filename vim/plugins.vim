@@ -1,6 +1,20 @@
 " Misc. vim settings for random plugins
 
 " airline
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+
+    let g:airline_left_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_symbols.branch = '⎇'
+    let g:airline_symbols.whitespace = 'Ξ'
+    let g:airline_symbols.maxlinenr = ''
+    let g:airline_powerline_fonts=0
+    let g:airline_section_z = '%3p%% (%v,%l)'
+
+    set noshowmode
+endif
+
 function! AirlineInit()
   " this used to work without being in a function, but no longer does.
   call airline#parts#define('linenr', {
@@ -23,7 +37,6 @@ let g:EasyMotion_smartcase = 1
 
 " CtrlP -------------------------------------------------------{{{
 let g:ctrlp_user_command = 'rg --files %s'
-" let g:ctrlp_use_caching = 0
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_custom_ignore = "*.swp,*.zip,.git/*,build/*,.sass-cache.*,vendor,local,doc,db"
 nnoremap <leader>b :CtrlPBuffer<cr>
@@ -33,13 +46,6 @@ nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <silent> <Leader>= :Tabularize /=><CR>
 vnoremap <silent> <Leader>= :Tabularize /=><CR>
 " }}}
-
-" fugitive
-augroup fugitive
-    au!
-    au FileType fugitiveblame silent! nunmap <buffer> q:
-augroup END
-
 
 " vim-pandoc---------------------------------------------------{{{
 let g:pandoc_use_hard_wraps = 1
