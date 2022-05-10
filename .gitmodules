@@ -4,7 +4,7 @@
 
 [submodule "vim/bundle/ctrlp.vim"]
 	path = vim/pack/mmcclimon/start/ctrlp.vim
-    url = https://github.com/kien/ctrlp.vim
+    url = https://github.com/mmcclimon/ctrlp.vim
 
 [submodule "vim/bundle/gruvbox"]
 	path = vim/pack/mmcclimon/start/gruvbox
