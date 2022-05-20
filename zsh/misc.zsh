@@ -30,6 +30,11 @@ export VIRTUAL_ENV_DISABLE_PROMPT=true
 export NOPASTE_SERVICES=GitLab
 export DIRENV_LOG_FORMAT=
 
+# fzf
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS='--no-bold --no-info --bind=ctrl-n:down,ctrl-e:up'
+
 hr() { printf '-%.0s' $(seq $COLUMNS) }
 
 function print_bear() {

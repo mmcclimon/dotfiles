@@ -25,3 +25,5 @@ bindkey '^b' backward-char
 bindkey '^r' history-incremental-search-backward
 
 bindkey '^t' gosmacs-transpose-chars
+
+source /opt/local/share/fzf/shell/key-bindings.zsh
