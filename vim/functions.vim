@@ -72,6 +72,7 @@ function! Colemak()
     noremap k n
     noremap K N
     noremap l u
+    noremap L U
     noremap j e
     noremap J E
     nnoremap <Space> :
