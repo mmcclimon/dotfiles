@@ -38,3 +38,8 @@ augroup ft_markdown
     au!
     au Filetype markdown setlocal nosmartindent
 augroup END
+
+augroup ft_lisp
+    au!
+    au Filetype lisp let b:delimitMate_quotes = "\""
+augroup END
