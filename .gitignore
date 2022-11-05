@@ -1,5 +1,6 @@
 mutt/cache/*
 *.elc
+eln-cache/
 
 auto/
 

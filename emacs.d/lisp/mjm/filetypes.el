@@ -19,8 +19,8 @@
       (display-fill-column-indicator-mode 1)
     (display-fill-column-indicator-mode -1)))
 
-(add-hook 'window-configuration-change-hook 'mjm/maybe-enable-fci)
-(add-hook 'after-make-frame-functions 'mjm/maybe-enable-fci)
+; (add-hook 'window-configuration-change-hook 'mjm/maybe-enable-fci)
+; (add-hook 'after-make-frame-functions 'mjm/maybe-enable-fci)
 
 
 ;; ledger mode

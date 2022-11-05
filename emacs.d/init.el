@@ -89,9 +89,9 @@
 (require 'mjm/filetypes)
 (require 'mjm/packages)
 
-(server-start) ;; figure this out
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 (setq custom-file "~/.emacs.d/custom.el")
-(load custom-file 'noerror)
-
-(message nil) ;; clear the message buffer
+(load custom-file 'noerror 'nomessage)
