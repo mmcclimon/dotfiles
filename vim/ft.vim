@@ -39,7 +39,29 @@ augroup ft_markdown
     au Filetype markdown setlocal nosmartindent
 augroup END
 
+" these actually get used bottom to top,
+let g:rbpt_colorpairs = [
+  \ ['brown',       'RoyalBlue3'],
+  \ ['Darkblue',    'SeaGreen3'],
+  \ ['darkgray',    'DarkOrchid3'],
+  \ ['darkgreen',   'firebrick3'],
+  \ ['darkcyan',    'RoyalBlue3'],
+  \ ['darkmagenta', 'DarkOrchid3'],
+  \ ['darkred',     'SeaGreen3'],
+  \ ['gray',        'RoyalBlue3'],
+  \ ['brown',       'firebrick3'],
+  \ ['darkgreen',   'MediumOrchid2'],
+  \ ['Darkblue',    'SteelBlue'],
+  \ ['black',       'HotPink'],
+  \ ['darkcyan',    'DarkKhaki'],
+  \ ['darkred',     'SpringGreen3'],
+  \ ['darkmagenta', 'DarkOrange3'],
+  \ ['red',         'Grey58'],
+\ ]
+
 augroup ft_lisp
     au!
     au Filetype lisp let b:delimitMate_quotes = "\""
+    au Filetype lisp cal rainbow_parentheses#activate()
+    au Filetype lisp cal rainbow_parentheses#load(0)
 augroup END

@@ -61,6 +61,10 @@ function! s:natural()
   call s:_one_arg('Note name', 'natural')
 endfunction
 
+function! s:scaledegree()
+  call s:_one_arg('Scale degree', 'scaledegree')
+endfunction
+
 function! s:activate()
   let is_fn = input("Is this a footnotes file? [y/n] ") ==# "y"
   if is_fn
@@ -82,6 +86,7 @@ function! s:activate()
   xmap <buffer> <LocalLeader>s <Plug>MTOSharp
   xmap <buffer> <LocalLeader>f <Plug>MTOFlat
   xmap <buffer> <LocalLeader>n <Plug>MTONatural
+  xmap <buffer> <LocalLeader>h <Plug>MTOScaledegree
 
   " random shit
   noremap <buffer> n gj
@@ -98,6 +103,7 @@ function! s:activate()
   setl textwidth=0
 
   " macros
+  let @l = "vt\"hygvS<a href='\"'>nekkk"
   let @p = 'U<p>A</p>0{j'
   let @s = 'U<p style="text-align:center"><b>A</b></p>0'
   let @q = 'yt.jj"_dt.P0'
@@ -112,5 +118,6 @@ vnoremap <silent> <Plug>MTOCiteYear :<C-U>call <SID>cite_year()<CR>
 vnoremap <silent> <Plug>MTOSharp    :<C-U>call <SID>sharp()<CR>
 vnoremap <silent> <Plug>MTOFlat     :<C-U>call <SID>flat()<CR>
 vnoremap <silent> <Plug>MTONatural  :<C-U>call <SID>natural()<CR>
+vnoremap <silent> <Plug>MTOScaledegree :<C-U>call <SID>scaledegree()<CR>
 
 command! MTOActivate call s:activate()

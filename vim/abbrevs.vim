@@ -14,6 +14,7 @@ iabbrev substitutino substitution
 iabbrev transformatino transformation
 iabbrev transformatinos transformations
 iabbr --m -- michael, <C-R>=strftime("%Y-%m-%d")<CR>
+iabbr --t TODO(michael), <C-R>=strftime("%Y-%m-%d")<CR> BAK-XXX
 iabbr wmsmt Webmaster, Society for Music Theory
 iabbr identifer identifier
 iabbr replacment replacement
