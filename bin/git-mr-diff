@@ -1,0 +1,42 @@
+#!/usr/bin/env perl
+use v5.26;
+use warnings;
+use experimental 'signatures';
+use IPC::Run3 qw(run3);
+use Process::Status;
+
+my $usage = <<EOF;
+usage: git mr-diff <old-ref> [<new-ref>]
+
+If <new-ref> is missing, default to HEAD.
+EOF
+
+my $old_ref = shift @ARGV // die $usage;
+my $new_ref = shift @ARGV // 'HEAD';
+
+# determine main or master
+eval { run_git(qw(rev-parse --verify main^{commit})) };
+my $main = $@ ? 'master' : 'main';
+
+my $old_start = run_git('merge-base', '--fork-point', $main, $old_ref);
+my $new_start = run_git('merge-base', '--fork-point', $main, $new_ref);
+
+exec 'git', 'range-diff', "$old_start..$old_ref", "$new_start..$new_ref"
+  or die "couldn't exec git: $!??";
+
+
+sub run_git (@cmd) {
+  my $out;
+
+  unshift @cmd, 'git';
+  run3(\@cmd, undef, \$out, \$out);
+
+  my $ps = Process::Status->new;
+  chomp $out;
+
+  unless ($ps->is_success) {
+    die "git failed: @cmd";
+  }
+
+  return $out;
+}
