@@ -1,0 +1,71 @@
+#!/usr/bin/env perl
+use v5.10;
+use warnings;
+use DateTime;
+use Time::Duration qw(duration);
+
+# shitty opt parsing
+my @log_args = grep {; $_ ne '--no-files' } @ARGV;
+my $suppress_files = @ARGV > @log_args;
+
+open my $pipe, '-|', qw(git log --numstat --no-merges), '--format=COMMIT %h %ct', @log_args
+  or die "bad pipe: $!";
+
+my %files;
+my $totals = [0, 0];  # [plus, minus]
+
+my (%commits, $cur_commit);
+my ($first, $last);
+
+LINE: while (my $line = <$pipe>) {
+  chomp $line;
+  next unless $line;
+
+  if ($line =~ /^COMMIT (.*?) (.*)/) {
+    $cur_commit = $1;
+    my $epoch = $2;
+
+    $first = $epoch if ! $first || $epoch < $first;
+    $last  = $epoch if ! $last  || $epoch > $last;
+
+    next LINE;
+  }
+
+  my ($plus, $minus, $path) = split /\t/, $line;
+
+  next if $plus eq '-' || $minus eq '-';
+  next if $plus == 0 && $minus == 0;
+
+  my $stats = $files{$path} //= [0, 0];
+  $stats->[0]  += $plus;
+  $totals->[0] += $plus;
+  $stats->[1]  += $minus;
+  $totals->[1] += $minus;
+
+  $commits{$cur_commit}++;
+}
+
+unless ($suppress_files) {
+  for my $path (sort keys %files) {
+    my ($plus, $minus) = $files{$path}->@*;
+    printf "%5s / %5s  %s\n", "+$plus", "-$minus", $path;
+  }
+
+  say '';
+}
+
+my $n_commits = keys %commits;
+
+my $avg = sprintf '%.2f', ($totals->[0] + $totals->[1]) / $n_commits;
+say "$n_commits commits total (+$totals->[0]/-$totals->[1])";
+say "avg of $avg lines diff per commit";
+
+# date math
+my $n_days = int(($last - $first) / 86400);
+
+printf("avg of %.2f commits per day, from %s to %s (%s)\n",
+  ($n_commits / $n_days),
+  DateTime->from_epoch(epoch => $first)->ymd,
+  DateTime->from_epoch(epoch => $last)->ymd,
+  duration($last - $first),
+);
