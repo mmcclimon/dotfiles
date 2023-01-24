@@ -7,6 +7,12 @@ local red="#cc241d"
 
 # Git prompt info
 function gprompt() {
+    # escape hatch for very slow repos
+    if [[ -n "$GIT_SUPPRESS_PROMPT_INFO" ]] {
+        print -n " in %F{$teal}~slow repo~"
+        return
+    }
+
     # is_gitdir at_or_on branch_or_sha is_dirty
     local gitinfo=( $(git prompt-info) )
 
