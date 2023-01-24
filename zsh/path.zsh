@@ -16,12 +16,18 @@ then
 
     append_to_path "$HOME/.plenv/bin"
     append_to_path "$HOME/.pyenv/bin"
-    append_to_path "$HOME/.cargo/bin"
+    prepend_to_path "$HOME/.cargo/bin"
+    # append_to_path "$HOME/.rakuenv/bin"
+    append_to_path "$HOME/.go/bin"
 
     eval "$(plenv init - zsh)"
-    eval "$(pyenv init --path)"
-    eval "$(pyenv init -)"
     eval "$(direnv hook zsh)"
+    # eval "$(rakuenv init - zsh)"
+
+    # jeez pyenv is so slow; this is way faster
+    prepend_to_path "$HOME/.pyenv/shims"
+    export PYENV_SHELL=zsh
+    source '/Users/michael/.pyenv/libexec/../completions/pyenv.zsh'
 fi
 unset hostname
 
