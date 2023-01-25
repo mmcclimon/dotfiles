@@ -108,8 +108,9 @@ nnoremap <C-x><C-k> :w<bar>BW<cr>
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 'never'
 let g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
-let g:ale_rust_rustfmt_options = '+nightly'
+" let g:ale_rust_rustfmt_options = '+nightly'
 let g:ale_rust_cargo_check_tests = 1
+let g:ale_rust_cargo_check_all_targets = 1
 let g:ale_linters_explicit = 0
 let g:ale_linters = {
 \   'perl': ['perl'],
@@ -119,11 +120,12 @@ let g:ale_linters = {
 \   'go': ['gofmt', 'gobuild', 'golint'],
 \}
 let g:ale_fixers = {
-\   'javascript': ['prettier'],
+\   'javascript': ['prettier', 'eslint'],
 \   'typescript': ['prettier'],
 \   'json': ['prettier'],
 \   'rust': ['rustfmt'],
 \   'go': ['gofmt', 'goimports'],
+\   'python': ['autoflake'],
 \}
 
 nnoremap <Leader>q <silent> :ALEFix<Enter>
