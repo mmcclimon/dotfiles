@@ -20,7 +20,7 @@ new_ref=$2
 # check master/main
 git rev-parse --verify 'main^{commit}' >/dev/null && main='main' || main='master'
 
-old_start=$(git merge-base --fork-point "$main" "$old_ref")
-new_start=$(git merge-base --fork-point "$main" "$new_ref")
+old_start=$(git merge-base "$main" "$old_ref")
+new_start=$(git merge-base "$main" "$new_ref")
 
 exec git range-diff "$old_start..$old_ref" "$new_start..$new_ref"
