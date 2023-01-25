@@ -1,18 +1,17 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 what time is it in all the places?
 """
 
 from datetime import datetime as dt
-import pytz
+from zoneinfo import ZoneInfo
 
 if __name__ == "__main__":
-    now = dt.utcnow()
-    utc_now = pytz.timezone('UTC').localize(now)
+    now = dt.now()
     fmt = '%A, %H:%M'
 
     def fmt_time(tz):
-        return utc_now.astimezone(pytz.timezone(tz)).strftime(fmt)
+        return now.astimezone(ZoneInfo(tz)).strftime(fmt)
 
     us  = '🇺🇸'
     utc = '🌐'
