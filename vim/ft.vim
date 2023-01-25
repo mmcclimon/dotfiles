@@ -20,9 +20,9 @@ augroup ft_json
     au Filetype json let b:ale_fix_on_save = 1
 augroup END
 
+let g:go_highlight_trailing_whitespace_error = 0
 augroup ft_go
     au!
-    hi link goSpaceError None
     au Filetype go let b:ale_fix_on_save = 1
     au Filetype go setlocal noexpandtab listchars+=tab:\ \  tabstop=2 shiftwidth=2
 augroup END
