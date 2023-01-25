@@ -77,7 +77,7 @@
     date = iso-local
 
 [pretty]
-    line = %C(auto)%h %<(9,trunc)%aL %cs  %s %d
+    line = %C(auto)%h %<(9,trunc)%aL %as  %s %d
 
 [push]
     default = current
