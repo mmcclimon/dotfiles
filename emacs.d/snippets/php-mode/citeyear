@@ -1,6 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: cite year
-# key: citeyear
-# binding: direct-keybinding
-# --
-<?php cite_year($${1:author_year})?>

@@ -1,6 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: scale degree
-# key: sd
-# binding: direct-keybinding
-# --
-<?php scaledegree("${1:sd}")?>

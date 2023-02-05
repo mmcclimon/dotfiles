@@ -1,6 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: scale degree, footnote
-# key: sdf
-# binding: direct-keybinding
-# --
-".fn_scaledegree("${1:sd}")."

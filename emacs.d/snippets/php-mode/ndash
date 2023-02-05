@@ -1,6 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: en dash
-# key: ndash
-# binding: direct-keybinding
-# --
-&#8211;

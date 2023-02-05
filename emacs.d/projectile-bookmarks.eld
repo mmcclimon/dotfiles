@@ -1,1 +1,0 @@
-("~/code/Topicbox-Backend/" "~/.dotfiles/" "~/code/RPG-Beyond/")

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 dotdir=${PWD##$HOME/}
 
@@ -22,5 +23,3 @@ cd $HOME
 # etc.
 [ -L ".tmux.conf" ] || ln -s "$dotdir/tmux.conf" ".tmux.conf"
 [ -L ".dircolors" ] || ln -s "$dotdir/dircolors" ".dircolors"
-[ -L ".emacs.d" ]   || ln -s "$dotdir/emacs.d"   ".emacs.d"
-
