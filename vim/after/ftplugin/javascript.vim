@@ -1,7 +1,5 @@
 " Settings for javascript files
 
-au Filetype javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
-
 if g:colors_name ==? "gruvbox"
     hi link jsClassFuncName GruvboxAqua
     hi link jsStorageClass Statement
@@ -16,5 +14,4 @@ if g:colors_name ==? "gruvbox"
     " really, these are two separate things??
     hi link jsException GruvboxRed
     hi link jsExceptions jsException
-
 endif

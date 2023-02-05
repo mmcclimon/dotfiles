@@ -37,6 +37,3 @@ if g:colors_name ==? "gruvbox"
     hi link perlSpecial GruvboxAqua
     " hi link perlMatch GruvboxAqua
 endif
-
-setl tabstop=2 softtabstop=2
-setl shiftwidth=2

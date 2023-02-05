@@ -9,6 +9,11 @@ augroup ft_ledger
     au FileType ledger let @y = 'yypR(ynab)    ,c}jj'
 augroup END
 
+augroup ft_javascript
+    au!
+    au Filetype typescript setlocal tabstop=2 shiftwidth=2 softtabstop=2
+augroup END
+
 augroup ft_typescript
     au!
     au Filetype typescript setlocal tabstop=2 shiftwidth=2 softtabstop=2
@@ -36,8 +41,29 @@ augroup END
 
 augroup ft_markdown
     au!
-    au Filetype markdown setlocal nosmartindent
+    au Filetype markdown setlocal nosmartindent textwidth=78
 augroup END
+
+augroup ft_make
+    au!
+    au Filetype make setlocal noexpandtab tabstop=4 shiftwidth=4
+augroup END
+
+augroup ft_mail
+    au!
+    au FileType mail setlocal textwidth=72
+augroup END
+
+augroup ft_perl
+    au!
+    au FileType perl setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+augroup ft_ruby
+    au!
+    au FileType ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
 
 " these actually get used bottom to top,
 let g:rbpt_colorpairs = [
