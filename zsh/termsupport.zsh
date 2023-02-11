@@ -1,25 +1,25 @@
-#usage: title short_tab_title looooooooooooooooooooooggggggg_windows_title
-#http://www.faqs.org/docs/Linux-mini/Xterm-Title.html#ss3.1
-#Fully support screen, iterm, and probably most modern xterm and rxvt
-#Limited support for Apple Terminal (Terminal can't set window or tab separately)
+# I stole this from somewhere, probably ohmyzsh, in the long-distant past.
+
+# usage: title short_tab_title window_title
 function title {
-  if [[ "$DISABLE_AUTO_TITLE" == "true" ]] || [[ "$EMACS" == *term* ]]; then
+  if [[ "$DISABLE_AUTO_TITLE" == "true" ]] || [[ -n "$TMUX" ]]; then
     return
   fi
+
   if [[ "$TERM" == screen* ]]; then
-    print -Pn "\ek$1:q\e\\" #set screen hardstatus, usually truncated at 20 chars
+    # set screen hardstatus, usually truncated at 20 chars
+    print -Pn "\ek$1:q\e\\"
   elif [[ "$TERM" == xterm* ]] || [[ $TERM == rxvt* ]] || [[ $TERM == ansi ]] || [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
-    print -Pn "\e]2;$2:q\a" #set window name
-    print -Pn "\e]1;$1:q\a" #set icon (=tab) name (will override window name on broken terminal)
+    print -Pn "\e]2;$2:q\a" # set window name
+    print -Pn "\e]1;$1:q\a" # set icon (=tab) name (will override window name on broken terminal)
   fi
 }
 
-ZSH_THEME_TERM_TAB_TITLE_IDLE="%15<..<%~%<<" #15 char left truncated PWD
-ZSH_THEME_TERM_TITLE_IDLE="%n@%m: %~"
-
 #Appears when you have the prompt
 function title_idle {
-  title $ZSH_THEME_TERM_TAB_TITLE_IDLE $ZSH_THEME_TERM_TITLE_IDLE
+  local idle_tab_title="%15<..<%~%<<" #15 char left truncated PWD
+  local idle_window_title="%n@%m: %~"
+  title $idle_tab_title $idle_window_title
 }
 
 #Appears at the beginning of (and during) of command execution

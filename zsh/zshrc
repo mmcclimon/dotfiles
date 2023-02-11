@@ -4,19 +4,15 @@ LIB_PATH=$HOME/.zsh
 source $LIB_PATH/path.zsh
 
 source $LIB_PATH/aliases.zsh
-source $LIB_PATH/colors.zsh
 source $LIB_PATH/completion.zsh
 source $LIB_PATH/functions.zsh
-source $LIB_PATH/history.zsh
 source $LIB_PATH/key-bindings.zsh
 source $LIB_PATH/misc.zsh
 source $LIB_PATH/prompt.zsh
 source $LIB_PATH/termsupport.zsh
 
-local host=$(hostname)
-if [ -e "$LIB_PATH/hosts/$host.zsh" ]; then
-    source $LIB_PATH/hosts/$host.zsh
-fi
+# yes, print a bear on new shells.
+print_bear
 
 autoload -U compinit
 compinit -C

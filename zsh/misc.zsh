@@ -2,10 +2,23 @@
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
 
-## jobs
-setopt long_list_jobs
+## history
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=1000000
+SAVEHIST=1100000
 
-setopt correct
+setopt append_history
+setopt inc_append_history
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups # ignore duplication command history list
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt hist_verify
+
+## colors
+[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
+[ -e "$HOME/.dircolors" ] && eval `dircolors -b $HOME/.dircolors`
 
 ## pager
 export PAGER="less"
@@ -20,27 +33,12 @@ function perldoc() { cpandoc -otext $@ }
 ## misc environment vars
 # export TEXMFHOME="$HOME/.texmf"
 
-# play nice with tmux
-if [[ -n "$TMUX" ]]; then
-    export DISABLE_AUTO_TITLE=true
-fi
-
 export LC_CTYPE=$LANG
 export VIRTUAL_ENV_DISABLE_PROMPT=true
-export NOPASTE_SERVICES=GitLab
 export DIRENV_LOG_FORMAT=
+export GOPATH="$HOME/.go"
 
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--no-bold --no-info --bind=ctrl-n:down,ctrl-e:up'
-
-hr() { printf '-%.0s' $(seq $COLUMNS) }
-
-function print_bear() {
-    local bears=( 'ʕ•ᴥ•ʔ' 'ʕᵔᴥᵔʔ' 'ʅʕ•ᴥ•ʔʃ' 'ʕ•̀o•́ʔ' 'ʕ·ᴥ·ʔ' 'ᶘ ᵒᴥᵒᶅ')
-    print -r ${bears[$RANDOM % $#bears + 1]}
-}
-
-# yes, print a bear on new shells.
-print_bear
