@@ -4,7 +4,6 @@ LIB_PATH=$HOME/.zsh
 source $LIB_PATH/path.zsh
 
 source $LIB_PATH/aliases.zsh
-source $LIB_PATH/colors.zsh
 source $LIB_PATH/completion.zsh
 source $LIB_PATH/functions.zsh
 source $LIB_PATH/history.zsh

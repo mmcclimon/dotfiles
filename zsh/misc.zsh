@@ -7,6 +7,12 @@ setopt long_list_jobs
 
 setopt correct
 
+# colors
+[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
+
+[ -e "$HOME/.dircolors" ] && eval `dircolors -b $HOME/.dircolors`
+alias ls='ls --color'
+
 ## pager
 export PAGER="less"
 export LESS="-R"

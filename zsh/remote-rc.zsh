@@ -26,9 +26,9 @@ alias tls='tmux ls'
 # prompt colors
 
 reset="%{$reset_color%}"
-eval pgreen='$FG[110]'
-eval pgray='$FG[243]'
-eval pdate='$FG[243]'
+eval pgreen="%{[38;5;110m%}"
+eval pgray="%{[38;5;243m%}"
+eval pdate="%{[38;5;243m%}"
 
 export PROMPT="
 $pgreen%n@%m$reset${pgray}[%~]$reset$pgreen%#$reset "
