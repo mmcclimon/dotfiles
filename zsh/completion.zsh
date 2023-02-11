@@ -49,4 +49,6 @@ zstyle '*' single-ignored show
 
 if [[ -f /opt/local/share/fzf/shell/completion.zsh ]]; then
     source /opt/local/share/fzf/shell/completion.zsh
+elif [[ -f /opt/homebrew/opt/fzf/shell/completion.zsh ]]; then
+    source /opt/homebrew/opt/fzf/shell/completion.zsh
 fi

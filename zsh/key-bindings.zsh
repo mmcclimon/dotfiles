@@ -29,4 +29,6 @@ bindkey '^t' gosmacs-transpose-chars
 # fzf
 if [[ -f /opt/local/share/fzf/shell/key-bindings.zsh ]]; then
   source /opt/local/share/fzf/shell/key-bindings.zsh
+elif [[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]]; then
+  source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
 fi

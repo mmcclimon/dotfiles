@@ -32,11 +32,15 @@ function perldoc() { cpandoc -otext $@ }
 
 ## misc environment vars
 # export TEXMFHOME="$HOME/.texmf"
-
 export LC_CTYPE=$LANG
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 export DIRENV_LOG_FORMAT=
 export GOPATH="$HOME/.go"
+export TERMINFO_DIRS=$TERMINFO_DIRS:$HOME/.local/share/terminfo
+
+if [[ -d $HOME/local/rustup ]]; then
+  export RUSTUP_HOME=$HOME/local/rustup
+fi
 
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
