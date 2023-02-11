@@ -20,11 +20,6 @@ function perldoc() { cpandoc -otext $@ }
 ## misc environment vars
 # export TEXMFHOME="$HOME/.texmf"
 
-# play nice with tmux
-if [[ -n "$TMUX" ]]; then
-    export DISABLE_AUTO_TITLE=true
-fi
-
 export LC_CTYPE=$LANG
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 export NOPASTE_SERVICES=GitLab
