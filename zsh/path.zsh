@@ -12,16 +12,25 @@ function maybe_prepend_to_path {
   fi
 }
 
+# macports
 if [[ -x /opt/local/bin/port ]]; then
   prepend_to_path /opt/local/bin
   prepend_to_path /opt/local/sbin
   prepend_to_path /opt/local/libexec/gnubin
 fi
 
+# apple silicon homebrew
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  prepend_to_path /opt/homebrew/bin
+  prepend_to_path /opt/homebrew/sbin
+  prepend_to_path /opt/homebrew/opt/coreutils/libexec/gnubin
+fi
+
 maybe_prepend_to_path "$HOME/.plenv/bin"
 maybe_prepend_to_path "$HOME/.pyenv/bin"
 maybe_prepend_to_path "$HOME/.cargo/bin"
 maybe_prepend_to_path "$HOME/.go/bin"
+maybe_prepend_to_path "$HOME/local/bin"
 
 if command_exists plenv; then
   eval "$(plenv init - zsh)"

@@ -43,7 +43,12 @@ let g:ctrlp_custom_ignore = "*.swp,*.zip,.git/*,build/*,.sass-cache.*,vendor,loc
 " nnoremap <leader>b :CtrlPBuffer<cr>
 
 " fzf
-set rtp+=/opt/local/share/fzf/vim
+if isdirectory('/opt/local/share/fzf/vim')
+  set rtp+=/opt/local/share/fzf/vim
+elseif isdirectory('/opt/homebrew/opt/fzf')
+  set rtp+=/opt/homebrew/opt/fzf
+endif
+
 let g:fzf_layout = { 'down': '10' }
 let g:fzf_preview_window = []
 let g:fzf_colors =

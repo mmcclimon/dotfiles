@@ -4,6 +4,8 @@ fpath=("$LIB_PATH/functions" $fpath)
 
 if [[ -d /opt/local/share/zsh/site-functions ]]; then
     fpath=(/opt/local/share/zsh/site-functions $fpath)
+elif [[ -d /opt/homebrew/share/zsh/site-functions ]]; then
+    fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 fi
 
 # I am a bit surprised there doesn't seem to be a way to do this automatically
