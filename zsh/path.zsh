@@ -39,8 +39,6 @@ fi
 
 prepend_to_path ~/bin
 
-export GOPATH="$HOME/.go"
-
 # I like this, but this is probably not useful any more, so.
 typeset -U cdpath
 # cdpath=("$HOME/code/fm" $cdpath)

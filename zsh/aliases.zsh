@@ -10,6 +10,7 @@ alias ....='cd ../../..'
 alias history='fc -il 1'
 
 # ls
+alias ls='ls --color'
 alias l='ls -la'
 alias ll='ls -l'
 alias sl=ls # often screw this up

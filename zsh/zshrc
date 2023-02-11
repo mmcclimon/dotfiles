@@ -6,11 +6,13 @@ source $LIB_PATH/path.zsh
 source $LIB_PATH/aliases.zsh
 source $LIB_PATH/completion.zsh
 source $LIB_PATH/functions.zsh
-source $LIB_PATH/history.zsh
 source $LIB_PATH/key-bindings.zsh
 source $LIB_PATH/misc.zsh
 source $LIB_PATH/prompt.zsh
 source $LIB_PATH/termsupport.zsh
+
+# yes, print a bear on new shells.
+print_bear
 
 autoload -U compinit
 compinit -C
