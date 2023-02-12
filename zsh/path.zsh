@@ -19,11 +19,18 @@ if [[ -x /opt/local/bin/port ]]; then
   prepend_to_path /opt/local/libexec/gnubin
 fi
 
-# apple silicon homebrew
+HOMEBREW_ROOT=
+
 if [[ -x /opt/homebrew/bin/brew ]]; then
-  prepend_to_path /opt/homebrew/bin
-  prepend_to_path /opt/homebrew/sbin
-  prepend_to_path /opt/homebrew/opt/coreutils/libexec/gnubin
+  HOMEBREW_ROOT=/opt/homebrew   # apple silicon
+elif [[ -x /usr/local/bin/brew ]]; then
+  HOMEBREW_ROOT=/usr/local      # apple intel
+fi
+
+if [[ -n "$HOMEBREW_ROOT" ]]; then
+  prepend_to_path $HOMEBREW_ROOT/bin
+  prepend_to_path $HOMEBREW_ROOT/sbin
+  prepend_to_path $HOMEBREW_ROOT/opt/coreutils/libexec/gnubin
 fi
 
 maybe_prepend_to_path "$HOME/.plenv/bin"
@@ -39,7 +46,7 @@ fi
 if command_exists pyenv; then
   export PYENV_SHELL=zsh
   prepend_to_path "$HOME/.pyenv/shims"
-  source '/Users/michael/.pyenv/libexec/../completions/pyenv.zsh'
+  source "$HOME/.pyenv/completions/pyenv.zsh"
 fi
 
 if command_exists direnv; then

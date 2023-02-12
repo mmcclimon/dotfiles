@@ -47,6 +47,8 @@ if isdirectory('/opt/local/share/fzf/vim')
   set rtp+=/opt/local/share/fzf/vim
 elseif isdirectory('/opt/homebrew/opt/fzf')
   set rtp+=/opt/homebrew/opt/fzf
+elseif isdirectory('/usr/local/opt/fzf')
+  set rtp+=/usr/local/opt/fzf
 endif
 
 let g:fzf_layout = { 'down': '10' }

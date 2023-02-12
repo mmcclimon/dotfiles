@@ -37,6 +37,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=true
 export DIRENV_LOG_FORMAT=
 export GOPATH="$HOME/.go"
 export TERMINFO_DIRS=$TERMINFO_DIRS:$HOME/.local/share/terminfo
+export HOMEBREW_NO_ENV_HINTS=1
 
 if [[ -d $HOME/local/rustup ]]; then
   export RUSTUP_HOME=$HOME/local/rustup

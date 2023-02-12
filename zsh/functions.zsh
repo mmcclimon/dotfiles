@@ -17,3 +17,9 @@ function print_bear() {
     local bears=( 'ʕ•ᴥ•ʔ' 'ʕᵔᴥᵔʔ' 'ʅʕ•ᴥ•ʔʃ' 'ʕ•̀o•́ʔ' 'ʕ·ᴥ·ʔ' 'ᶘ ᵒᴥᵒᶅ')
     print -r ${bears[$RANDOM % $#bears + 1]}
 }
+
+function maybe_source() {
+    if [[ -f "$1" ]]; then
+        source "$1"
+    fi
+}

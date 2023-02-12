@@ -47,8 +47,5 @@ zstyle ':completion::complete:*' cache-path $ZSH/cache/
 # ... unless we really want to.
 zstyle '*' single-ignored show
 
-if [[ -f /opt/local/share/fzf/shell/completion.zsh ]]; then
-    source /opt/local/share/fzf/shell/completion.zsh
-elif [[ -f /opt/homebrew/opt/fzf/shell/completion.zsh ]]; then
-    source /opt/homebrew/opt/fzf/shell/completion.zsh
-fi
+maybe_source /opt/local/share/fzf/shell/completion.zsh
+maybe_source "$HOMEBREW_ROOT/opt/fzf/shell/completion.zsh"

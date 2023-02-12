@@ -27,8 +27,5 @@ bindkey '^r' history-incremental-search-backward
 bindkey '^t' gosmacs-transpose-chars
 
 # fzf
-if [[ -f /opt/local/share/fzf/shell/key-bindings.zsh ]]; then
-  source /opt/local/share/fzf/shell/key-bindings.zsh
-elif [[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]]; then
-  source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
-fi
+maybe_source /opt/local/share/fzf/shell/completion.zsh
+maybe_source "$HOMEBREW_ROOT/opt/fzf/shell/key-bindings.zsh"
