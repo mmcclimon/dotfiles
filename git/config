@@ -13,8 +13,8 @@
     path = ~/.gitlab.conf
     path = ~/.git-safedirs
 
-[includeIf "gitdir:~/code/fm/"]
-    path = ~/.work.gitconfig
+[includeIf "gitdir:~/code/mongo/"]
+    path = ~/.gitconfig.work
 
 # everything else, alphabetically
 [advice]
