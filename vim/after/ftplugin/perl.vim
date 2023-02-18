@@ -1,7 +1,5 @@
 " vim settings for perl
 
-" au Filetype perl setlocal tabstop=2 shiftwidth=2
-
 " patch color scheme for better perl colors
 if g:colors_name ==? "base16-default-dark"
     hi perlPOD guifg=#686868

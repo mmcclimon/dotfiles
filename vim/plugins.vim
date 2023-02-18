@@ -93,18 +93,6 @@ nnoremap <silent> <Leader>= :Tabularize /=><CR>
 vnoremap <silent> <Leader>= :Tabularize /=><CR>
 # }}}
 
-# vim-pandoc---------------------------------------------------{{{
-g:pandoc_use_hard_wraps = 1
-g:pandoc_auto_format = 0
-g:pandoc_no_empty_implicits = 0
-g:pandoc_no_folding = 1
-g:pandoc_no_spans = 1
-augroup ft_pandoc
-    au!
-    au Filetype pandoc setlocal tabstop=2 shiftwidth=2 textwidth=78
-augroup END
-# }}}
-
 # Bufkill -----------------------------------------------------{{{
 # Make c-x c-c write and close a buffer (useful for git commit
 # edit messages, etc.)

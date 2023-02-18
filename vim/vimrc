@@ -138,7 +138,6 @@ so ~/.vim/plugins.vim     # load plugin settings
 so ~/.vim/abbrevs.vim     # I can't type
 so ~/.vim/mto.vim         # mto nonsense
 so ~/.vim/colors.vim      # for patching
-so ~/.vim/ft.vim          # filetype-specifics stuff
 # }}}
 
 # vim:fdm=marker
