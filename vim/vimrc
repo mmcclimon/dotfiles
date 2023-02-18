@@ -1,70 +1,71 @@
 " new and improved .vimrc
+vim9script
 
 set nocompatible
 
 filetype plugin indent on
 
-" Text Editing {{{
-" ----------------
-set backspace=indent,eol,start  " backspace works over everything
-set autoindent                  " use previous line's indent
-set smartindent                 " indent braces automatically
-set cinwords=                   " turn off weird magic indent
-set expandtab                   " what am i, an animal? use spaces
-set tabstop=4                   " four spaces
+# Text Editing {{{
+# ----------------
+set backspace=indent,eol,start  # backspace works over everything
+set autoindent                  # use previous line's indent
+set smartindent                 # indent braces automatically
+set cinwords=                   # turn off weird magic indent
+set expandtab                   # what am i, an animal? use spaces
+set tabstop=4                   # four spaces
 set shiftwidth=4
-set textwidth=78                " 78 works nicely for wrapping
-set encoding=utf-8              " unicode
-" }}}
+set textwidth=78                # 78 works nicely for wrapping
+set encoding=utf-8              # unicode
+# }}}
 
-" UI {{{
-" ------
-set history=50                  " keep 50 lines of command line history
-set ruler                       " show the cursor position all the time
-set showcmd                     " display incomplete commands
-set incsearch                   " do incremental searching
-set ignorecase                  " ignore case, but...
-set smartcase                   " only if pattern is all lowercase
-set laststatus=2                " always show status line
-set hidden                      " allow hidden buffers
-set wildmenu                    " better tab completion
-set splitright                  " vertical splits open to right
-set mouse=a                     " turn on mouse
+# UI {{{
+# ------
+set history=50                  # keep 50 lines of command line history
+set ruler                       # show the cursor position all the time
+set showcmd                     # display incomplete commands
+set incsearch                   # do incremental searching
+set ignorecase                  # ignore case, but...
+set smartcase                   # only if pattern is all lowercase
+set laststatus=2                # always show status line
+set hidden                      # allow hidden buffers
+set wildmenu                    # better tab completion
+set splitright                  # vertical splits open to right
+set mouse=a                     # turn on mouse
 set scrolloff=3
 set modelines=2
 set wildmode=longest:full,longest
 set wildignore+=.git,.svn,local,build,vendor,.sass-cache
 set list listchars=tab:>-,trail:~,extends:>,precedes:<
 
-function! SyntaxItem()
-    return synIDattr(synID(line("."),col("."),0),"name")
-endfunction
+def g:SyntaxItem(): string
+    return synIDattr(synID(line("."), col("."), 0), "name")
+enddef
 
-" Folding
-set foldlevelstart=99           " all folds start open
-set foldopen-=block             " jump over folds as if they're lines
+# Folding
+set foldlevelstart=99           # all folds start open
+set foldopen-=block             # jump over folds as if they're lines
 augroup folding
     au!
     au BufReadPre * setlocal foldmethod=indent
     au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
 augroup END
 
-" Colors
-if &t_Co > 2 || has("gui_running")
+# Colors
+if str2nr(&t_Co) > 2 || has("gui_running")
   syntax on
   set hlsearch
 endif
 
 if has("termguicolors")
-    " mke true colors work under tmux by setting some terminal overrides
+    # mke true colors work under tmux by setting some terminal overrides
     if ($TERM =~# '\v^(xterm|screen|tmux)-256color')
-        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+        &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     endif
     set termguicolors
 endif
 
-" be annoying about extra whitespace
+# be annoying about extra whitespace
 augroup trailing
     au!
     au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
@@ -74,18 +75,18 @@ augroup trailing
 augroup END
 highlight ExtraWhitespace ctermbg=red guibg=red
 
-" BUT sometimes EOL whitespace is necessary...be less annoying then
+# BUT sometimes EOL whitespace is necessary...be less annoying then
 augroup whitespace
     au!
     au FileType mail hi ExtraWhitespace ctermbg=NONE guibg=NONE
     au FileType markdown hi ExtraWhitespace ctermbg=NONE guibg=NONE
 augroup END
 
-" }}}
+# }}}
 
-" Mappings ----------------------------------------------------{{{
-let mapleader=","
-let maplocalleader = '\'
+# Mappings ----------------------------------------------------{{{
+g:mapleader = ","
+g:maplocalleader = '\'
 nnoremap <silent> <leader>s :nohls<CR>
 
 if (v:progname == "view")
@@ -95,50 +96,50 @@ if (v:progname == "view")
     set nonumber nolist
 endif
 
-" better window motion
+# better window motion
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" switch colon and semicolon
+# switch colon and semicolon
 nnoremap ; :
 nnoremap : ;
 inoremap <c-c> <esc>
-" Uppercase last word in insert mode (stolen from Steve Losh).
+# Uppercase last word in insert mode (stolen from Steve Losh).
 inoremap <C-u> <esc>mzgUiw`za
 
-" buffer switching
+# buffer switching
 nnoremap <BS> <C-^>
 
-" }}}
+# }}}
 
-" Misc. settings {{{
-" ------------------
+# Misc. settings {{{
+# ------------------
 
-" backups
-set backup                      " keep a backup file
-set backupdir=~/.vim/backup     " might as well keep them here
-set autowrite                   " save things automatically
+# backups
+set backup                      # keep a backup file
+set backupdir=~/.vim/backup     # might as well keep them here
+set autowrite                   # save things automatically
 
-let g:tex_flavor = "latex"      " plaintex is no good
-let perl_sub_signatures = 1     " new perls!
+g:tex_flavor = "latex"      # plaintex is no good
+g:perl_sub_signatures = 1     # new perls!
 
-" fix crontab bug
+# fix crontab bug
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
 au FileType gitcommit setl tw=72
 
-" }}}
+# }}}
 
-" Imports {{{
-" -----------
-so ~/.vim/functions.vim   " load custom functions
-so ~/.vim/plugins.vim     " load plugin settings
-so ~/.vim/abbrevs.vim     " I can't type
-so ~/.vim/mto.vim         " mto nonsense
-so ~/.vim/colors.vim      " for patching
-so ~/.vim/ft.vim          " filetype-specifics stuff
-" }}}
+# Imports {{{
+# -----------
+so ~/.vim/functions.vim   # load custom functions
+so ~/.vim/plugins.vim     # load plugin settings
+so ~/.vim/abbrevs.vim     # I can't type
+so ~/.vim/mto.vim         # mto nonsense
+so ~/.vim/colors.vim      # for patching
+so ~/.vim/ft.vim          # filetype-specifics stuff
+# }}}
 
-" vim:fdm=marker
-" vim:set filetype=vim
+# vim:fdm=marker
+# vim:set filetype=vim

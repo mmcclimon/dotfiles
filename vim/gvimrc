@@ -1,27 +1,19 @@
+vim9script
+
 set guioptions-=T
 set guioptions-=L
 set guioptions-=r
 set guioptions-=m
 
 if has("macunix")
-    " set guifont=Source\ Code\ Pro:h10
     set guifont=InputMono:h10
-    " set linespace=3
 elseif has("unix")
     set guifont=Consolas\ 8
 endif
 
-" vertical guide
+# vertical guide
 hi ColorColumn guibg=#2d2d2d
-let &colorcolumn=join(range(81,999),",")
+&colorcolumn = join(range(81, 999), ",")
 
-" Don't do funny business with the cursor
+# Don't do funny business with the cursor
 set guicursor+=n:blinkon0
-
-function! EmbiggenFont()
-    set guifont=Ubuntu\ Mono:h16
-endfunction
-
-command! Embiggen call EmbiggenFont()
-
-"color railscasts

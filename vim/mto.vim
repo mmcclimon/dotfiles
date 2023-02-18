@@ -1,78 +1,80 @@
-let b:mto_open_tag = "<?php "
-let b:mto_close_tag = "?>"
+vim9script
 
-" Stolen from https://stackoverflow.com/a/1534347/1824895
-function! s:get_visual_selection()
+b:mto_open_tag = "<?php "
+b:mto_close_tag = "?>"
+
+# Stolen from https://stackoverflow.com/a/1534347/1824895
+def GetVisualSelection(): string
   normal! gv"zy
   return @z
-endfunction
+enddef
 
-function! s:_one_arg(prompt, php_func_name, add_dollar=0)
-  let z_old = @z
+def OneArg(prompt: string, php_func_name: string, add_dollar: bool = false)
+  var z_old = @z
 
-  " grab the thing, ask for new one
-  let selected = s:get_visual_selection()
-  let varname = input(a:prompt . " (" . selected . "): ")
+  # grab the thing, ask for new one
+  var selected = GetVisualSelection()
+  var varname = input(prompt .. " (" .. selected .. "): ")
 
-  " probably, hit escape. don't blat the selection
+  # probably, hit escape. don't blat the selection
   if varname ==# ''
     return
   endif
 
-  let subbed = substitute(varname, " ", "_", "")
+  var subbed = substitute(varname, " ", "_", "")
 
-  " put it there
-  let bits = [
-    \ b:mto_open_tag, a:php_func_name, '(',
-    \ (a:add_dollar ? '$' : ''), subbed,
-    \ ')', b:mto_close_tag
-  \ ]
-  let @z = join(bits, '')
+  # put it there
+  var bits = [
+    b:mto_open_tag, php_func_name, '(',
+    (add_dollar ? '$' : ''), subbed,
+    ')', b:mto_close_tag
+  ]
+  @z = join(bits, '')
   normal! gv"zp
 
-  let @z = z_old
+  @z = z_old
   redraw
-endfunction
+enddef
 
-function s:_citeone(php_func_name)
-  call s:_one_arg('Variable name', a:php_func_name, 1)
-endfunction
+def CiteOne(php_func_name: string)
+  OneArg('Variable name', php_func_name, 1)
+enddef
 
-" I am ignoring, in the translation to vimscript, the two-arg functions,
-" because mostly I have stopped using them.
+# I am ignoring, in the translation to vimscript, the two-arg functions,
+# because mostly I have stopped using them.
 
-function! s:cite()
-  call s:_citeone('cite')
-endfunction
+def Cite()
+  CiteOne('cite')
+enddef
 
-function! s:cite_year()
-  call s:_citeone('cite_year')
-endfunction
+def CiteYear()
+  CiteOne('cite_year')
+enddef
 
-function! s:sharp()
-  call s:_one_arg('Note name', 'sharp')
-endfunction
+def Sharp()
+  OneArg('Note name', 'sharp')
+enddef
 
-function! s:flat()
-  call s:_one_arg('Note name', 'flat')
-endfunction
+def Flat()
+  OneArg('Note name', 'flat')
+enddef
 
-function! s:natural()
-  call s:_one_arg('Note name', 'natural')
-endfunction
+def Natural()
+  OneArg('Note name', 'natural')
+enddef
 
-function! s:scaledegree()
-  call s:_one_arg('Scale degree', 'scaledegree')
-endfunction
+def Scaledegree()
+  OneArg('Scale degree', 'scaledegree')
+enddef
 
-function! s:activate()
-  let is_fn = input("Is this a footnotes file? [y/n] ") ==# "y"
+def Activate()
+  var is_fn = input("Is this a footnotes file? [y/n] ") ==# "y"
   if is_fn
-      let b:mto_open_tag = '".fn_'
-      let b:mto_close_tag = '."'
+      b:mto_open_tag = '".fn_'
+      b:mto_close_tag = '."'
   else
-      let b:mto_open_tag = '<?php '
-      let b:mto_close_tag = '?>'
+      b:mto_open_tag = '<?php '
+      b:mto_close_tag = '?>'
   endif
 
   if exists('b:mto_activated') && b:mto_activated
@@ -80,7 +82,7 @@ function! s:activate()
     return
   endif
 
-  " load mappings
+  # load mappings
   xmap <buffer><nowait> <LocalLeader>c <Plug>MTOCite
   xmap <buffer> <LocalLeader>y <Plug>MTOCiteYear
   xmap <buffer> <LocalLeader>s <Plug>MTOSharp
@@ -88,7 +90,7 @@ function! s:activate()
   xmap <buffer> <LocalLeader>n <Plug>MTONatural
   xmap <buffer> <LocalLeader>h <Plug>MTOScaledegree
 
-  " random shit
+  # random shit
   noremap <buffer> n gj
   noremap <buffer> e gk
   noremap <buffer> 0 g0
@@ -102,22 +104,22 @@ function! s:activate()
   setl linebreak
   setl textwidth=0
 
-  " macros
-  let @l = "vt\"hygvS<a href='\"'>nekkk"
-  let @p = 'U<p>A</p>0{j'
-  let @s = 'U<p style="text-align:center"><b>A</b></p>0'
-  let @q = 'yt.jj"_dt.P0'
+  # macros
+  @l = "vt\"hygvS<a href='\"'>nekkk"
+  @p = 'U<p>A</p>0{j'
+  @s = 'U<p style="text-align:center"><b>A</b></p>0'
+  @q = 'yt.jj"_dt.P0'
 
-  let b:mto_activated = 1
+  b:mto_activated = 1
 
   redraw
-endfunction
+enddef
 
-vnoremap <silent> <Plug>MTOCite     :<C-U>call <SID>cite()<CR>
-vnoremap <silent> <Plug>MTOCiteYear :<C-U>call <SID>cite_year()<CR>
-vnoremap <silent> <Plug>MTOSharp    :<C-U>call <SID>sharp()<CR>
-vnoremap <silent> <Plug>MTOFlat     :<C-U>call <SID>flat()<CR>
-vnoremap <silent> <Plug>MTONatural  :<C-U>call <SID>natural()<CR>
-vnoremap <silent> <Plug>MTOScaledegree :<C-U>call <SID>scaledegree()<CR>
+vnoremap <silent> <Plug>MTOCite     :<C-U>call <SID>Cite()<CR>
+vnoremap <silent> <Plug>MTOCiteYear :<C-U>call <SID>CiteYear()<CR>
+vnoremap <silent> <Plug>MTOSharp    :<C-U>call <SID>Sharp()<CR>
+vnoremap <silent> <Plug>MTOFlat     :<C-U>call <SID>Flat()<CR>
+vnoremap <silent> <Plug>MTONatural  :<C-U>call <SID>Natural()<CR>
+vnoremap <silent> <Plug>MTOScaledegree :<C-U>call <SID>Scaledegree()<CR>
 
-command! MTOActivate call s:activate()
+command! MTOActivate Activate()

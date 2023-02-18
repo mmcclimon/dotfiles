@@ -1,4 +1,5 @@
 " Abbreviations file for vim
+vim9script
 
 iabbrev teh the
 iabbrev functino function

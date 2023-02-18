@@ -1,10 +1,12 @@
+vim9script
+
 set background=dark
-let g:gruvbox_italic=1
-let g:gruvbox_bold=0
-let g:gruvbox_contrast_light = "soft"
+g:gruvbox_italic = 1
+g:gruvbox_bold = 0
+g:gruvbox_contrast_light = "soft"
 colorscheme gruvbox
 
-" always do these
+# always do these
 hi Todo ctermbg=88 ctermfg=250 guibg=#582829 guifg=#a08374
 
 if g:colors_name ==? "base16-default-dark"
@@ -25,8 +27,8 @@ if g:colors_name ==? "gruvbox"
     hi Cursor guifg=#ebdbb2
     hi Visual term=reverse cterm=reverse gui=none ctermbg=241 guibg=#3e3e5e
 
-    " temporary? I'm trying a lower contrast thing and wanna play with this
-    " for a while. -- michael, 2018-11-14
+    # temporary? I'm trying a lower contrast thing and wanna play with this
+    # for a while. -- michael, 2018-11-14
     hi String guifg=#b8ba54
     hi! link Statement GruvboxPurple
     hi! link Repeat GruvboxPurple
