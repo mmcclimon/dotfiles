@@ -1,25 +1,32 @@
 #!/bin/bash
 set -euo pipefail
 
-dotdir=${PWD##$HOME/}
+dotdir=${PWD##"$HOME/"}
 
 # you're home now
-cd $HOME
+cd "$HOME"
 
-# zsh
-[ -L ".zsh" ]   || ln -s "$dotdir/zsh"       ".zsh"
-[ -L ".zshrc" ] || ln -s "$dotdir/zsh/zshrc" ".zshrc"
+maybe_link() {
+  local want=$1
+  local src="$dotdir/$2"
 
-# git
-[ -L ".gitignore" ] || ln -s "$dotdir/git/ignore" ".gitignore"
-[ -L ".gitconfig" ] || ln -s "$dotdir/git/config" ".gitconfig"
-[ -L ".tigrc" ]     || ln -s "$dotdir/git/tigrc"  ".tigrc"
+  if ! [[ -L "$want" ]]; then
+    echo "$src -> $want..."
+    ln -s "$src" "$want"
+  fi
+}
 
-# vim
-[ -L ".vim" ]    || ln -s "$dotdir/vim"        ".vim"
-[ -L ".vimrc" ]  || ln -s "$dotdir/vim/vimrc"  ".vimrc"
-[ -L ".gvimrc" ] || ln -s "$dotdir/vim/gvimrc" ".gvimrc"
+# link:    homedir       dotdir
+maybe_link ".zsh"        "zsh"
+maybe_link ".zshrc"      "zsh/zshrc"
 
-# etc.
-[ -L ".tmux.conf" ] || ln -s "$dotdir/tmux.conf" ".tmux.conf"
-[ -L ".dircolors" ] || ln -s "$dotdir/dircolors" ".dircolors"
+maybe_link ".gitignore"  "git/ignore"
+maybe_link ".gitconfig"  "git/config"
+maybe_link ".tigrc"      "git/tigrc"
+
+maybe_link ".vim"        "vim"
+maybe_link ".vimrc"      "vim/vimrc"
+maybe_link ".gvimrc"     "vim/gvimrc"
+
+maybe_link ".tmux.conf"  "tmux.conf"
+maybe_link ".dircolors"  "dircolors"
