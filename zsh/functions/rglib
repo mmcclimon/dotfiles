@@ -1,0 +1,6 @@
+# vim: set ft=sh
+if [[ -f ".ignore-tests" ]]; then
+    command rg --ignore-file ".ignore-tests" $@
+else
+    command rg $@
+fi

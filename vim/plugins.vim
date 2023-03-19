@@ -71,7 +71,7 @@ g:fzf_colors =
 def FindFiles()
     var git_dir = system('git rev-parse --show-toplevel 2> /dev/null')[: -2]
     if git_dir != ''
-        execute 'GFiles' git_dir
+        execute 'GFiles' git_dir ":^vendor"
     else
         execute 'Files'
     endif

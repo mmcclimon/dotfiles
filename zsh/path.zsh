@@ -53,9 +53,12 @@ if command_exists direnv; then
   eval "$(direnv hook zsh)"
 fi
 
+if [[ -d "$HOME/.gvm" ]]; then
+  source "$HOME/.gvm/scripts/gvm"
+fi
+
 prepend_to_path ~/bin
 
 # I like this, but this is probably not useful any more, so.
 typeset -U cdpath
-# cdpath=("$HOME/code/fm" $cdpath)
-
+cdpath=("$HOME/code/mongo" $cdpath)
