@@ -115,7 +115,7 @@ g:ale_linters = {
   javascript: ['eslint', 'prettier'],
   typescript: ['eslint', 'prettier', 'tsserver'],
   rust: ['cargo', 'analyzer'],
-  go: ['gofmt', 'gobuild', 'gopls'],
+  go: ['gopls', 'golangci-lint'],
 }
 
 g:ale_fixers = {

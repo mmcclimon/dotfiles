@@ -109,6 +109,9 @@ inoremap <c-c> <esc>
 # Uppercase last word in insert mode (stolen from Steve Losh).
 inoremap <C-u> <esc>mzgUiw`za
 
+# popupmenu bindings
+inoremap <expr><C-e> pumvisible() ? "\<C-p>" : "\<C-e>"
+
 # buffer switching
 nnoremap <BS> <C-^>
 
