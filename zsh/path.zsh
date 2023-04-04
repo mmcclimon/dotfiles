@@ -12,13 +12,6 @@ function maybe_prepend_to_path {
   fi
 }
 
-# macports; disable for now
-if false && [[ -x /opt/local/bin/port ]]; then
-  prepend_to_path /opt/local/bin
-  prepend_to_path /opt/local/sbin
-  prepend_to_path /opt/local/libexec/gnubin
-fi
-
 HOMEBREW_ROOT=
 
 if [[ -x /opt/homebrew/bin/brew ]]; then
