@@ -12,6 +12,7 @@ bind generic gg move-first-line
 
 bind generic n next
 bind generic e previous
+bind generic E edit
 bind generic gp parent
 bind generic gP back
 bind generic k find-next
