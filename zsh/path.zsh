@@ -39,15 +39,15 @@ fi
 if command_exists pyenv; then
   export PYENV_SHELL=zsh
   prepend_to_path "$HOME/.pyenv/shims"
-  source "$HOME/.pyenv/completions/pyenv.zsh"
+  maybe_source "$HOME/.pyenv/completions/pyenv.zsh"
 fi
 
 if command_exists direnv; then
   eval "$(direnv hook zsh)"
-fi
 
-if [[ -d "$HOME/.gvm" ]]; then
-  source "$HOME/.gvm/scripts/gvm"
+  if [[ -f ".envrc" ]]; then
+      direnv reload
+  fi
 fi
 
 prepend_to_path ~/bin
