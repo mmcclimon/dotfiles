@@ -48,4 +48,8 @@ notifier:setCallback(function (method, path, headers, body)
 end)
 notifier:start()
 
+Microphonist = require("microphonist")
+mic = Microphonist:new()
+mic:install()
+
 hs.notify.new({title="Hammerspoon", informativeText="Config reloaded"}):send()
