@@ -14,7 +14,8 @@ g:ale_go_gopls_init_options = {
   analyses: {
     composites: false,
     simplifycompositelit: false,
-  }
+  },
+  standaloneTags: [ "ignore", "mage" ],
 }
 
 setlocal omnifunc=ale#completion#OmniFunc
