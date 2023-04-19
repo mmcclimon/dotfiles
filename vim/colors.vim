@@ -25,7 +25,7 @@ if g:colors_name ==? "gruvbox"
     hi Normal ctermfg=white
     hi Search term=reverse ctermbg=51 ctermfg=240 guifg=#444444 guibg=#00f0f0
     hi Cursor guifg=#ebdbb2
-    hi Visual term=reverse cterm=reverse gui=none ctermbg=241 guibg=#3e3e5e
+    hi Visual gui=none term=none cterm=none ctermbg=241 guibg=#3e3e5e
 
     # temporary? I'm trying a lower contrast thing and wanna play with this
     # for a while. -- michael, 2018-11-14
