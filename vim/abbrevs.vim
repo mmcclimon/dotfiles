@@ -21,3 +21,5 @@ iabbr identifer identifier
 iabbr replacment replacement
 iabbr sefl self
 iabbr useddc use Data::Dumper::Concise;
+iabbr partion partition
+iabbr Partion Partition
