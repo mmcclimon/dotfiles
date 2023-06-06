@@ -1,0 +1,20 @@
+#!/bin/bash
+set -euo pipefail
+
+base=$(basename "$PWD")
+if test "$base" != "zettel"; then
+  echo "cowardly refusing to run in the wrong dir"
+  exit 1
+fi
+
+if test -z "$(git status --porcelain)"; then
+  echo "nothing to commit"
+  exit 0
+fi
+
+date=$(date -I)
+
+git add .
+git commit -m "automatic commit from zettelup, $date"
+git push
+exit 0
