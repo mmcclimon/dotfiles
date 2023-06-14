@@ -23,6 +23,7 @@
     pushUpdateRejected = false
     skippedCherryPicks = false
     statusHints = false
+    checkoutAmbiguousRemoteBranchName = false
 
 [alias]
     b = branch --verbose
