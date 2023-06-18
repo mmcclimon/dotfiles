@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+import os
+import re
+import subprocess
+import sys
+
+pipe = subprocess.Popen(
+    ['git', 'reflog', 'show', '--no-decorate', '--grep-reflog', '^checkout'],
+    stdout=subprocess.PIPE,
+    text=True,
+)
+
+branches = []
+seen = set()
+
+assert pipe.stdout is not None
+
+for line in pipe.stdout:
+    sha, _, desc = line.split(maxsplit=2)
+
+    if m := re.search(r'moving from \S+ to (\S+)', desc):
+        branch = m.group(1)
+    else:
+        print(f"bad regex match: {desc}")
+        sys.exit(1)
+
+    if branch not in seen:
+        branches.append(branch)
+        seen.add(branch)
+
+    if len(seen) > 10:
+        break
+
+pipe.terminate()
+
+# git recent N switches to Nth in the list
+if len(sys.argv) > 1:
+    n = sys.argv[1]
+    if not n.isnumeric():
+        print("usage: git recent [NUMBER]")
+        sys.exit(1)
+
+    os.execvp("git", ["git", "checkout", branches[int(n)]])
+
+for i, branch in enumerate(branches):
+    print(f"{i:2}  {branch}")
