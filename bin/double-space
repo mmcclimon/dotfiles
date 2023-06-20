@@ -1,19 +1,17 @@
-#!/usr/bin/env perl
-use v5.24;
-use warnings;
+#!/usr/bin/env python
+import fileinput
 
-# Given a file (or lines on stdin), ensure that there is exactly one blank
-# line between every line.
+prev_was_empty = True   # never start with blank
 
-my $prev_was_empty = 1;  # never start with blank
+for line in fileinput.input():
+    is_empty = line.isspace()
 
-while (my $line = <<>>) {
-  my $is_empty = $line =~ /^\s*$/;
+    # no double blanks
+    if is_empty and prev_was_empty:
+        continue
 
-  next if $is_empty && $prev_was_empty;           # no double blanks
+    if not is_empty and not prev_was_empty:
+        print("")
 
-  print "\n" if ! $is_empty && ! $prev_was_empty; # ensure blank
-
-  print $line;
-  $prev_was_empty = $is_empty;
-}
+    print(line, end="")
+    prev_was_empty = is_empty
