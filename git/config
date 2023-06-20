@@ -24,6 +24,7 @@
     skippedCherryPicks = false
     statusHints = false
     checkoutAmbiguousRemoteBranchName = false
+    addIgnoredFile = false
 
 [alias]
     b = branch --verbose
