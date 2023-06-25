@@ -1,34 +1,35 @@
-#!/usr/bin/env perl
-use v5.36;
-use Getopt::Long::Descriptive;
-use Path::Tiny qw(path);
+#!/usr/bin/env python
+import argparse
+from pathlib import Path
+import shutil
+import time
 
-my ($opt, $usage) = describe_options(
-  '%c %o',
-  [ 'quiet|q', 'be quiet' ],
-  [ 'really',  'actually delete stuff' ],
-  [ 'help|h',  'show help', { hidden => 1} ],
-);
+parser = argparse.ArgumentParser()
+parser.add_argument("--quiet", "-q", action='store_true', help='be quiet')
+parser.add_argument("--really",  action='store_true', help='actually delete stuff')
+args = parser.parse_args()
 
-print($usage->text), exit if $opt->help;
+trash = Path.home().joinpath('.Trash')
 
-my $trash = path('/Users/michael/.Trash');
+for child in trash.iterdir():
+    days_old = (time.time() - child.stat().st_ctime) / 86_400
+    if days_old < 30:
+        continue
 
-ENTRY: for my $path ($trash->children) {
-  my $ctime = -C $path;
-  next unless $ctime > 30;
+    is_dir = child.is_dir()
 
-  my $log = sprintf("%s %s %s (%d days old)",
-    $opt->really ? 'deleted' : 'would delete',
-    $path->is_dir ? ' dir' : 'file',
-    $path->basename,
-    $ctime,
-  );
+    log = "{} {} {} ({} days old)".format(
+            'deleted' if args.really else 'would delete',
+            'dir' if is_dir else 'file',
+            child.name,
+            int(days_old),
+            )
 
-  if ($opt->really) {
-    my $method = $path->is_dir ? 'remove_tree' : 'remove';
-    eval { $path->$method };
-  }
+    if args.really:
+        if is_dir:
+            shutil.rmtree(child, ignore_errors=True)
+        else:
+            child.unlink()
 
-  say $log unless $opt->quiet;
-}
+    if not args.quiet:
+        print(log)
