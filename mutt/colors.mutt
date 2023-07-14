@@ -1,0 +1,46 @@
+# vim: ft=muttrc
+# stolen from steve losh
+# general-doesn't-fit stuff
+color normal brightwhite black
+color error color193 color124
+color markers color142 default
+color tilde brightblack default
+color status brightgreen default
+
+# index stuff
+# color tree blue default
+color indicator color221 color237
+color index color115 default ~N
+color index color144 default "~C webmaster@societymusictheory.org"  #webmaster emails
+color index brightmagenta default ~T
+color index color243 default ~D
+
+# header stuff
+color hdrdefault color250 default
+color header color251 default "^Subject"
+
+# url, email and web stuff
+color body color67 default "(finger|ftp|http|https|news|telnet)://[^ >]*"
+color body blue default "<URL:[^ ]*>"
+color body blue default "www\\.[-.a-z0-9]+\\.[a-z][a-z][a-z]?([-_./~a-z0-9]+)?"
+color body color67 default "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+color body brightred default "^-.*"
+color body green default "^[+].*"
+color body brightwhite default "^diff .*"
+color body brightyellow default "^@@.*"
+
+# misc body stuff
+color attachment color111 default
+color signature color251 default
+
+# quote levels
+color quoted  cyan  default
+color quoted1 magenta default
+color quoted2 color34  default
+color quoted3 color142 default
+color quoted4 color34  default
+color quoted5 color142 default
+color quoted6 color34  default
+color quoted7 color142 default
+color quoted8 color34  default
+color quoted9 color142 default

@@ -1,0 +1,33 @@
+# Default inbox.
+set folder = ~/.mail/personal
+set spoolfile = "+INBOX"
+set signature = ~/.mutt/personal.sig
+
+# Mailboxes to show in the sidebar.
+unmailboxes *
+mailboxes "+INBOX" \
+          "+Archive" \
+          "+Sent" \
+          "+Drafts" \
+          "+p5p" \
+          "+git" \
+          "+smt-announce" \
+          "+lists"
+
+# Other special folders.
+set mbox      = "+Archive"
+set postponed = "+Drafts"
+
+macro index,pager y "<save-message>=Archive<enter>" "archive message"
+
+# Outgoing
+
+set from     = "michael@mcclimon.org"
+set sendmail = "/opt/local/bin/msmtp -a mcclimon.org"
+set sendmail_wait = 0
+set copy=yes    #keep copies of outgoing mail.
+set record = "~/.mail/Sent"
+
+folder-hook "p5p" 'push "<delete-pattern>~r>10d ~R<enter>"'
+folder-hook "~/.mail/personal/git" 'push "<delete-pattern>~r>10d ~R<enter>"'
+folder-hook "smt-announce" 'push "<tag-pattern>~r>30d ~R<enter><tag-prefix-cond><save-message>=Archive<enter>"'
