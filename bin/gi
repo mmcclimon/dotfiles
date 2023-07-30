@@ -3,6 +3,8 @@ import os
 import sys
 
 # This program exists so that when I type `gi tpull` it does the right thing.
+if len(sys.argv) == 1:
+    os.execvp('git', ['git'])
 
 args = sys.argv[1:]
 os.execvp('git', ['git', args[0].removeprefix("t"), *args[1:]])
