@@ -1,2 +1,2 @@
 #!/bin/sh
-col -b | view -c "set ft=man" -
+col -b | view -c "set ft=man" --not-a-term -
