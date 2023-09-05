@@ -1,6 +1,7 @@
 -- entirely so that I don't have to quote keys everywhere else.
 local screen_lookup = {
   ["Color LCD"]   = "int",  -- really, macos?
+  ["Built-in Retina Display"] = "int",
   ["DELL P2715Q"] = "ext",
   ["DELL U2719DX"] = "ext",
 }
