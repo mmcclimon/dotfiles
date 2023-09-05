@@ -25,9 +25,10 @@
     statusHints = false
     checkoutAmbiguousRemoteBranchName = false
     addIgnoredFile = false
+    diverging = false
 
 [alias]
-    b = branch --verbose
+    b = branch --verbose --sort=-committerdate
     co = checkout --recurse-submodules
     fall = fetch --all --prune
     ff = merge --ff-only
