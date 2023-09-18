@@ -26,6 +26,12 @@ function Microphonist:new (obj)
       order  = 3,
     },
     {
+      output = "mjm airpods pro 2",
+      input  = "mjm airpods pro 2",
+      icon   = "🦻🏻",
+      order  = 3,
+    },
+    {
       output = "External Headphones",
       input  = "HD Pro Webcam C920",
       icon   = "🎤",
