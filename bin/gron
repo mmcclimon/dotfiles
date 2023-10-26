@@ -1,49 +1,59 @@
-#!/usr/bin/env perl
-use v5.24;
-use warnings;
-use utf8;
-use experimental qw(signatures);
-use JSON::MaybeXS qw(decode_json encode_json is_bool);
-use JSON::Typist;
-use Devel::Confess;
+#!/usr/bin/env python
+import json
+import re
+import sys
 
-binmode(STDIN, ':encoding(UTF-8)');
-binmode(STDOUT, ':encoding(UTF-8)');
 
-my $JSON = JSON::MaybeXS->new->canonical;
+def dispatch(data, path):
+    if isinstance(data, list):
+        return do_list(data, path)
+    if isinstance(data, dict):
+        return do_dict(data, path)
+    return do_value(data, path)
 
-my $input = do { local $/ = undef; <<>> };
-my $data = $JSON->decode($input);
-my $typed = JSON::Typist->new->apply_types($data);
-dispatch($typed, 'json');
 
-sub dispatch ($data, $path) {
-  return do_array($data, $path) if ref $data eq 'ARRAY';
-  return do_hash($data, $path)  if ref $data eq 'HASH';
-  return do_value($data, $path);
-}
+def do_list(data: list, path: str):
+    print(f"{path} = [];")
+    for i, item in enumerate(data):
+        dispatch(item, f"{path}[{i}]")
 
-sub do_array ($arr, $path) {
-  say "$path: []";
-  dispatch($arr->[$_], "${path}[$_]") for keys @$arr;
-}
 
-sub do_hash ($hash, $path) {
-  say "$path: {}";
-  for my $k (sort keys %$hash) {
-    my $suffix = $k =~ /\A[_a-z$][a-z0-9]*\z/i ? qq{.$k} : qq{["$k"]};
-    dispatch($hash->{$k}, "$path$suffix");
-  }
-}
+def do_dict(data: dict, path: str):
+    print(f"{path} = {{}};")
+    for k in sorted(data.keys()):
+        suffix = f'["{k}"]'
+        if re.match(r"[_a-z$][a-z0-9_]*$", k):
+            suffix = f".{k}"
 
-sub do_value ($val, $path) {
-  state $JSON = JSON::MaybeXS->new->allow_nonref->convert_blessed;
+        dispatch(data[k], f"{path}{suffix}")
 
-  my $s = is_bool($val)                     ? ($val ? 'true' : 'false')
-        : ! defined $val                    ? 'null'
-        : $val->isa('JSON::Typist::Number') ? $val
-        : $val->isa('JSON::Typist::String') ? $JSON->encode($val)
-        :                                     die "weird val: " . Dumper($val);
 
-  say "$path: $s";
-}
+def do_value(data, path: str):
+    if isinstance(data, bool):
+        s = "true" if data else "false"
+    elif data is None:
+        s = "null"
+    elif isinstance(data, int) or isinstance(data, float):
+        s = data
+    elif isinstance(data, str):
+        s = json.dumps(data)
+    else:
+        raise ValueError(f"bad data: {data}")
+
+    print(f"{path} = {s};")
+
+
+if __name__ == "__main__":
+    match len(sys.argv):
+        case 1:
+            file = sys.stdin
+        case 2:
+            filename = sys.argv[1]
+            file = sys.stdin if filename == "-" else open(filename)
+        case _:
+            print("bad input: need exactly 0 or 1 filenames")
+            sys.exit(1)
+
+    data = json.load(file)
+    file.close()
+    dispatch(data, 'json')
