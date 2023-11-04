@@ -1,71 +1,114 @@
-#!/usr/bin/env perl
-use v5.10;
-use warnings;
-use DateTime;
-use Time::Duration qw(duration);
+#!/usr/bin/env python
+import argparse
+import collections
+from datetime import date, datetime
+from subprocess import Popen, PIPE
 
-# shitty opt parsing
-my @log_args = grep {; $_ ne '--no-files' } @ARGV;
-my $suppress_files = @ARGV > @log_args;
 
-open my $pipe, '-|', qw(git log --numstat --no-merges), '--format=COMMIT %h %ct', @log_args
-  or die "bad pipe: $!";
+def main():
+    ap = argparse.ArgumentParser(
+        prog="git-commit-stats",
+        epilog="(all other args passed to git log)",
+    )
 
-my %files;
-my $totals = [0, 0];  # [plus, minus]
+    ap.add_argument(
+        "--no-files",
+        help="do not show file stats",
+        dest="show_files",
+        default=True,
+        action="store_const",
+        const=False,
+    )
 
-my (%commits, $cur_commit);
-my ($first, $last);
+    args, argv = ap.parse_known_args()
+    Stats(args.show_files).run(argv)
 
-LINE: while (my $line = <$pipe>) {
-  chomp $line;
-  next unless $line;
 
-  if ($line =~ /^COMMIT (.*?) (.*)/) {
-    $cur_commit = $1;
-    my $epoch = $2;
+class Stats:
+    def __init__(self, show_files=True):
+        self.show_files = show_files
+        self.first = date.max
+        self.last = date.min
+        self.count = 0
+        self.files = collections.defaultdict(lambda: [0, 0])
 
-    $first = $epoch if ! $first || $epoch < $first;
-    $last  = $epoch if ! $last  || $epoch > $last;
+    def run(self, argv):
+        git_args = [
+            "git",
+            "log",
+            "--numstat",
+            "--no-merges",
+            "--format=COMMIT %ct",
+            *argv,
+        ]
 
-    next LINE;
-  }
+        with Popen(git_args, stdout=PIPE, encoding="utf-8") as git:
+            assert git.stdout is not None
 
-  my ($plus, $minus, $path) = split /\t/, $line;
+            while line := git.stdout.readline():
+                line = line.rstrip("\n")
+                if line.startswith("COMMIT"):
+                    self.process_commit_header(line)
+                else:
+                    self.process_stat_line(line)
 
-  next if $plus eq '-' || $minus eq '-';
-  next if $plus == 0 && $minus == 0;
+        self.output_stats()
 
-  my $stats = $files{$path} //= [0, 0];
-  $stats->[0]  += $plus;
-  $totals->[0] += $plus;
-  $stats->[1]  += $minus;
-  $totals->[1] += $minus;
+    def process_commit_header(self, line):
+        _, epoch = line.split()
+        self.count += 1
+        stamp = datetime.fromtimestamp(int(epoch)).date()
+        self.first = min(self.first, stamp)
+        self.last = max(self.last, stamp)
 
-  $commits{$cur_commit}++;
-}
+    def process_stat_line(self, line):
+        if not line:
+            return
 
-unless ($suppress_files) {
-  for my $path (sort keys %files) {
-    my ($plus, $minus) = $files{$path}->@*;
-    printf "%5s / %5s  %s\n", "+$plus", "-$minus", $path;
-  }
+        plus, minus, path = line.split("\t")
 
-  say '';
-}
+        if (plus == "-" or minus == "-") or (plus == "0" and minus == "0"):
+            return
 
-my $n_commits = keys %commits;
+        stats = self.files[path]
+        stats[0] += int(plus)
+        stats[1] += int(minus)
 
-my $avg = sprintf '%.2f', ($totals->[0] + $totals->[1]) / $n_commits;
-say "$n_commits commits total (+$totals->[0]/-$totals->[1])";
-say "avg of $avg lines diff per commit";
+    def output_stats(self):
+        if self.show_files:
+            for path in sorted(self.files.keys()):
+                plus, minus = self.files[path]
+                plus = "+" + str(plus)
+                minus = "-" + str(minus)
+                print(f"{plus:>5} / {minus:>5}  {path}")
 
-# date math
-my $n_days = int(($last - $first) / 86400);
+            print()
 
-printf("avg of %.2f commits per day, from %s to %s (%s)\n",
-  ($n_commits / $n_days),
-  DateTime->from_epoch(epoch => $first)->ymd,
-  DateTime->from_epoch(epoch => $last)->ymd,
-  duration($last - $first),
-);
+        total_plus = sum(pathstat[0] for pathstat in self.files.values())
+        total_minus = sum(pathstat[1] for pathstat in self.files.values())
+
+        avg = (total_plus + total_minus) / self.count
+
+        print(f"{self.count} commits total (+{total_plus}/-{total_minus})")
+        print(f"avg of {avg:0.2f} lines diff per commit")
+
+        num_days = (self.last - self.first).days
+        cpd = self.count / num_days
+        years, days = divmod(num_days, 365)
+        dur = f"{pl(years, 'year')}, {pl(days, 'day')}" if years else pl(days, 'day')
+
+        print(
+            f"avg of {cpd:0.2f} commits per day,"
+            f" from {self.first} to {self.last} ({dur})"
+        )
+
+
+def pl(count, noun):
+    if count == 1:
+        return f"{count} {noun}"
+
+    return f"{count} {noun}s"
+
+
+if __name__ == "__main__":
+    main()
