@@ -68,6 +68,8 @@ def Scaledegree()
 enddef
 
 def Activate()
+  set filetype=php
+
   var is_fn = input("Is this a footnotes file? [y/n] ") ==# "y"
   if is_fn
       b:mto_open_tag = '".fn_'
