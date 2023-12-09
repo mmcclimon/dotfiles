@@ -11,3 +11,4 @@ tags
 .ruby-version
 .ignore
 .envrc
+.direnv
