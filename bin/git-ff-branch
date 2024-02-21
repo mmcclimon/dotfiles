@@ -1,0 +1,79 @@
+#!/usr/bin/env python
+import argparse
+import functools
+import subprocess
+import sys
+
+
+def main():
+    ap = argparse.ArgumentParser(prog="git-ff-branch")
+    ap.add_argument("branch", help="branch to fast-forward")
+    noise = ap.add_mutually_exclusive_group()
+    noise.add_argument("--quiet", "-q", help="be quiet", action="store_true")
+    noise.add_argument("--verbose", "-v", help="be noisy", action="store_true")
+    FFBranch(ap.parse_args()).run()
+
+
+class FFBranch:
+    def __init__(self, args):
+        self.branch = args.branch
+        self.refname = f"refs/heads/{args.branch}"
+        self.quiet = args.quiet
+        self.verbose = args.verbose
+
+    def run(self):
+        if self.on_branch() and self.is_dirty():
+            die("refusing to fast-forward current branch: working tree is dirty")
+
+        # grab upstream for that branch
+        out = self.run_git(
+            "for-each-ref",
+            "--format=%(upstream:remotename) %(upstream) %(upstream:short)",
+            self.refname,
+        )
+
+        if not out:
+            die(f"no upstream found for {self.branch}")
+
+        remote, remoteref, remoteshort = out.split()
+
+        self.log(f"fetching {remote}")
+        self.run_git("fetch", remote)
+
+        if self.on_branch():
+            self.run_git("merge", "--ff-only", "-q", remoteref)
+            self.log(f"{self.branch} (current) -> {remoteshort}")
+        else:
+            self.run_git("update-ref", "--create-reflog", self.refname, remoteref)
+            self.log(f"{self.branch} -> {remoteshort}")
+
+    def run_git(self, *args):
+        cmd = ["git", *args]
+        if self.verbose:
+            print("run:", cmd)
+        res = subprocess.run(cmd, capture_output=True, check=True, encoding="utf-8")
+        return res.stdout.rstrip()
+
+    @functools.cache
+    def on_branch(self):
+        head = self.run_git("rev-parse", "--symbolic-full-name", "HEAD")
+        return head == self.refname
+
+    def is_dirty(self):
+        out = self.run_git("status", "--porcelain=v2", "--untracked-files=no")
+        return len(out) > 0
+
+    def log(self, msg):
+        if self.quiet:
+            return
+
+        print(msg)
+
+
+def die(msg):
+    print(msg, file=sys.stderr)
+    sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
