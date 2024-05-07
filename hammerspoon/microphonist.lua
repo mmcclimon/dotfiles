@@ -8,8 +8,8 @@ function Microphonist:new (obj)
 
   obj.options = {
     {
-      input  = "USB Audio CODEC ",
-      output = "USB Audio CODEC ",
+      input  = "UMC204HD 192k",
+      output = "UMC204HD 192k",
       icon   = "🎛️",
       order  = 1,
     },
@@ -48,6 +48,12 @@ function Microphonist:new (obj)
       output = "MacBook Air Speakers",
       icon    = "💻",
       order  = 6,
+    },
+    {
+      input  = "USB Audio CODEC ",
+      output = "USB Audio CODEC ",
+      icon   = "🎛️",
+      order  = 7,
     },
   }
 
