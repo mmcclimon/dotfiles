@@ -83,3 +83,6 @@
 [submodule "vim/pack/mmcclimon/start/python-syntax"]
 	path = vim/pack/mmcclimon/start/python-syntax
 	url = git@github.com:vim-python/python-syntax.git
+[submodule "vim/pack/mmcclimon/start/vim-argwrap"]
+	path = vim/pack/mmcclimon/start/vim-argwrap
+	url = https://git.foosoft.net/alex/vim-argwrap.git

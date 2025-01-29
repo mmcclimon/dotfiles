@@ -25,6 +25,10 @@ enddef
 
 au VimEnter * call AirlineInit()
 
+# argwrap
+g:argwrap_tail_comma = 1
+nnoremap <silent> <leader>a :ArgWrap<CR>
+
 # netrw -------------------------------------------------------{{{
 g:netrw_liststyle = 1
 g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
