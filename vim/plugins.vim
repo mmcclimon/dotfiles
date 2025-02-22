@@ -114,6 +114,10 @@ g:ale_perl_perl_options = '-c -Mwarnings -Ilib -It/lib'
 g:ale_rust_cargo_check_tests = 1
 g:ale_rust_cargo_check_all_targets = 1
 g:ale_linters_explicit = 0
+g:ale_completion_enabled = 0
+g:ale_sign_error = '>>'
+g:ale_sign_warning = '--'
+g:ale_virtualtext_cursor = 'current'
 
 g:ale_linters = {
   perl: ['perl'],
