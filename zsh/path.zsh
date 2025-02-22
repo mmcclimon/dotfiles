@@ -29,7 +29,6 @@ fi
 maybe_prepend_to_path "$HOME/.plenv/bin"
 maybe_prepend_to_path "$HOME/.pyenv/bin"
 maybe_prepend_to_path "$HOME/.cargo/bin"
-maybe_prepend_to_path "$HOME/.go/bin"
 maybe_prepend_to_path "$HOME/local/bin"
 
 if command_exists plenv; then
@@ -42,12 +41,10 @@ if command_exists pyenv; then
   maybe_source "$HOME/.pyenv/completions/pyenv.zsh"
 fi
 
-if command_exists direnv; then
-  eval "$(direnv hook zsh)"
-
-  if [[ -f ".envrc" ]]; then
-      direnv reload
-  fi
+if command_exists mise; then
+    export MISE_INSTALL_PATH="$HOME/local/bin/mise"
+    export MISE_DATA_DIR="$HOME/local/share/mise"
+    eval "$(mise activate zsh)"
 fi
 
 prepend_to_path ~/bin

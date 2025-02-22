@@ -12,3 +12,4 @@ tags
 .ignore
 .envrc
 .direnv
+.mise.local.toml
