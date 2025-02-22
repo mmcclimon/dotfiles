@@ -30,6 +30,7 @@
 [alias]
     b = branch --verbose --sort=-committerdate
     co = checkout --recurse-submodules
+    cp = cherry-pick
     fall = fetch --all --prune
     ff = merge --ff-only
     hist = log --graph --oneline --decorate --all
@@ -90,6 +91,7 @@
 
 [rerere]
     enabled = true
+    autoUpdate = true
 
 [stash]
     showStat = true
