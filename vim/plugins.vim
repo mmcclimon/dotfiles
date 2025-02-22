@@ -57,20 +57,21 @@ endif
 
 g:fzf_layout = { 'down': '10' }
 g:fzf_preview_window = []
-g:fzf_colors =
-\ { 'fg':      ['fg', 'GruvboxFg3', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'GruvboxFg1', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'GruvboxYellow', 'Type', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Comment'],
-  \ 'pointer': ['fg', 'Normal', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+g:fzf_colors = {
+    'fg':      ['fg', 'GruvboxFg3', 'Normal'],
+    'bg':      ['bg', 'Normal'],
+    'hl':      ['fg', 'GruvboxFg1', 'Comment'],
+    'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    'hl+':     ['fg', 'GruvboxYellow', 'Type', 'Statement'],
+    'info':    ['fg', 'PreProc'],
+    'border':  ['fg', 'Ignore'],
+    'prompt':  ['fg', 'Comment'],
+    'pointer': ['fg', 'Normal', 'Exception'],
+    'marker':  ['fg', 'Keyword'],
+    'spinner': ['fg', 'Label'],
+    'header':  ['fg', 'Comment'],
+}
 
 def FindFiles()
     var git_dir = system('git rev-parse --show-toplevel 2> /dev/null')[: -2]
