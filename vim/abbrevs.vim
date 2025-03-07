@@ -23,3 +23,6 @@ iabbr sefl self
 iabbr useddc use Data::Dumper::Concise;
 iabbr partion partition
 iabbr Partion Partition
+iabbr lamdba lambda
+iabbr destinatino destination
+iabbr collectino collection
