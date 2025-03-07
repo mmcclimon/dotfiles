@@ -19,13 +19,15 @@
 # everything else, alphabetically
 [advice]
     addEmptyPathspec = false
+    addIgnoredFile = false
+    checkoutAmbiguousRemoteBranchName = false
     detachedHead = false
+    diverging = false
+    forceDeleteBranch = false
     pushUpdateRejected = false
+    resolveConflict = false
     skippedCherryPicks = false
     statusHints = false
-    checkoutAmbiguousRemoteBranchName = false
-    addIgnoredFile = false
-    diverging = false
 
 [alias]
     b = branch --verbose --sort=-committerdate
