@@ -33,6 +33,7 @@ set splitright                  # vertical splits open to right
 set mouse=a                     # turn on mouse
 set scrolloff=3
 set modelines=2
+set nostartofline
 set wildmode=longest:full,longest
 set wildignore+=.git,.svn,local,build,vendor,.sass-cache
 set list listchars=tab:>-,trail:~,extends:>,precedes:<

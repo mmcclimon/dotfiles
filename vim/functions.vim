@@ -33,27 +33,6 @@ enddef
 
 nnoremap <C-x><C-b> :call CreateOrSwitchToScratchBuffer()<CR>
 
-# Save current view settings on a per-window, per-buffer basis.
-def AutoSaveWinView()
-    if !exists("w:SavedBufView")
-        w:SavedBufView = {}
-    endif
-    w:SavedBufView[bufnr("%")] = winsaveview()
-enddef
-
-# Restore current view settings.
-def AutoRestoreWinView()
-    var buf = bufnr("%")
-    if exists("w:SavedBufView") && has_key(w:SavedBufView, buf)
-        var v = winsaveview()
-        var atStartOfFile = v.lnum == 1 && v.col == 0
-        if atStartOfFile && !&diff
-            winrestview(w:SavedBufView[buf])
-        endif
-        unlet w:SavedBufView[buf]
-    endif
-enddef
-
 def Colemak()
     # modal swapping
     noremap u i
@@ -87,11 +66,3 @@ def Colemak()
 enddef
 
 Colemak()
-
-# When switching buffers, preserve window view.
-if v:version >= 700
-    autocmd BufLeave * AutoSaveWinView()
-    autocmd BufEnter * AutoRestoreWinView()
-endif
-
-# }}}
