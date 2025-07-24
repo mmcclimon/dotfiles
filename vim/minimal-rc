@@ -1,0 +1,78 @@
+set nocompatible
+
+filetype plugin indent on
+
+syntax on
+set hlsearch
+
+set backspace=indent,eol,start
+set autoindent smartindent
+set cinwords=
+set tabstop=4 shiftwidth=4 expandtab
+set encoding=utf-8
+
+set ruler showcmd hidden laststatus=2
+set incsearch ignorecase smartcase wildmenu splitright
+set scrolloff=3
+set nostartofline
+set wildmode=longest:full,longest
+set wildignore+=.git,.svn,local,build,vendor,.sass-cache
+
+let g:mapleader = ","
+let g:maplocalleader = '\'
+nnoremap <silent> <leader>s :nohls<CR>
+
+if (v:progname == "view")
+    nnoremap d <PageDown>
+    nnoremap u <PageUp>
+    nnoremap q :q<CR>
+    set nonumber nolist
+endif
+
+" better window motion
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" switch colon and semicolon
+nnoremap ; :
+nnoremap : ;
+inoremap <c-c> <esc>
+
+" buffer switching
+nnoremap <BS> <C-^>
+
+function! Colemak()
+    " modal swapping
+    noremap u i
+    noremap U I
+
+    " hjkl = hnei
+    noremap h h
+    noremap n j
+    noremap e k
+    noremap i l
+    noremap H H
+    noremap N J
+    noremap E K
+    noremap I L
+
+    " stuff stolen by the above
+    noremap k n
+    noremap K N
+    noremap l u
+    noremap L U
+    noremap j e
+    noremap J E
+    nnoremap <Space> :
+
+    " vim-repeat blats the u mapping, so make sure it's loaded, then do that
+    " mapping here.
+    nmap l <Plug>(RepeatUndo)
+
+    nnoremap <C-t> <C-f>
+    nnoremap <C-f> <C-e>
+endfunction
+
+call Colemak()
