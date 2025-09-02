@@ -79,8 +79,9 @@
     defaultBranch = main
 
 [log]
-    mailmap = true
     date = iso-local
+    follow = true
+    mailmap = true
 
 [pretty]
     line = %C(auto)%h %<(9,trunc)%aL %as  %s %d
@@ -90,6 +91,9 @@
 
 [rebase]
     autosquash = true
+
+[revert]
+    reference = true
 
 [rerere]
     enabled = true
