@@ -13,11 +13,9 @@ def main():
 
     git = subprocess.run(cmd, capture_output=True, check=True, encoding="utf-8")
 
-    for line in git.stdout.splitlines():
-        # skip lightweight tags
-        if not line.startswith("tag"):
-            continue
+    is_tag = lambda line: line.startswith("tag")
 
+    for line in filter(is_tag, git.stdout.splitlines()):
         print(line.removeprefix("tag "))
 
 if __name__ == "__main__":
