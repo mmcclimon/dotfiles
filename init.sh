@@ -30,3 +30,4 @@ maybe_link ".gvimrc"     "vim/gvimrc"
 
 maybe_link ".tmux.conf"  "tmux.conf"
 maybe_link ".dircolors"  "dircolors"
+maybe_link ".config/ghostty/config" "ghostty"
