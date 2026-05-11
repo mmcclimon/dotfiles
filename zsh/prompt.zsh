@@ -13,7 +13,7 @@ function gprompt() {
         return
     }
 
-    # is_gitdir at_or_on branch_or_sha is_dirty
+    # is_gitdir at_or_on branch_or_sha is_dirty is_weird
     local gitinfo=( $(git prompt-info) )
 
     if [[ ${gitinfo[1]} -eq 0 ]] {
@@ -24,6 +24,10 @@ function gprompt() {
 
     if [[ $gitinfo[4] -eq 1 ]] {
         print -n "%F{$red}*"
+    }
+
+    if [[ $gitinfo[5] -eq 1 ]] {
+        print -n "%F{$warn}!"
     }
 }
 

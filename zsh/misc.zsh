@@ -44,6 +44,9 @@ if [[ -d $HOME/local/rustup ]]; then
   export RUSTUP_HOME=$HOME/local/rustup
 fi
 
+# mongod complains a lot if this isn't set
+ulimit -n unlimited
+
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
