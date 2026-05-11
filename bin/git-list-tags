@@ -7,7 +7,7 @@ def main():
         'for-each-ref',
         '--sort', 'taggerdate',
         '--sort', 'version:refname',
-        '--format', '%(objecttype) %(taggerdate:format:%Y-%m-%d) %(refname:short)',
+        '--format', '%(objecttype) %(taggerdate:format:%Y-%m-%d) %(refname:short)\t(%(taggername))',
         'refs/tags',
     ]
 
