@@ -6,7 +6,7 @@ set guioptions-=r
 set guioptions-=m
 
 if has("macunix")
-    set guifont=BerkeleyMono-Regular:h10
+    set guifont=BerkeleyMono-Regular:h11
     set linespace=2
 elseif has("unix")
     set guifont=Consolas\ 8

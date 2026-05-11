@@ -26,3 +26,5 @@ iabbr Partion Partition
 iabbr lamdba lambda
 iabbr destinatino destination
 iabbr collectino collection
+iabbr monogsync mongosync
+iabbr Monogsync Mongosync

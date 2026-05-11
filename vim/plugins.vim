@@ -76,7 +76,7 @@ g:fzf_colors = {
 def FindFiles()
     var git_dir = system('git rev-parse --show-toplevel 2> /dev/null')[: -2]
     if git_dir != ''
-        execute 'GFiles' git_dir ":^vendor"
+        execute 'GFiles' git_dir ":^vendor :^go-pkg-forks"
     else
         execute 'Files'
     endif
@@ -104,6 +104,9 @@ vnoremap <silent> <Leader>= :Tabularize /=><CR>
 nnoremap <C-x><C-c> :w<bar>BD<cr>
 nnoremap <C-x><C-k> :w<bar>BW<cr>
 # }}}
+
+# delimitmate
+g:delimitMate_offByDefault = 1
 
 # ale
 
@@ -138,5 +141,10 @@ g:ale_fixers = {
 
 nnoremap <Leader>q <silent> :ALEFix<Enter>
 nmap <Leader>e <Plug>(ale_detail)
+
+nmap <silent> [s <Plug>(ale_previous_wrap)
+nmap <silent> ]s <Plug>(ale_next_wrap)
+nmap <silent> [S <Plug>(ale_first)
+nmap <silent> ]S <Plug>(ale_last)
 
 # vim:fdm=marker

@@ -1,7 +1,7 @@
 vim9script
 
 b:ale_fixers = ['black']
-b:ale_python_flake8_options = '--max-line-length 88'
+b:ale_python_flake8_options = '--max-line-length 88 --extend-ignore E203,E704'
 
 g:python_highlight_builtin_objs  = 1
 g:python_highlight_builtin_funcs = 0

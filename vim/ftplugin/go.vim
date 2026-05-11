@@ -6,6 +6,7 @@ b:ale_fix_on_save = 1
 # hard tabs, sigh
 setlocal listchars+=tab:\ \  noexpandtab
 setlocal tabstop=2 shiftwidth=2
+setlocal textwidth=100
 
 # ale
 g:ale_go_golangci_lint_options = ''
@@ -14,7 +15,9 @@ g:ale_go_gopls_init_options = {
   analyses: {
     composites: false,
     simplifycompositelit: false,
+    newexpr: true,
   },
+  buildFlags: ["-tags=mstests"],
   standaloneTags: [ "ignore", "mage" ],
 }
 
