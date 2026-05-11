@@ -8,10 +8,16 @@ function Microphonist:new (obj)
 
   obj.options = {
     {
+      input  = "M4",
+      output = "M4",
+      icon   = "🎛️",
+      order  = 1,
+    },
+    {
       input  = "UMC204HD 192k",
       output = "UMC204HD 192k",
       icon   = "🎛️",
-      order  = 1,
+      order  = 99,
     },
     {
       input  = "USB Audio Device",
@@ -28,6 +34,12 @@ function Microphonist:new (obj)
     {
       output = "mjm airpods pro 2",
       input  = "mjm airpods pro 2",
+      icon   = "🦻🏻",
+      order  = 3,
+    },
+    {
+      output = "mjm AirPods Pro 3",
+      input  = "mjm AirPods Pro 3",
       icon   = "🦻🏻",
       order  = 3,
     },
