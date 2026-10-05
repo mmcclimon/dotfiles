@@ -38,6 +38,7 @@ color id color66 default
 color date color65 default
 color author color7 default
 color cursor color221 color237
+color cursor-blur color222 color237
 set git-colors = no
 # color title-focus default color23
 
