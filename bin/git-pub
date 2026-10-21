@@ -1,0 +1,90 @@
+#!/usr/bin/env python
+import argparse
+import os
+import subprocess
+import sys
+from collections import namedtuple
+
+
+def main(args):
+    prefix = resolve_prefix(args.prefix)
+    status = git_status()
+
+    # If there's already an upstream, just push
+    if status.upstream:
+        os.execvp("git", ["git", "push", args.remote])
+        return
+
+    refspec = f"{status.branch}:{prefix}{status.branch}"
+    print(f"git push -u {args.remote} {refspec}")
+    os.execvp("git", ["git", "push", "-u", args.remote, refspec])
+
+
+def resolve_prefix(cli_arg: str | None) -> str:
+    prefix = cli_arg
+
+    if prefix == "":
+        res = subprocess.run(
+            ["git", "config", "get", "--default=", "pub.prefix"],
+            capture_output=True,
+            check=True,
+            encoding="utf-8",
+        )
+
+        prefix = res.stdout.strip()
+
+    if prefix == "":
+        fatal("no prefix found; provide --prefix or set pub.prefix in git config")
+
+    return prefix.removesuffix("/") + "/"
+
+
+Status = namedtuple("Status", ["branch", "upstream"])
+
+
+def git_status():
+    res = subprocess.run(
+        ["git", "status", "--porcelain=v2", "--branch"],
+        capture_output=True,
+        check=True,
+        encoding="utf-8",
+    )
+
+    local_name, upstream = None, None
+
+    for line in res.stdout.splitlines():
+        if line.startswith("# branch.head"):
+            local_name = line.removeprefix("# branch.head").strip()
+        if line.startswith("# branch.upstream"):
+            upstream = line.removeprefix("# branch.upstream").strip()
+
+    if local_name == "(detached)":
+        fatal("cannot publish from a detached head; just use git push")
+
+    if local_name is None:
+        fatal("cannot figure out what branch we're on?!")
+
+    return Status(upstream=upstream, branch=local_name)
+
+
+def fatal(msg: str):
+    print(f"fatal: {msg}", file=sys.stderr)
+    sys.exit(1)
+
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser(
+        prog="git-pub",
+        description="push with a prefix",
+    )
+
+    ap.add_argument("remote", help="name of remote to push to")
+    ap.add_argument(
+        "--prefix",
+        "-p",
+        default="",
+        help="prefix to use (if empty, taken from git config)",
+    )
+
+    args = ap.parse_args()
+    main(args)
