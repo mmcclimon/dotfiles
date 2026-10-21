@@ -1,88 +1,95 @@
+[submodule "vim/pack/mmcclimon/start/ale"]
+    path = vim/pack/mmcclimon/start/ale
+    url = https://github.com/mmcclimon/ale
+
 [submodule "vim/pack/mmcclimon/start/bufkill.vim"]
-	path = vim/pack/mmcclimon/start/bufkill.vim
+    path = vim/pack/mmcclimon/start/bufkill.vim
     url = https://github.com/vim-scripts/bufkill.vim
 
 [submodule "vim/pack/mmcclimon/start/ctrlp.vim"]
-	path = vim/pack/mmcclimon/start/ctrlp.vim
+    path = vim/pack/mmcclimon/start/ctrlp.vim
     url = https://github.com/mmcclimon/ctrlp.vim
 
+[submodule "vim/pack/mmcclimon/start/delimitMate"]
+    path = vim/pack/mmcclimon/start/delimitMate
+    url = git@github.com:Raimondi/delimitMate.git
+
+[submodule "vim/pack/mmcclimon/start/fzf.vim"]
+    path = vim/pack/mmcclimon/start/fzf.vim
+    url = git@github.com:mmcclimon/fzf.vim.git
+
 [submodule "vim/pack/mmcclimon/start/gruvbox"]
-	path = vim/pack/mmcclimon/start/gruvbox
+    path = vim/pack/mmcclimon/start/gruvbox
     url = https://github.com/morhetz/gruvbox
 
+[submodule "vim/pack/mmcclimon/start/python-syntax"]
+    path = vim/pack/mmcclimon/start/python-syntax
+    url = git@github.com:vim-python/python-syntax.git
+
+[submodule "vim/pack/mmcclimon/start/rust.vim"]
+    path = vim/pack/mmcclimon/start/rust.vim
+    url = git@github.com:rust-lang/rust.vim.git
+
+[submodule "vim/pack/mmcclimon/start/tabular"]
+    path = vim/pack/mmcclimon/start/tabular
+    url = https://github.com/godlygeek/tabular
+
+[submodule "vim/pack/mmcclimon/start/typescript-vim"]
+    path = vim/pack/mmcclimon/start/typescript-vim
+    url = https://github.com/leafgarland/typescript-vim
+
+[submodule "vim/pack/mmcclimon/start/vim-airline"]
+    path = vim/pack/mmcclimon/start/vim-airline
+    url = https://github.com/vim-airline/vim-airline.git
+
+[submodule "vim/pack/mmcclimon/start/vim-airline-themes"]
+    path = vim/pack/mmcclimon/start/vim-airline-themes
+    url = https://github.com/vim-airline/vim-airline-themes.git
+
+[submodule "vim/pack/mmcclimon/start/vim-argwrap"]
+    path = vim/pack/mmcclimon/start/vim-argwrap
+    url = git@github.com:mmcclimon/vim-argwrap.git
+
 [submodule "vim/pack/mmcclimon/start/vim-easymotion"]
-	path = vim/pack/mmcclimon/start/vim-easymotion
+    path = vim/pack/mmcclimon/start/vim-easymotion
     url = https://github.com/Lokaltog/vim-easymotion
 
 [submodule "vim/pack/mmcclimon/start/vim-fugitive"]
-	path = vim/pack/mmcclimon/start/vim-fugitive
+    path = vim/pack/mmcclimon/start/vim-fugitive
     url = https://github.com/tpope/vim-fugitive
 
 [submodule "vim/pack/mmcclimon/start/vim-javascript"]
-	path = vim/pack/mmcclimon/start/vim-javascript
+    path = vim/pack/mmcclimon/start/vim-javascript
     url = https://github.com/pangloss/vim-javascript
 
 [submodule "vim/pack/mmcclimon/start/vim-ledger"]
-	path = vim/pack/mmcclimon/start/vim-ledger
+    path = vim/pack/mmcclimon/start/vim-ledger
     url = https://github.com/mmcclimon/vim-ledger
 
+[submodule "vim/pack/mmcclimon/start/vim-markdown"]
+    path = vim/pack/mmcclimon/start/vim-markdown
+    url = git@github.com:tpope/vim-markdown.git
+
 [submodule "vim/pack/mmcclimon/start/vim-perl"]
-	path = vim/pack/mmcclimon/start/vim-perl
+    path = vim/pack/mmcclimon/start/vim-perl
     url = https://github.com/mmcclimon/vim-perl
 
 [submodule "vim/pack/mmcclimon/start/vim-rsi"]
-	path = vim/pack/mmcclimon/start/vim-rsi
+    path = vim/pack/mmcclimon/start/vim-rsi
     url = https://github.com/tpope/vim-rsi
 
 [submodule "vim/pack/mmcclimon/start/vim-surround"]
-	path = vim/pack/mmcclimon/start/vim-surround
+    path = vim/pack/mmcclimon/start/vim-surround
     url = https://github.com/tpope/vim-surround
 
-[submodule "vim/pack/mmcclimon/start/vim-airline"]
-	path = vim/pack/mmcclimon/start/vim-airline
-	url = https://github.com/vim-airline/vim-airline.git
-[submodule "vim/pack/mmcclimon/start/vim-airline-themes"]
-	path = vim/pack/mmcclimon/start/vim-airline-themes
-	url = https://github.com/vim-airline/vim-airline-themes.git
-[submodule "vim/pack/mmcclimon/start/ale"]
-	path = vim/pack/mmcclimon/start/ale
-	url = https://github.com/mmcclimon/ale
-
-[submodule "vim/pack/mmcclimon/start/tabular"]
-	path = vim/pack/mmcclimon/start/tabular
-	url = https://github.com/godlygeek/tabular
-
-[submodule "vim/pack/mmcclimon/start/typescript-vim"]
-	path = vim/pack/mmcclimon/start/typescript-vim
-	url = https://github.com/leafgarland/typescript-vim
-
 [submodule "vim/pack/mmcclimon/start/vim-toml"]
-	path = vim/pack/mmcclimon/start/vim-toml
-	url = https://github.com/cespare/vim-toml
+    path = vim/pack/mmcclimon/start/vim-toml
+    url = https://github.com/cespare/vim-toml
 
 [submodule "vim/pack/mmcclimon/start/vim-unimpaired"]
-	path = vim/pack/mmcclimon/start/vim-unimpaired
-	url = git@github.com:tpope/vim-unimpaired.git
-
-[submodule "vim/pack/mmcclimon/start/rust.vim"]
-	path = vim/pack/mmcclimon/start/rust.vim
-	url = git@github.com:rust-lang/rust.vim.git
+    path = vim/pack/mmcclimon/start/vim-unimpaired
+    url = git@github.com:tpope/vim-unimpaired.git
 
 [submodule "vim/pack/mmcclimon/start/vim-vinegar"]
-	path = vim/pack/mmcclimon/start/vim-vinegar
-	url = git@github.com:tpope/vim-vinegar.git
-[submodule "vim/pack/mmcclimon/start/delimitMate"]
-	path = vim/pack/mmcclimon/start/delimitMate
-	url = git@github.com:Raimondi/delimitMate.git
-[submodule "vim/pack/mmcclimon/start/vim-markdown"]
-	path = vim/pack/mmcclimon/start/vim-markdown
-	url = git@github.com:tpope/vim-markdown.git
-[submodule "vim/pack/mmcclimon/start/fzf.vim"]
-	path = vim/pack/mmcclimon/start/fzf.vim
-	url = git@github.com:mmcclimon/fzf.vim.git
-[submodule "vim/pack/mmcclimon/start/python-syntax"]
-	path = vim/pack/mmcclimon/start/python-syntax
-	url = git@github.com:vim-python/python-syntax.git
-[submodule "vim/pack/mmcclimon/start/vim-argwrap"]
-	path = vim/pack/mmcclimon/start/vim-argwrap
-	url = git@github.com:mmcclimon/vim-argwrap.git
+    path = vim/pack/mmcclimon/start/vim-vinegar
+    url = git@github.com:tpope/vim-vinegar.git
