@@ -16,3 +16,6 @@ print_bear
 
 autoload -U compinit
 compinit -C
+
+# work stuff, needs to come after compinit
+maybe_source $LIB_PATH/work.zsh

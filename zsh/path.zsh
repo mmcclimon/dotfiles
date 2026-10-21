@@ -51,4 +51,4 @@ prepend_to_path ~/bin
 
 # I like this, but this is probably not useful any more, so.
 typeset -U cdpath
-cdpath=("$HOME/code/mongo" $cdpath)
+cdpath=("$HOME/code/fastly" $cdpath)
