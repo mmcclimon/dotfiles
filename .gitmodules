@@ -62,10 +62,6 @@
     path = vim/pack/mmcclimon/start/vim-javascript
     url = https://github.com/pangloss/vim-javascript
 
-[submodule "vim/pack/mmcclimon/start/vim-ledger"]
-    path = vim/pack/mmcclimon/start/vim-ledger
-    url = https://github.com/mmcclimon/vim-ledger
-
 [submodule "vim/pack/mmcclimon/start/vim-markdown"]
     path = vim/pack/mmcclimon/start/vim-markdown
     url = git@github.com:tpope/vim-markdown.git
