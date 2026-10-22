@@ -128,6 +128,7 @@ g:ale_linters = {
   typescript: ['eslint', 'prettier', 'tsserver'],
   rust: ['cargo', 'analyzer'],
   go: ['gopls', 'golangci-lint'],
+  python: ['ruff', 'ty'],
 }
 
 g:ale_fixers = {
@@ -136,7 +137,7 @@ g:ale_fixers = {
   json: ['prettier'],
   rust: ['rustfmt'],
   go: ['goimports'],
-  python: ['autoflake'],
+  python: ['ruff_format'],
 }
 
 nnoremap <Leader>q <silent> :ALEFix<Enter>

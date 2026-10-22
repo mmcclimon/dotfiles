@@ -4,6 +4,7 @@ import os
 import subprocess
 import sys
 from collections import namedtuple
+from typing import Never
 
 
 def main(args):
@@ -13,14 +14,14 @@ def main(args):
     # If there's already an upstream, just push
     if status.upstream:
         os.execvp("git", ["git", "push", args.remote])
-        return
+        # unreachable
 
     refspec = f"{status.branch}:{prefix}{status.branch}"
     print(f"git push -u {args.remote} {refspec}")
     os.execvp("git", ["git", "push", "-u", args.remote, refspec])
 
 
-def resolve_prefix(cli_arg: str | None) -> str:
+def resolve_prefix(cli_arg: str) -> str:
     prefix = cli_arg
 
     if prefix == "":
@@ -42,7 +43,7 @@ def resolve_prefix(cli_arg: str | None) -> str:
 Status = namedtuple("Status", ["branch", "upstream"])
 
 
-def git_status():
+def git_status() -> Status:
     res = subprocess.run(
         ["git", "status", "--porcelain=v2", "--branch"],
         capture_output=True,
@@ -67,7 +68,7 @@ def git_status():
     return Status(upstream=upstream, branch=local_name)
 
 
-def fatal(msg: str):
+def fatal(msg: str) -> Never:
     print(f"fatal: {msg}", file=sys.stderr)
     sys.exit(1)
 
