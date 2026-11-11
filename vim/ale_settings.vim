@@ -37,3 +37,18 @@ nmap <silent> [s <Plug>(ale_previous_wrap)
 nmap <silent> ]s <Plug>(ale_next_wrap)
 nmap <silent> [S <Plug>(ale_first)
 nmap <silent> ]S <Plug>(ale_last)
+
+# cue LSP settings
+def FindCueRoot(buf: any): string
+    final cue_mod = ale#path#FindNearestDirectory(buf, 'cue.mod')
+
+    return !empty(cue_mod) ? fnamemodify(cue_mod, ':p:h:h') : ''
+enddef
+
+call ale#linter#Define('cue', {
+   'name': 'cue-lsp',
+   'lsp': 'stdio',
+   'executable': 'cue',
+   'command': '%e lsp serve',
+   'project_root': function('FindCueRoot'),
+})
