@@ -50,6 +50,10 @@
     path = vim/pack/mmcclimon/start/vim-argwrap
     url = git@github.com:mmcclimon/vim-argwrap.git
 
+[submodule "vim/pack/mmcclimon/start/vim-cue"]
+    path = vim/pack/mmcclimon/start/vim-cue
+    url = git@github.com:mmcclimon/vim-cue.git
+
 [submodule "vim/pack/mmcclimon/start/vim-easymotion"]
     path = vim/pack/mmcclimon/start/vim-easymotion
     url = https://github.com/Lokaltog/vim-easymotion
