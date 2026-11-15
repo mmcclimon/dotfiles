@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# This is just a wrapper around `neovide` to match mvim behavior
+exec neovide --fork --reuse-instance --new-window $@
