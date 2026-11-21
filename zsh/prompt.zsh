@@ -1,7 +1,7 @@
 # gruvbox colors
-local gray='#928374'
+local gray="#a89984"
 local blue="#458588"
-local teal="#427b58"
+local teal="#689d6a"
 local warn="#d79921"
 local red="#cc241d"
 
@@ -71,5 +71,12 @@ setopt transient_rprompt
 local newline=$'\n'
 local cwd="%18<..<%~%<<"
 PROMPT="$newline%F{$gray}[$cwd\$(gprompt)%F{$gray}] \${vim_prompt}%f "
+
+# for remote hosts that support truecolor
+# PROMPT="${newline}%F{$gray}[%F{#99cc00}%n@%m:%F{$gray}$cwd\$(gprompt)%F{$gray}] \${vim_prompt}%f "
+
+# for remote hosts that don't support truecolor
+# red="red"; warn="yellow"; teal="cyan"; gray="white"; blue="blue"
+# PROMPT="${newline}%F{$gray}[%F{10}%n@%m:%F{$gray}$cwd\$(gprompt)%F{$gray}] \${vim_prompt}%f "
 
 RPS1="%F{$gray}%* [%(?..%F{$warn})%?%F{$gray}]%f"
